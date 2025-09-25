@@ -3,7 +3,7 @@ import pathlib
 
 from logging.handlers import RotatingFileHandler
 
-BASE_DIR = pathlib.Path(__file__).resolve().parent.parent
+BASE_DIR = pathlib.Path(__file__).resolve().parent.parent.parent
 
 def get_logger() -> logging.Logger:
     log_path = BASE_DIR.joinpath("logs")
