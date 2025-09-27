@@ -8,7 +8,7 @@ def application_init(main_window: QMainWindow) -> bool:
     logger = get_logger()
     try:
         language = LanguageProvider.get_language_code()
-        init_methods = [("apply_ui_text", lambda: LanguageProvider.apply_ui_text([main_window], language))]
+        init_methods = [("apply_main_window", lambda: LanguageProvider.apply_ui_text(main_window, language))]
         for name, method in init_methods:
             if not method():
                 logger.error(f"App init method error: {name}", exc_info=True)

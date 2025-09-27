@@ -1,5 +1,12 @@
 {
   "mainWindow": {
-    "mainWindowTitle": "IvalineX"
+    "mainWindowTitle": "IvalineX",
+    "projectNameTextLabel": "Název projektu:",
+    "folderTextLabel": "Soubor:",
+    "folderLineInput": "Vyber složku projektu...",
+    "folderButton": "Vybrat složku",
+    "saveHistoryCheckBox": "Uložit do historie",
+    "filesCountTextLabel": "Počet souborů:",
+    "countButton": "Zobrazit výsledek"
   }
 }
