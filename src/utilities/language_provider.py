@@ -2,7 +2,7 @@ import json
 import pathlib
 
 from PyQt6.QtCore import QLocale
-from PyQt6.QtWidgets import QWidget, QMainWindow
+from PyQt6.QtWidgets import QWidget, QMainWindow, QApplication, QMenu
 
 from src.utilities.error_handler import ErrorHandler
 
@@ -42,15 +42,24 @@ class LanguageProvider:
             main_name = main_widget.objectName()
             if main_name in json_text:
                 widget_text = json_text.get(main_name, "")
+                QApplication.setApplicationName(widget_text.get(f"{main_name}Title", ""))
                 if hasattr(main_widget, "setWindowTitle"):
                     main_widget.setWindowTitle(widget_text.get(f"{main_name}Title", ""))
                 child_widgets = main_widget.findChildren(QWidget)
                 for widget in child_widgets:
                     if widget.objectName() in widget_text:
                         if hasattr(widget, "setText"):
-                            widget.setText(widget_text.get(f"{widget.objectName()}", ""))
+                            widget.setText(widget_text.get(widget.objectName(), ""))
                         if hasattr(widget, "setPlaceholderText"):
-                            widget.setPlaceholderText(widget_text.get(f"{widget.objectName()}", ""))
+                            widget.setPlaceholderText(widget_text.get(widget.objectName(), ""))
+                if hasattr(main_widget, "menuBar") and main_widget.menuBar():
+                    menu_bar = main_widget.menuBar()
+                    for menu in menu_bar.findChildren(QMenu):
+                        if menu.objectName() in widget_text:
+                            menu.setTitle(widget_text[menu.objectName()])
+                        for action in menu.actions():
+                            if action.objectName() in widget_text:
+                                action.setText(widget_text[action.objectName()])
         except Exception as e:
             ErrorHandler.exception_handler(e, LanguageProvider.class_name)
 

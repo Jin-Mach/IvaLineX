@@ -1,6 +1,15 @@
 {
   "mainWindow": {
     "mainWindowTitle": "IvalineX",
+    "projectMenu": "Menu",
+    "newProjectAction": "Nový projekt",
+    "openProjectAction": "Otevřít projekt",
+    "closeProjectAction": "Zavřít projekt",
+    "settingsAction": "Nastavení",
+    "closeAppAction": "Zavřít aplikaci",
+    "infoMenu": "Info",
+    "manualAction": "Manuál",
+    "aboutAction": "O aplikaci",
     "projectNameTextLabel": "Název projektu:",
     "folderTextLabel": "Soubor:",
     "folderLineInput": "Vyber složku projektu...",

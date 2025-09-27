@@ -1,14 +1,17 @@
 from PyQt6.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QLabel, QLineEdit, QPushButton, QListView, \
     QApplication, QCheckBox
 
+from src.ui.widgets.menu_bar import MenuBar
+
 
 class MainWindow(QMainWindow):
     def __init__(self, parent=None) -> None:
         super().__init__(parent)
         self.setObjectName("mainWindow")
+        menu_bar = MenuBar(self)
+        self.setMenuBar(menu_bar)
         self.setCentralWidget(self.create_gui())
         self.init_window_geometry()
-        print(self.size())
 
     def create_gui(self) -> QWidget:
         central_widget = QWidget()
