@@ -1,6 +1,7 @@
 from PyQt6.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QLabel, QLineEdit, QPushButton, QListView, \
     QApplication, QCheckBox
 
+from src.controllers.dialogs_controler import DialogsController
 from src.ui.widgets.menu_bar import MenuBar
 
 
@@ -8,10 +9,11 @@ class MainWindow(QMainWindow):
     def __init__(self, parent=None) -> None:
         super().__init__(parent)
         self.setObjectName("mainWindow")
-        menu_bar = MenuBar(self)
-        self.setMenuBar(menu_bar)
+        self.menu_bar = MenuBar(self)
+        self.setMenuBar(self.menu_bar)
         self.setCentralWidget(self.create_gui())
         self.init_window_geometry()
+        self.create_connection()
 
     def create_gui(self) -> QWidget:
         central_widget = QWidget()
@@ -70,3 +72,6 @@ class MainWindow(QMainWindow):
             x_pos = screen_geom.width() // 2 - self.width() // 2
             y_pos = screen_geom.height() // 2 - self.height() // 2
             self.move(x_pos, y_pos)
+
+    def create_connection(self) -> None:
+        self.dialog_controller = DialogsController(self, self.menu_bar)

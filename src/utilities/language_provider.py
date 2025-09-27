@@ -42,26 +42,42 @@ class LanguageProvider:
             main_name = main_widget.objectName()
             if main_name in json_text:
                 widget_text = json_text.get(main_name, "")
-                QApplication.setApplicationName(widget_text.get(f"{main_name}Title", ""))
+                QApplication.setApplicationName(widget_text.get(f"{main_name}Title", "IvalineX"))
                 if hasattr(main_widget, "setWindowTitle"):
-                    main_widget.setWindowTitle(widget_text.get(f"{main_name}Title", ""))
+                    main_widget.setWindowTitle(widget_text.get(f"{main_name}Title", "IvalineX"))
                 child_widgets = main_widget.findChildren(QWidget)
                 for widget in child_widgets:
                     if widget.objectName() in widget_text:
                         if hasattr(widget, "setText"):
-                            widget.setText(widget_text.get(widget.objectName(), ""))
+                            widget.setText(widget_text.get(widget.objectName(), "Text"))
                         if hasattr(widget, "setPlaceholderText"):
-                            widget.setPlaceholderText(widget_text.get(widget.objectName(), ""))
+                            widget.setPlaceholderText(widget_text.get(widget.objectName(), "PlaceholderText"))
                 if hasattr(main_widget, "menuBar") and main_widget.menuBar():
                     menu_bar = main_widget.menuBar()
                     for menu in menu_bar.findChildren(QMenu):
                         if menu.objectName() in widget_text:
-                            menu.setTitle(widget_text[menu.objectName()])
+                            menu.setTitle(widget_text.get(menu.objectName(), "Menu"))
                         for action in menu.actions():
                             if action.objectName() in widget_text:
-                                action.setText(widget_text[action.objectName()])
+                                action.setText(widget_text.get(action.objectName(), "Action"))
         except Exception as e:
             ErrorHandler.exception_handler(e, LanguageProvider.class_name)
+
+    @staticmethod
+    def set_dialog_text(language: str, dialog_name: str) -> tuple[dict[str, str], str] |dict[str, str]:
+        try:
+            json_text = LanguageProvider.get_text(language, "dialog_text")
+            if not json_text:
+                raise ValueError(f"Load json text error: {json_text}.")
+            if dialog_name.startswith("manual"):
+                with open(BASE_DIR.joinpath(language, "manual.txt"), "r", encoding="utf-8") as txt_file:
+                    return json_text.get(dialog_name, {}), txt_file.read()
+            return json_text.get(dialog_name, {})
+        except Exception as e:
+            ErrorHandler.exception_handler(e, LanguageProvider.class_name)
+            if dialog_name.startswith("manual"):
+                return {}, ""
+            return {}
 
     @staticmethod
     def get_text(language_code: str | None, file_name: str) -> dict[str, dict[str, str]] | None:

@@ -1,0 +1,18 @@
+{
+  "questionDialog": {
+    "startProject": "Zavřít otevřený projekt?",
+    "closeProject": "Zavřít projekt?",
+    "closeAppQuestion": "Zavřít aplikaci?",
+    "questionAcceptButton": "Ano",
+    "questionCancelButton": "Ne"
+  },
+  "manualDialog": {
+    "manualDialogTitle": "Manuál",
+    "closeButton": "Zavřít"
+  },
+  "aboutDialog": {
+    "aboutDialogTitle": "O aplikaci",
+    "aboutLabelText": "<b>IvalineX</b><br>autor: Jin-Mach<br>verze: 1.0.",
+    "closeButton": "Zavřít"
+  }
+}

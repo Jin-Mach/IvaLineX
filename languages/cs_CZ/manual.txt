@@ -1,0 +1,14 @@
+<div style="text-align: center;"><b>IvalineX - Manuál uživatele</b></div><br>
+<b>Popis:</b><br>
+Aplikace slouží k rychlému počítání řádků kódu v Python projektech. Podporuje ukládání výsledků do historie a přehledný výpis počtu souborů.<br><br>
+<b>Hlavní funkce:</b><br>
+- Výběr projektu a složky s kódem<br>
+- Počítání řádků kódu<br>
+- Ukládání výsledků do historie<br>
+- Zobrazení celkového počtu souborů<br>
+- Přehledné menu s možnostmi O aplikaci a Manuál<br><br>
+<b>Použití:</b><br>
+1. Vyberte projekt nebo složku s kódem.<br>
+2. Klikněte na tlačítko "Zobrazit výsledek".<br>
+3. Pokud chcete ukládat výsledky do historie, zaškrtněte "Uložit do historie".<br>
+4. V menu můžete otevřít manuál nebo získat informace o aplikaci.
