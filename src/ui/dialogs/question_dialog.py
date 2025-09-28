@@ -30,5 +30,6 @@ class QuestionDialog(QDialog):
         self.question_cancel_button.setText(cancel_text)
 
     def showEvent(self, event) -> QEvent:
+        self.setFixedSize(self.width(), self.height())
         self.question_cancel_button.setFocus()
         super().showEvent(event)

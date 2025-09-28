@@ -6,6 +6,30 @@
     "questionAcceptButton": "Ano",
     "questionCancelButton": "Ne"
   },
+  "settingsDialog": {
+    "settingsDialogTitle": "Nastavení",
+    "basicGroupboxTitle": "Obecné",
+    "folderLabelText": "Výchozí složka:",
+    "folderEdit": "Vyber výchozí složku...",
+    "selectFolderButton": "Vybrat",
+    "historyCheckbox": "Ukládat historii",
+    "languageGroupboxTitle": "Nastavení jazyka",
+    "initCheckbox": "Zahrnout __init__.py",
+    "setupCheckbox": "Zahrnout setup.py",
+    "mainCheckbox": "Zahrnout __main__.py",
+    "emptyRowsCheckbox": "Počítat prázdné řádky",
+    "commentsCheckbox": "Počítat komentáře",
+    "ignoreVenvCheckbox": "Ignorovat adresáře venv/, .venv/",
+    "ignoreTestsCheckbox": "Ignorovat složku tests/",
+    "commonGroupboxTitle": "Společná nastavení",
+    "jsonCheckbox": "Zahrnout JSON / YAML / TOML",
+    "readmeCheckbox": "Počítat README.md a dokumentaci",
+    "ignoreFilesCheckbox": "Ignorovat velké soubory (>5 MB)",
+    "ignoreBinaryCheckbox": "Ignorovat binární soubory",
+    "resetButton": "Obnovit výchozí",
+    "saveButton": "Uložit",
+    "cancelButton": "Zrušit"
+  },
   "manualDialog": {
     "manualDialogTitle": "Manuál",
     "closeButton": "Zavřít"
