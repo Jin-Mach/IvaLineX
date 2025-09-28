@@ -73,6 +73,7 @@ class LanguageProvider:
         try:
             if not json_text:
                 raise ValueError(f"Load json text error: {json_text}.")
+            dialog.setWindowTitle(json_text.get(f"{dialog.objectName()}Title", "Settings"))
             for widget, default in [
                 (dialog.reset_button, "Reset to default"),
                 (dialog.save_button, "Save"),
