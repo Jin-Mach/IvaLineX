@@ -1,0 +1,36 @@
+[language_settings]
+default_language = ""
+user_language = ""
+languageComboboxUser = ["Čeština", "English"]
+
+[path_settings]
+folderEditDefault = ""
+folderEditUser = ""
+
+[history_settings]
+historyCheckboxDefault = true
+historyCheckboxUser = true
+
+[python_settings]
+initCheckboxDefault = false
+initCheckboxUser = false
+setupCheckboxDefault = false
+setupCheckboxUser = false
+mainCheckboxDefault = false
+mainCheckboxUser = false
+emptyRowsCheckboxDefault = false
+emptyRowsCheckboxUser = false
+commentsCheckboxDefault = false
+commentsCheckboxUser = false
+ignoreVenvCheckboxDefault = true
+ignoreVenvCheckboxUser = true
+ignoreTestsCheckboxDefault = true
+ignoreTestsCheckboxUser = true
+jsonCheckboxDefault = false
+jsonCheckboxUser = false
+readmeCheckboxDefault = false
+readmeCheckboxUser = false
+ignoreFilesCheckboxDefault = true
+ignoreFilesCheckboxUser = true
+ignoreBinaryCheckboxDefault = true
+ignoreBinaryCheckboxUser = true

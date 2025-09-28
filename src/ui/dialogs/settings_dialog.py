@@ -1,5 +1,5 @@
 from PyQt6.QtWidgets import QDialog, QLayout, QVBoxLayout, QGroupBox, QHBoxLayout, QLabel, QLineEdit, QPushButton, \
-    QCheckBox, QTabWidget, QDialogButtonBox
+    QCheckBox, QTabWidget, QDialogButtonBox, QComboBox
 
 from src.ui.dialogs.widgets.python_widget import PythonWidget
 
@@ -33,6 +33,11 @@ class SettingsDialog(QDialog):
         self.basic_groupbox = QGroupBox()
         self.basic_groupbox.setObjectName("basicGroupbox")
         basic_layout = QVBoxLayout()
+        language_layout = QHBoxLayout()
+        self.language_label_text = QLabel()
+        self.language_label_text.setObjectName("languageLabelText")
+        self.language_combobox = QComboBox()
+        self.language_combobox.setObjectName("languageCombobox")
         folder_layout = QHBoxLayout()
         self.folder_label_text = QLabel()
         self.folder_label_text.setObjectName("folderLabelText")
@@ -44,11 +49,15 @@ class SettingsDialog(QDialog):
         history_layout = QHBoxLayout()
         self.history_checkbox = QCheckBox()
         self.history_checkbox.setObjectName("historyCheckbox")
+        language_layout.addWidget(self.language_label_text)
+        language_layout.addWidget(self.language_combobox)
+        language_layout.addStretch()
         folder_layout.addWidget(self.folder_label_text)
         folder_layout.addWidget(self.folder_edit)
         folder_layout.addWidget(self.select_folder_button)
         history_layout.addWidget(self.history_checkbox)
         history_layout.addStretch()
+        basic_layout.addLayout(language_layout)
         basic_layout.addLayout(folder_layout)
         basic_layout.addLayout(history_layout)
         self.basic_groupbox.setLayout(basic_layout)
@@ -91,9 +100,10 @@ class SettingsDialog(QDialog):
         self.save_button.setText(save)
         self.cancel_button.setText(cancel)
 
-    def set_basic_ui_text(self, title: str, label: str, edit: str, button: str, history: str) -> None:
+    def set_basic_ui_text(self, title: str, language: str, folder: str, edit: str, button: str, history: str) -> None:
         self.basic_groupbox.setTitle(title)
-        self.folder_label_text.setText(label)
+        self.language_label_text.setText(language)
+        self.folder_label_text.setText(folder)
         if not self.folder_edit.text():
             self.folder_edit.setPlaceholderText(edit)
         self.select_folder_button.setText(button)

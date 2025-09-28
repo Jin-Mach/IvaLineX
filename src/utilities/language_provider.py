@@ -81,6 +81,7 @@ class LanguageProvider:
                 widget.setText(json_text.get(widget.objectName(), default))
             dialog.set_basic_ui_text(
                 json_text.get(f"{dialog.basic_groupbox.objectName()}Title", "Basic"),
+                json_text.get(dialog.language_label_text.objectName(), "Application language:"),
                 json_text.get(dialog.folder_label_text.objectName(), "Folder path:"),
                 json_text.get(dialog.folder_edit.objectName(), "Select folder path..."),
                 json_text.get(dialog.select_folder_button.objectName(), "Select folder"),

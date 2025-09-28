@@ -8,6 +8,7 @@ from src.ui.dialogs.question_dialog import QuestionDialog
 from src.ui.dialogs.settings_dialog import SettingsDialog
 from src.utilities.error_handler import ErrorHandler
 from src.utilities.language_provider import LanguageProvider
+from src.utilities.settings_provider import SettingsProvider
 
 if TYPE_CHECKING:
     from src.ui.main_window import MainWindow
@@ -30,6 +31,7 @@ class DialogsController:
     def show_settings_dialog(self) -> None:
         try:
             dialog = SettingsDialog(self.main_window)
+            SettingsProvider.apply_settings_dialog_config(dialog)
             settings_text = LanguageProvider.get_dialog_text("cs_CZ", dialog.objectName())
             LanguageProvider.apply_settings_dialog_text(dialog, settings_text)
             dialog.exec()

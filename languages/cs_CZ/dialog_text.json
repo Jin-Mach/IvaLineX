@@ -9,6 +9,7 @@
   "settingsDialog": {
     "settingsDialogTitle": "Nastavení",
     "basicGroupboxTitle": "Obecné",
+    "languageLabelText": "Jazyk aplikace:",
     "folderLabelText": "Výchozí složka:",
     "folderEdit": "Vyber výchozí složku...",
     "selectFolderButton": "Vybrat",
