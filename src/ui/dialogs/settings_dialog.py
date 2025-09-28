@@ -100,12 +100,10 @@ class SettingsDialog(QDialog):
         self.save_button.setText(save)
         self.cancel_button.setText(cancel)
 
-    def set_basic_ui_text(self, title: str, language: str, folder: str, edit: str, button: str, history: str) -> None:
+    def set_basic_ui_text(self, title: str, language: str, folder: str, button: str, history: str) -> None:
         self.basic_groupbox.setTitle(title)
         self.language_label_text.setText(language)
         self.folder_label_text.setText(folder)
-        if not self.folder_edit.text():
-            self.folder_edit.setPlaceholderText(edit)
         self.select_folder_button.setText(button)
         self.history_checkbox.setText(history)
 

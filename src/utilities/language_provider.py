@@ -84,7 +84,6 @@ class LanguageProvider:
                 json_text.get(f"{dialog.basic_groupbox.objectName()}Title", "Basic"),
                 json_text.get(dialog.language_label_text.objectName(), "Application language:"),
                 json_text.get(dialog.folder_label_text.objectName(), "Folder path:"),
-                json_text.get(dialog.folder_edit.objectName(), "Select folder path..."),
                 json_text.get(dialog.select_folder_button.objectName(), "Select folder"),
                 json_text.get(dialog.history_checkbox.objectName(), "Save history"),
             )

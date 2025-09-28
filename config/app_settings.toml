@@ -1,11 +1,14 @@
 [language_settings]
-default_language = ""
-user_language = ""
-languageComboboxUser = ["Čeština", "English"]
+languageDefault = "cs_CZ"
+languageUser = "cs_CZ"
+languageComboboxUser = [
+    "Čeština",
+    "English",
+]
 
 [path_settings]
-folderEditDefault = ""
-folderEditUser = ""
+folderEditDefault = "/Users/jindrichmachytka/Projects/Python"
+folderEditUser = "/Users/jindrichmachytka/Projects/Python"
 
 [history_settings]
 historyCheckboxDefault = true
