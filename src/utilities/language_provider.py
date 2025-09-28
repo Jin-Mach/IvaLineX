@@ -1,3 +1,5 @@
+from typing import TYPE_CHECKING
+
 import json
 import pathlib
 
@@ -5,6 +7,9 @@ from PyQt6.QtCore import QLocale
 from PyQt6.QtWidgets import QWidget, QMainWindow, QApplication, QMenu
 
 from src.utilities.error_handler import ErrorHandler
+
+if TYPE_CHECKING:
+    from src.ui.dialogs.settings_dialog import SettingsDialog
 
 BASE_DIR = pathlib.Path(__file__).resolve().parent.parent.parent.joinpath("languages")
 
@@ -64,7 +69,55 @@ class LanguageProvider:
             ErrorHandler.exception_handler(e, LanguageProvider.class_name)
 
     @staticmethod
-    def set_dialog_text(language: str, dialog_name: str) -> tuple[dict[str, str], str] |dict[str, str]:
+    def apply_settings_dialog_text(dialog: "SettingsDialog", json_text: dict[str, str]) -> None:
+        try:
+            if not json_text:
+                raise ValueError(f"Load json text error: {json_text}.")
+            for widget, default in [
+                (dialog.reset_button, "Reset to default"),
+                (dialog.save_button, "Save"),
+                (dialog.cancel_button, "Cancel"),
+            ]:
+                widget.setText(json_text.get(widget.objectName(), default))
+            dialog.set_basic_ui_text(
+                json_text.get(f"{dialog.basic_groupbox.objectName()}Title", "Basic"),
+                json_text.get(dialog.folder_label_text.objectName(), "Folder path:"),
+                json_text.get(dialog.folder_edit.objectName(), "Select folder path..."),
+                json_text.get(dialog.select_folder_button.objectName(), "Select folder"),
+                json_text.get(dialog.history_checkbox.objectName(), "Save history"),
+            )
+            for widget, default in [
+                (dialog.python_tab.init_checkbox, "Ignore __init__.py"),
+                (dialog.python_tab.setup_checkbox, "Ignore setup.py"),
+                (dialog.python_tab.main_checkbox, "Ignore __main__"),
+                (dialog.python_tab.empty_rows_checkbox, "Count empty rows"),
+                (dialog.python_tab.comments_checkbox, "Count comments"),
+                (dialog.python_tab.ignore_venv_checkbox, "Ignore venv/ .venv/"),
+                (dialog.python_tab.ignore_tests_checkbox, "Ignore tests/"),
+            ]:
+                widget.setText(json_text.get(widget.objectName(), default))
+            dialog.set_language_ui_text(
+                json_text.get(f"{dialog.language_groupbox.objectName()}Title", "Language")
+            )
+            for widget, default in [
+                (dialog.json_checkbox, "Add JSON / YAML / TOML"),
+                (dialog.readme_checkbox, "Count README and documentation"),
+                (dialog.ignore_files_checkbox, "Ignore big files (>5 MB)"),
+                (dialog.ignore_binary_checkbox, "Ignore binary files"),
+            ]:
+                widget.setText(json_text.get(widget.objectName(), default))
+            dialog.set_common_ui_text(
+                json_text.get(f"{dialog.common_groupbox.objectName()}Title", "Common"),
+                dialog.json_checkbox.text(),
+                dialog.readme_checkbox.text(),
+                dialog.ignore_files_checkbox.text(),
+                dialog.ignore_binary_checkbox.text(),
+            )
+        except Exception as e:
+            ErrorHandler.exception_handler(e, LanguageProvider.class_name)
+
+    @staticmethod
+    def get_dialog_text(language: str, dialog_name: str) -> tuple[dict[str, str], str] | dict[str, str]:
         try:
             json_text = LanguageProvider.get_text(language, "dialog_text")
             if not json_text:
