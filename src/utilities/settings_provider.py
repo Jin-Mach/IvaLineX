@@ -9,6 +9,7 @@ from PyQt6.QtGui import QFontMetrics
 from PyQt6.QtWidgets import QWidget, QLineEdit
 
 from src.utilities.error_handler import ErrorHandler
+from src.utilities.language_provider import LanguageProvider
 
 if TYPE_CHECKING:
     from src.ui.main_window import MainWindow
@@ -85,6 +86,7 @@ class SettingsProvider:
                 language = get_language()
                 language_section["languageDefault"] = language
                 language_section["languageUser"] = language
+            LanguageProvider.usage_language = toml_data.get("language_settings", {}).get("languageUser", "en_GB")
             path_section = toml_data.setdefault("path_settings", {})
             if "folderEditDefault" not in path_section or path_section["folderEditDefault"] == "":
                 path_section["folderEditDefault"] = str(BASE_DIR.parents[2])

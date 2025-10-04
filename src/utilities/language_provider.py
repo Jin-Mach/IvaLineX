@@ -16,6 +16,7 @@ BASE_DIR = pathlib.Path(__file__).resolve().parent.parent.parent.joinpath("langu
 
 class LanguageProvider:
     class_name = "LanguageProvider"
+    usage_language = None
 
     @staticmethod
     def get_language_code() -> str | None:

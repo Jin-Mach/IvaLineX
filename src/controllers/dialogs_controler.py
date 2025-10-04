@@ -32,7 +32,7 @@ class DialogsController:
         try:
             dialog = SettingsDialog(self.main_window)
             SettingsProvider.apply_settings_dialog_config(dialog)
-            settings_text = LanguageProvider.get_dialog_text("cs_CZ", dialog.objectName())
+            settings_text = LanguageProvider.get_dialog_text(LanguageProvider.usage_language, dialog.objectName())
             LanguageProvider.apply_settings_dialog_text(dialog, settings_text)
             dialog.exec()
         except Exception as e:
@@ -41,7 +41,7 @@ class DialogsController:
     def show_close_app_dialog(self) -> None:
         try:
             dialog = QuestionDialog(self.main_window)
-            question_text = LanguageProvider.get_dialog_text("cs_CZ", dialog.objectName())
+            question_text = LanguageProvider.get_dialog_text(LanguageProvider.usage_language, dialog.objectName())
             dialog.set_ui_text(question_text.get("closeAppQuestion", "Close application?"),
                                question_text.get("questionAcceptButton", "Yes"),
                                question_text.get("questionCancelButton", "No"))
@@ -53,7 +53,7 @@ class DialogsController:
     def show_manual_dialog(self) -> None:
         try:
             dialog = ManualDialog(self.main_window)
-            manual_text = LanguageProvider.get_dialog_text("cs_CZ", dialog.objectName())
+            manual_text = LanguageProvider.get_dialog_text(LanguageProvider.usage_language, dialog.objectName())
             if manual_text:
                 dialog.set_ui_text(manual_text)
             dialog.exec()
@@ -63,7 +63,7 @@ class DialogsController:
     def show_about_dialog(self) -> None:
         try:
             dialog = AboutDialog(self.main_window)
-            about_text = LanguageProvider.get_dialog_text("cs_CZ", dialog.objectName())
+            about_text = LanguageProvider.get_dialog_text(LanguageProvider.usage_language, dialog.objectName())
             if about_text:
                 dialog.set_ui_text(about_text.get(f"{dialog.objectName()}Title", "About application"),
                                    about_text.get(dialog.about_label_text.objectName(), "<b>IvalineX</b><br>autor: Jin-Mach<br>verze: 1.0."),
