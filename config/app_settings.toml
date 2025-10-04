@@ -7,8 +7,8 @@ languageComboboxUser = [
 ]
 
 [path_settings]
-folderEditDefault = "/Users/jindrichmachytka/Projects/Python"
-folderEditUser = "/Users/jindrichmachytka/Projects/Python"
+folderEditDefault = ""
+folderEditUser = ""
 
 [history_settings]
 historyCheckboxDefault = true

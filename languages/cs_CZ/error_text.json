@@ -1,0 +1,4 @@
+{
+  "ValueError": "Chyba při načítání dat",
+  "FileNotFoundError": "Chyba při otevření souboru"
+}

@@ -38,5 +38,10 @@
     "aboutDialogTitle": "O aplikaci",
     "aboutLabelText": "<b>IvalineX</b><br>autor: Jin-Mach<br>verze: 1.0.",
     "closeButton": "Zavřít"
+  },
+  "errorDialog": {
+    "detailsButtonShow": "Zobrazit detail",
+    "detailsButtonHide": "Skrýt detial",
+    "closeButton": "Zavřít"
   }
 }

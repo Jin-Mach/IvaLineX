@@ -26,7 +26,7 @@ class SettingsProvider:
         try:
             toml_data = SettingsProvider.get_toml_data()
             if not toml_data:
-                raise ValueError(f"Load toml data error: {toml_data}.")
+                raise ValueError(f"Load toml data error.")
             history_value = toml_data.get("history_section", {}).get("historyCheckboxUser", True)
             if history_value:
                 main_window.save_history_checkbox.setChecked(history_value)
@@ -40,7 +40,7 @@ class SettingsProvider:
         try:
             toml_data = SettingsProvider.get_toml_data()
             if not toml_data:
-                raise ValueError(f"Load toml data error: {toml_data}.")
+                raise ValueError(f"Load toml data error.")
             for widget in dialog.findChildren(QWidget):
                 for section in ["language_settings", "path_settings", "history_settings", "python_settings"]:
                     value = toml_data.get(section, {}).get(f"{widget.objectName()}User", {})
@@ -79,7 +79,7 @@ class SettingsProvider:
         try:
             toml_data = SettingsProvider.get_toml_data()
             if not toml_data:
-                raise ValueError(f"Load toml data error: {toml_data}.")
+                raise ValueError(f"Load toml data error.")
             language_section = toml_data.setdefault("language_settings", {})
             if "languageDefault" not in language_section or language_section["languageDefault"] == "":
                 language = get_language()

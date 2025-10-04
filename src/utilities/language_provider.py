@@ -34,7 +34,7 @@ class LanguageProvider:
                 raise ValueError("Load language error.")
             json_text = LanguageProvider.get_text(language, "ui_text")
             if not json_text:
-                raise ValueError(f"Load json text error: {json_text}.")
+                raise ValueError(f"Load json text error.")
             LanguageProvider.set_ui_text(widget, json_text)
             return True
         except Exception as e:
@@ -72,7 +72,7 @@ class LanguageProvider:
     def apply_settings_dialog_text(dialog: "SettingsDialog", json_text: dict[str, str]) -> None:
         try:
             if not json_text:
-                raise ValueError(f"Load json text error: {json_text}.")
+                raise ValueError(f"Load json text error.")
             dialog.setWindowTitle(json_text.get(f"{dialog.objectName()}Title", "Settings"))
             for widget, default in [
                 (dialog.reset_button, "Reset to default"),
@@ -122,7 +122,7 @@ class LanguageProvider:
         try:
             json_text = LanguageProvider.get_text(language, "dialog_text")
             if not json_text:
-                raise ValueError(f"Load json text error: {json_text}.")
+                raise ValueError(f"Load json text error.")
             if dialog_name.startswith("manual"):
                 with open(BASE_DIR.joinpath(language, "manual.txt"), "r", encoding="utf-8") as txt_file:
                     return json_text.get(dialog_name, {}), txt_file.read()
