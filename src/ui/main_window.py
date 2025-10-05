@@ -5,6 +5,7 @@ from src.controllers.dialogs_controler import DialogsController
 from src.ui.widgets.menu_bar import MenuBar
 
 
+# noinspection PyUnresolvedReferences
 class MainWindow(QMainWindow):
     def __init__(self, parent=None) -> None:
         super().__init__(parent)
@@ -29,8 +30,8 @@ class MainWindow(QMainWindow):
         self.folder_line_input = QLineEdit()
         self.folder_line_input.setObjectName("folderLineInput")
         self.folder_line_input.setReadOnly(True)
-        folder_button = QPushButton()
-        folder_button.setObjectName("folderButton")
+        self.folder_button = QPushButton()
+        self.folder_button.setObjectName("folderButton")
         folder_list_view = QListView()
         folder_list_view.setObjectName("foldersListView")
         files_layout = QHBoxLayout()
@@ -48,7 +49,7 @@ class MainWindow(QMainWindow):
         project_layout.addStretch()
         folder_layout.addWidget(folder_text_label)
         folder_layout.addWidget(self.folder_line_input)
-        folder_layout.addWidget(folder_button)
+        folder_layout.addWidget(self.folder_button)
         files_layout.addWidget(self.save_history_checkbox)
         files_layout.addStretch()
         files_layout.addWidget(files_count_text_label)
@@ -75,3 +76,4 @@ class MainWindow(QMainWindow):
 
     def create_connection(self) -> None:
         self.dialog_controller = DialogsController(self, self.menu_bar)
+        self.folder_button.clicked.connect(self.dialog_controller.set_folder_path)

@@ -6,7 +6,7 @@ import tomli_w
 
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QFontMetrics
-from PyQt6.QtWidgets import QWidget, QLineEdit
+from PyQt6.QtWidgets import QWidget, QLineEdit, QFileDialog
 
 from src.utilities.error_handler import ErrorHandler
 from src.utilities.language_provider import LanguageProvider
@@ -93,5 +93,20 @@ class SettingsProvider:
                 path_section["folderEditUser"] = str(BASE_DIR.parents[2])
             with open(BASE_DIR, "wb") as toml_file:
                 tomli_w.dump(toml_data, toml_file)
+        except Exception as e:
+            ErrorHandler.exception_handler(e, SettingsProvider.class_name)
+
+    @staticmethod
+    def set_folder_path(parent: "MainWindow | SettingsDialog", dialog_title: str, folder_line_edit: QLineEdit) -> None:
+        try:
+            user_path = ""
+            toml_data = SettingsProvider.get_toml_data()
+            path_section = toml_data.setdefault("path_settings", {})
+            if path_section:
+                user_path = path_section["folderEditUser"]
+            folder_path = QFileDialog.getExistingDirectory(parent, dialog_title, user_path,
+                                                           options=QFileDialog.Option.ShowDirsOnly)
+            if folder_path:
+                folder_line_edit.setText(folder_path)
         except Exception as e:
             ErrorHandler.exception_handler(e, SettingsProvider.class_name)

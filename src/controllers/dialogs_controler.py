@@ -20,6 +20,7 @@ class DialogsController:
         self.class_name = "dialogsController"
         self.main_window = main_window
         self.menu_bar = menu_bar
+        self.settings_provider = SettingsProvider()
         self.create_connection()
 
     def create_connection(self) -> None:
@@ -28,12 +29,23 @@ class DialogsController:
         self.menu_bar.manual_action.triggered.connect(self.show_manual_dialog)
         self.menu_bar.about_action.triggered.connect(self.show_about_dialog)
 
+    def set_folder_path(self) -> None:
+        try:
+            settings_text = LanguageProvider.get_dialog_text(LanguageProvider.usage_language, "getDirDialog")
+            self.settings_provider.set_folder_path(self.main_window, settings_text.get("folderDialogTitle", "Select default folder"),
+                                                   self.main_window.folder_line_input)
+        except Exception as e:
+            ErrorHandler.exception_handler(e, self.class_name)
+
     def show_settings_dialog(self) -> None:
         try:
             dialog = SettingsDialog(self.main_window)
-            SettingsProvider.apply_settings_dialog_config(dialog)
+            self.settings_provider.apply_settings_dialog_config(dialog)
             settings_text = LanguageProvider.get_dialog_text(LanguageProvider.usage_language, dialog.objectName())
             LanguageProvider.apply_settings_dialog_text(dialog, settings_text)
+            dialog.folder_button_clicked.connect(lambda: self.settings_provider.set_folder_path(dialog,
+                                                 settings_text.get("folderDialogTitle", "Select default folder"),
+                                                 dialog.folder_edit))
             dialog.exec()
         except Exception as e:
             ErrorHandler.exception_handler(e, self.class_name)

@@ -1,15 +1,26 @@
+from typing import TYPE_CHECKING
+
+from PyQt6.QtCore import pyqtSignal
 from PyQt6.QtWidgets import QDialog, QLayout, QVBoxLayout, QGroupBox, QHBoxLayout, QLabel, QLineEdit, QPushButton, \
     QCheckBox, QTabWidget, QDialogButtonBox, QComboBox
 
 from src.ui.dialogs.widgets.python_widget import PythonWidget
 
+if TYPE_CHECKING:
+    from src.ui.main_window import MainWindow
 
-# noinspection PyTypeChecker
+
+# noinspection PyTypeChecker,PyUnresolvedReferences
 class SettingsDialog(QDialog):
-    def __init__(self, parent=None) -> None:
+    folder_button_clicked = pyqtSignal()
+
+    def __init__(self, parent: "MainWindow") -> None:
         super().__init__(parent)
         self.setObjectName("settingsDialog")
+        self.parent = parent
+        self.setParent(self.parent)
         self.setLayout(self.create_gui())
+        self.create_connection()
 
     def create_gui(self) -> QLayout:
         main_layout = QVBoxLayout()
@@ -116,6 +127,13 @@ class SettingsDialog(QDialog):
         self.readme_checkbox.setText(readme)
         self.ignore_files_checkbox.setText(files)
         self.ignore_binary_checkbox.setText(binary)
+
+    def create_connection(self) -> None:
+        self.folder_edit.textChanged.connect(
+            lambda text: self.parent.folder_line_input.setText(text.strip()))
+        self.select_folder_button.clicked.connect(self.folder_button_clicked.emit)
+        self.history_checkbox.stateChanged.connect(
+            lambda state: self.parent.save_history_checkbox.setChecked(self.history_checkbox.isChecked()))
 
     def showEvent(self, event) -> None:
         self.setFixedSize(500, self.height())

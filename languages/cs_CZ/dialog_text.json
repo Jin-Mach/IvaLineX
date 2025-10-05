@@ -6,6 +6,9 @@
     "questionAcceptButton": "Ano",
     "questionCancelButton": "Ne"
   },
+  "detDirDialog": {
+    "folderDialogTitle": "Vybrat výchozí složku"
+  },
   "settingsDialog": {
     "settingsDialogTitle": "Nastavení",
     "basicGroupboxTitle": "Obecné",
@@ -28,7 +31,8 @@
     "ignoreBinaryCheckbox": "Ignorovat binární soubory",
     "resetButton": "Obnovit výchozí",
     "saveButton": "Uložit",
-    "cancelButton": "Zrušit"
+    "cancelButton": "Zrušit",
+    "folderDialogTitle": "Vybrat výchozí složku"
   },
   "manualDialog": {
     "manualDialogTitle": "Manuál",
