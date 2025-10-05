@@ -129,8 +129,6 @@ class SettingsDialog(QDialog):
         self.ignore_binary_checkbox.setText(binary)
 
     def create_connection(self) -> None:
-        self.folder_edit.textChanged.connect(
-            lambda text: self.parent.folder_line_input.setText(text.strip()))
         self.select_folder_button.clicked.connect(self.folder_button_clicked.emit)
         self.history_checkbox.stateChanged.connect(
             lambda state: self.parent.save_history_checkbox.setChecked(self.history_checkbox.isChecked()))

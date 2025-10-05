@@ -1,11 +1,11 @@
 import json
 import pathlib
 
-from src.utilities.settings_provider import SettingsProvider
+from src.core.providers.settings_provider import SettingsProvider
 
 
-class HelpersProvider:
-    class_name = "helpersProvider"
+class Helpers:
+    class_name = "helpers"
 
     @staticmethod
     def get_exception_text(exception: Exception) -> str:

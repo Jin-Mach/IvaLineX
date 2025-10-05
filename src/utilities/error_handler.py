@@ -12,9 +12,9 @@ class ErrorHandler:
     @staticmethod
     def exception_handler(exception: Exception, class_name: str = "Global") -> None:
         ErrorHandler.logger.error(f"{class_name}: {exception}", exc_info=True)
-        from src.utilities.helpers_provider import HelpersProvider
-        from src.utilities.language_provider import LanguageProvider
-        error_text = HelpersProvider.get_exception_text(exception)
+        from src.utilities.helpers import Helpers
+        from src.core.providers.language_provider import LanguageProvider
+        error_text = Helpers.get_exception_text(exception)
         parent = QApplication.activeWindow()
         dialog = ErrorDialog(error_text, traceback.format_exc(), parent)
         dialog_text = LanguageProvider.get_dialog_text(LanguageProvider.usage_language, dialog.objectName())

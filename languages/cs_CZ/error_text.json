@@ -1,4 +1,5 @@
 {
   "ValueError": "Chyba při načítání dat",
-  "FileNotFoundError": "Chyba při otevření souboru"
+  "FileNotFoundError": "Chyba při otevření souboru",
+  "RuntimeError": "Chyba při běhu aplikace"
 }

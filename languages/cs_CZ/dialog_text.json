@@ -6,7 +6,7 @@
     "questionAcceptButton": "Ano",
     "questionCancelButton": "Ne"
   },
-  "detDirDialog": {
+  "getDirDialog": {
     "folderDialogTitle": "Vybrat výchozí složku"
   },
   "settingsDialog": {

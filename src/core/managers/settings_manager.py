@@ -1,39 +1,34 @@
-from typing import TYPE_CHECKING, Any, Callable
-
-import pathlib
-import tomllib
-import tomli_w
+from typing import TYPE_CHECKING
 
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QFontMetrics
-from PyQt6.QtWidgets import QWidget, QLineEdit, QFileDialog
+
+from PyQt6.QtWidgets import QFileDialog, QLineEdit, QWidget
 
 from src.utilities.error_handler import ErrorHandler
-from src.utilities.language_provider import LanguageProvider
+from src.core.providers.settings_provider import SettingsProvider
 
 if TYPE_CHECKING:
     from src.ui.main_window import MainWindow
     from src.ui.dialogs.settings_dialog import SettingsDialog
 
-BASE_DIR = pathlib.Path(__file__).resolve().parent.parent.parent.joinpath("config", "app_settings.toml")
-
 
 # noinspection PyUnresolvedReferences
-class SettingsProvider:
-    class_name = "settingsProvider"
+class SettingsManager:
+    class_name = "settingsManager"
 
     @staticmethod
-    def apply_main_window_config(main_window: "MainWindow") -> bool:
+    def apply_main_window_config(save_history_checkbox) -> bool:
         try:
             toml_data = SettingsProvider.get_toml_data()
             if not toml_data:
                 raise ValueError(f"Load toml data error.")
             history_value = toml_data.get("history_section", {}).get("historyCheckboxUser", True)
             if history_value:
-                main_window.save_history_checkbox.setChecked(history_value)
+                save_history_checkbox.setChecked(history_value)
             return True
         except Exception as e:
-            ErrorHandler.exception_handler(e, SettingsProvider.class_name)
+            ErrorHandler.exception_handler(e, SettingsManager.class_name)
             return False
 
     @staticmethod
@@ -61,40 +56,7 @@ class SettingsProvider:
                         if hasattr(widget, "setChecked"):
                             widget.setChecked(bool(value))
         except Exception as e:
-            ErrorHandler.exception_handler(e, SettingsProvider.class_name)
-
-    @staticmethod
-    def get_toml_data() -> dict[str, Any]:
-        try:
-            if not BASE_DIR.exists() or BASE_DIR.stat().st_size == 0:
-                raise FileNotFoundError(f"Toml file not found: {BASE_DIR}")
-            with open(BASE_DIR, "rb") as toml_file:
-                toml_data = tomllib.load(toml_file)
-                return toml_data
-        except Exception as e:
-            ErrorHandler.exception_handler(e, SettingsProvider.class_name)
-            return {}
-
-    @staticmethod
-    def set_toml_basic(get_language: Callable[[], str]) -> None:
-        try:
-            toml_data = SettingsProvider.get_toml_data()
-            if not toml_data:
-                raise ValueError(f"Load toml data error.")
-            language_section = toml_data.setdefault("language_settings", {})
-            if "languageDefault" not in language_section or language_section["languageDefault"] == "":
-                language = get_language()
-                language_section["languageDefault"] = language
-                language_section["languageUser"] = language
-            LanguageProvider.usage_language = toml_data.get("language_settings", {}).get("languageUser", "en_GB")
-            path_section = toml_data.setdefault("path_settings", {})
-            if "folderEditDefault" not in path_section or path_section["folderEditDefault"] == "":
-                path_section["folderEditDefault"] = str(BASE_DIR.parents[2])
-                path_section["folderEditUser"] = str(BASE_DIR.parents[2])
-            with open(BASE_DIR, "wb") as toml_file:
-                tomli_w.dump(toml_data, toml_file)
-        except Exception as e:
-            ErrorHandler.exception_handler(e, SettingsProvider.class_name)
+            ErrorHandler.exception_handler(e, SettingsManager.class_name)
 
     @staticmethod
     def set_folder_path(parent: "MainWindow | SettingsDialog", dialog_title: str, folder_line_edit: QLineEdit) -> None:
@@ -109,4 +71,4 @@ class SettingsProvider:
             if folder_path:
                 folder_line_edit.setText(folder_path)
         except Exception as e:
-            ErrorHandler.exception_handler(e, SettingsProvider.class_name)
+            ErrorHandler.exception_handler(e, SettingsManager.class_name)
