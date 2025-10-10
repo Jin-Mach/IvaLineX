@@ -17,5 +17,4 @@ def create_app() -> None:
         sys.exit(application.exec())
     except Exception as e:
         ErrorHandler.exception_handler(e, "createApp")
-    finally:
         sys.exit(1)

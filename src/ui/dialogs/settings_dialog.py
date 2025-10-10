@@ -1,10 +1,11 @@
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from PyQt6.QtCore import pyqtSignal
 from PyQt6.QtWidgets import QDialog, QLayout, QVBoxLayout, QGroupBox, QHBoxLayout, QLabel, QLineEdit, QPushButton, \
     QCheckBox, QTabWidget, QDialogButtonBox, QComboBox
 
 from src.ui.dialogs.widgets.python_widget import PythonWidget
+from src.utilities.error_handler import ErrorHandler
 
 if TYPE_CHECKING:
     from src.ui.main_window import MainWindow
@@ -136,3 +137,19 @@ class SettingsDialog(QDialog):
     def showEvent(self, event) -> None:
         self.setFixedSize(500, self.height())
         super().showEvent(event)
+
+    def get_settings_data(self) -> dict[str, dict[str, Any]]:
+        try:
+            checkbox_list = [self.json_checkbox, self.readme_checkbox, self.ignore_files_checkbox,
+                             self.ignore_binary_checkbox]
+            python_settings = self.python_tab.get_settings_data()
+            for check_box in checkbox_list:
+                python_settings.update({f"{check_box.objectName()}User": check_box.isChecked()})
+            settings_data = {"language_settings": {"languageUser": self.language_combobox.currentText()},
+                             "path_settings": {"folderEditUser": self.folder_edit.text().strip()},
+                             "history_settings": {"historyCheckboxUser": self.history_checkbox.isChecked()},
+                             "python_settings": python_settings}
+            return settings_data
+        except Exception as e:
+            ErrorHandler.exception_handler(e, self.objectName())
+            return {}

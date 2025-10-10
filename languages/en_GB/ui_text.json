@@ -1,0 +1,21 @@
+{
+  "mainWindow": {
+    "mainWindowTitle": "IvalineX",
+    "projectMenu": "Menu",
+    "newProjectAction": "New Project",
+    "openProjectAction": "Open Project",
+    "closeProjectAction": "Close Project",
+    "settingsAction": "Settings",
+    "closeAppAction": "Close Application",
+    "infoMenu": "Info",
+    "manualAction": "Manual",
+    "aboutAction": "About application",
+    "projectNameTextLabel": "Project Name:",
+    "folderTextLabel": "File:",
+    "folderLineInput": "Select project folder...",
+    "folderButton": "Select Folder",
+    "saveHistoryCheckBox": "Save to History",
+    "filesCountTextLabel": "Number of Files:",
+    "countButton": "Show Result"
+  }
+}

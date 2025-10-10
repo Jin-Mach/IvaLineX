@@ -51,7 +51,8 @@ class LanguageManager:
                             menu.setTitle(widget_text.get(menu.objectName(), "Menu"))
                         for action in menu.actions():
                             if action.objectName() in widget_text:
-                                action.setText(widget_text.get(action.objectName(), "Action"))
+                                text = widget_text.get(action.objectName(), "Action")
+                                action.setText("\u200B" + text)
         except Exception as e:
             ErrorHandler.exception_handler(e, LanguageManager.class_name)
 

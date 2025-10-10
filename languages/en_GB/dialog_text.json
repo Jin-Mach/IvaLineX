@@ -1,0 +1,51 @@
+{
+  "questionDialog": {
+    "startProject": "Close the open project?",
+    "closeProject": "Close project?",
+    "closeAppQuestion": "Close the application?",
+    "questionAcceptButton": "Yes",
+    "questionCancelButton": "No"
+  },
+  "getDirDialog": {
+    "folderDialogTitle": "Select default folder"
+  },
+  "settingsDialog": {
+    "settingsDialogTitle": "Settings",
+    "basicGroupboxTitle": "General",
+    "languageLabelText": "Application language:",
+    "folderLabelText": "Default folder:",
+    "selectFolderButton": "Select",
+    "historyCheckbox": "Save history",
+    "languageGroupboxTitle": "Language settings",
+    "initCheckbox": "Include __init__.py",
+    "setupCheckbox": "Include setup.py",
+    "mainCheckbox": "Include __main__.py",
+    "emptyRowsCheckbox": "Count empty rows",
+    "commentsCheckbox": "Count comments",
+    "ignoreVenvCheckbox": "Ignore venv/, .venv/ directories",
+    "ignoreTestsCheckbox": "Ignore tests/ folder",
+    "commonGroupboxTitle": "Common settings",
+    "jsonCheckbox": "Include JSON / YAML / TOML",
+    "readmeCheckbox": "Count README.md and documentation",
+    "ignoreFilesCheckbox": "Ignore large files (>5 MB)",
+    "ignoreBinaryCheckbox": "Ignore binary files",
+    "resetButton": "Reset to default",
+    "saveButton": "Save",
+    "cancelButton": "Cancel",
+    "folderDialogTitle": "Select default folder"
+  },
+  "manualDialog": {
+    "manualDialogTitle": "Manual",
+    "closeButton": "Close"
+  },
+  "aboutDialog": {
+    "aboutDialogTitle": "About",
+    "aboutLabelText": "<b>IvalineX</b><br>author: Jin-Mach<br>version: 1.0.",
+    "closeButton": "Close"
+  },
+  "errorDialog": {
+    "detailsButtonShow": "Show details",
+    "detailsButtonHide": "Hide details",
+    "closeButton": "Close"
+  }
+}

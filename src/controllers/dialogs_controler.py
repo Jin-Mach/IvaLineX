@@ -11,6 +11,7 @@ from src.core.managers.language_manager import LanguageManager
 from src.core.providers.language_provider import LanguageProvider
 from src.core.managers.settings_manager import SettingsManager
 from src.core.providers.settings_provider import SettingsProvider
+from src.utilities.helpers import Helpers
 
 if TYPE_CHECKING:
     from src.ui.main_window import MainWindow
@@ -53,7 +54,11 @@ class DialogsController:
             dialog.folder_button_clicked.connect(lambda: self.settings_manager.set_folder_path(dialog,
                                                                          settings_text.get("folderDialogTitle", "Select default folder"),
                                                                          dialog.folder_edit))
-            dialog.exec()
+            if dialog.exec() == dialog.DialogCode.Accepted:
+                settings_data = dialog.get_settings_data()
+                if settings_data:
+                    helper = Helpers()
+                    SettingsProvider.set_toml_data(helper, settings_data)
         except Exception as e:
             ErrorHandler.exception_handler(e, self.class_name)
 

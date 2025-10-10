@@ -1,7 +1,10 @@
 [language_settings]
 languageDefault = "cs_CZ"
 languageUser = "cs_CZ"
-languageComboboxUser = [
+
+[language_settings.languageComboboxUser]
+selected = "Čeština"
+options = [
     "Čeština",
     "English",
 ]

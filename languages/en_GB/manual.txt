@@ -1,0 +1,14 @@
+<div style="text-align: center;"><b>IvalineX - User Manual</b></div><br>
+<b>Description:</b><br>
+The application is used for quickly counting lines of code in Python projects. It supports saving results to history and provides a clear overview of the number of files.<br><br>
+<b>Main Features:</b><br>
+- Select a project or folder with code<br>
+- Count lines of code<br>
+- Save results to history<br>
+- Display the total number of files<br>
+- Clear menu with options About and Manual<br><br>
+<b>Usage:</b><br>
+1. Select a project or folder with code.<br>
+2. Click the "Show Result" button.<br>
+3. If you want to save results to history, check "Save to History".<br>
+4. Use the menu to open the manual or get information about the application.

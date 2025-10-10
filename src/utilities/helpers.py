@@ -2,6 +2,7 @@ import json
 import pathlib
 
 from src.core.providers.settings_provider import SettingsProvider
+from src.utilities.error_handler import ErrorHandler
 
 
 class Helpers:
@@ -25,3 +26,18 @@ class Helpers:
                     if error_data:
                         error_text = error_data.get(exception.__class__.__name__, "Unknown error")
         return error_text
+
+    @staticmethod
+    def get_language_code(language_name: str) -> str:
+        try:
+            language_code = "en_GB"
+            map_dir = pathlib.Path(__file__).parents[2].joinpath("languages", "language_map.json")
+            if map_dir.exists() and map_dir.stat().st_size > 0:
+                with open(map_dir, "r", encoding="utf-8") as map_file:
+                        language_map = json.load(map_file)
+                if language_map:
+                    language_code = language_map.get(language_name, "en_GB")
+            return language_code
+        except Exception as e:
+            ErrorHandler.exception_handler(e, Helpers.class_name)
+            return "en_GB"

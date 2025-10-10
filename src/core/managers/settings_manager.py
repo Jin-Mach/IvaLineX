@@ -43,8 +43,12 @@ class SettingsManager:
                     if value:
                         if hasattr(widget, "addItems"):
                             widget.clear()
-                            if isinstance(value, list):
-                                widget.addItems(value)
+                            if isinstance(value, dict):
+                                selected = value.get("selected", "English")
+                                options = value.get("options", [])
+                                widget.addItems(options)
+                                if selected in options:
+                                    widget.setCurrentText(selected)
                         if hasattr(widget, "setText"):
                             if isinstance(widget, QLineEdit):
                                 metrics = QFontMetrics(widget.font())

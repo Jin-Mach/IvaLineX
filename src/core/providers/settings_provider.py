@@ -8,7 +8,7 @@ from src.utilities.error_handler import ErrorHandler
 from src.core.providers.language_provider import LanguageProvider
 
 if TYPE_CHECKING:
-    pass
+    from src.utilities.helpers import Helpers
 
 BASE_DIR = pathlib.Path(__file__).resolve().parent.parent.parent.parent.joinpath("config", "app_settings.toml")
 
@@ -34,7 +34,7 @@ class SettingsProvider:
         try:
             toml_data = SettingsProvider.get_toml_data()
             if not toml_data:
-                raise ValueError(f"Load toml data error.")
+                raise ValueError("Load toml data error.")
             language_section = toml_data.setdefault("language_settings", {})
             if "languageDefault" not in language_section or language_section["languageDefault"] == "":
                 language = get_language()
@@ -47,5 +47,25 @@ class SettingsProvider:
                 path_section["folderEditUser"] = str(BASE_DIR.parents[2])
             with open(BASE_DIR, "wb") as toml_file:
                 tomli_w.dump(toml_data, toml_file)
+        except Exception as e:
+            ErrorHandler.exception_handler(e, SettingsProvider.class_name)
+
+    @staticmethod
+    def set_toml_data(helpers: "Helpers", settings_data: dict[str, dict[str, Any]]) -> None:
+        try:
+            toml_data = SettingsProvider.get_toml_data()
+            if not toml_data:
+                raise ValueError("Load toml data error.")
+            for section, section_dict in settings_data.items():
+                for key, value in section_dict.items():
+                    if key == "languageUser":
+                        language_code = helpers.get_language_code(value)
+                        toml_data[section][key] = language_code
+                        if "languageComboboxUser" in toml_data.get(section, {}):
+                            toml_data[section]["languageComboboxUser"]["selected"] = value
+                    else:
+                        toml_data[section][key] = value
+            with open(BASE_DIR, "wb") as new_toml:
+                tomli_w.dump(toml_data, new_toml)
         except Exception as e:
             ErrorHandler.exception_handler(e, SettingsProvider.class_name)

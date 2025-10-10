@@ -1,5 +1,7 @@
 from PyQt6.QtWidgets import QWidget, QLayout, QVBoxLayout, QCheckBox
 
+from src.utilities.error_handler import ErrorHandler
+
 
 class PythonWidget(QWidget):
     def __init__(self, parent=None) -> None:
@@ -42,3 +44,15 @@ class PythonWidget(QWidget):
         self.comments_checkbox.setText(comments)
         self.ignore_venv_checkbox.setText(venv)
         self.ignore_tests_checkbox.setText(tests)
+
+    def get_settings_data(self) -> dict[str, bool]:
+        try:
+            checkbox_list = [self.init_checkbox, self.setup_checkbox, self.main_checkbox, self.empty_rows_checkbox,
+                             self.comments_checkbox, self.ignore_venv_checkbox, self.ignore_tests_checkbox]
+            settings_data = {}
+            for check_box in checkbox_list:
+                settings_data.update({f"{check_box.objectName()}User": check_box.isChecked()})
+            return settings_data
+        except Exception as e:
+            ErrorHandler.exception_handler(e, self.objectName())
+            return {}
