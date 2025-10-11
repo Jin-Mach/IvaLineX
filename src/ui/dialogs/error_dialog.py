@@ -5,11 +5,12 @@ from PyQt6.QtWidgets import QDialog, QLayout, QVBoxLayout, QLabel, QTextEdit, QD
 
 # noinspection PyTypeChecker
 class ErrorDialog(QDialog):
-    def __init__(self, error_text: str, traceback: str, parent=None) -> None:
+    def __init__(self, error_text: str, traceback: str, show_details_button: bool = True, parent=None) -> None:
         super().__init__(parent)
         self.setObjectName("errorDialog")
         self.error_text = error_text
         self.traceback = traceback
+        self.show_details_button = show_details_button
         self.setLayout(self.create_gui())
 
     def create_gui(self) -> QLayout:
@@ -27,6 +28,7 @@ class ErrorDialog(QDialog):
         button_box = QDialogButtonBox(QDialogButtonBox.StandardButton.RestoreDefaults | QDialogButtonBox.StandardButton.Close)
         self.details_button = button_box.button(QDialogButtonBox.StandardButton.RestoreDefaults)
         self.details_button.setObjectName("detailsButton")
+        self.details_button.setVisible(self.show_details_button)
         self.details_button.clicked.connect(self.show_edit)
         self.close_button = button_box.button(QDialogButtonBox.StandardButton.Close)
         self.close_button.setObjectName("closeButton")

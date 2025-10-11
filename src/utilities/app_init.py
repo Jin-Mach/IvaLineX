@@ -1,7 +1,12 @@
+import sys
+import traceback
+
 from typing import TYPE_CHECKING
 
+from src.core.managers.files_manager import FilesManager
 from src.core.managers.language_manager import LanguageManager
 from src.core.providers.language_provider import LanguageProvider
+from src.ui.dialogs.error_dialog import ErrorDialog
 from src.utilities.logger_provider import get_logger
 from src.core.managers.settings_manager import SettingsManager
 from src.core.providers.settings_provider import SettingsProvider
@@ -13,6 +18,13 @@ if TYPE_CHECKING:
 def application_init(main_window: "MainWindow") -> bool:
     logger = get_logger()
     try:
+        if not FilesManager.download_missing_files():
+            dialog = ErrorDialog("Failed to download required files.\n"
+                                 "Please check your internet connection and try again.",
+                                 traceback.format_exc(), show_details_button=False)
+            if dialog.exec() == dialog.DialogCode.Rejected:
+                logger.error("app_init error: Download files failed.")
+                sys.exit(1)
         SettingsProvider.set_toml_basic(LanguageProvider.get_language_code)
         toml_data = SettingsProvider.get_toml_data()
         language = toml_data["language_settings"]["languageUser"]

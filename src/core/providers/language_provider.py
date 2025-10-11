@@ -1,14 +1,9 @@
-from typing import TYPE_CHECKING
-
 import json
 import pathlib
 
 from PyQt6.QtCore import QLocale
 
 from src.utilities.error_handler import ErrorHandler
-
-if TYPE_CHECKING:
-    pass
 
 BASE_DIR = pathlib.Path(__file__).resolve().parent.parent.parent.parent.joinpath("languages")
 

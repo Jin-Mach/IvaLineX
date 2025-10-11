@@ -15,6 +15,8 @@ class ErrorHandler:
         from src.utilities.helpers import Helpers
         from src.core.providers.language_provider import LanguageProvider
         error_text = Helpers.get_exception_text(exception)
+        if not error_text:
+            error_text = exception
         parent = QApplication.activeWindow()
         dialog = ErrorDialog(error_text, traceback.format_exc(), parent)
         dialog_text = LanguageProvider.get_dialog_text(LanguageProvider.usage_language, dialog.objectName())

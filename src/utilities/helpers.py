@@ -1,5 +1,6 @@
 import json
 import pathlib
+import requests
 
 from src.core.providers.settings_provider import SettingsProvider
 from src.utilities.error_handler import ErrorHandler
@@ -41,3 +42,8 @@ class Helpers:
         except Exception as e:
             ErrorHandler.exception_handler(e, Helpers.class_name)
             return "en_GB"
+
+    @staticmethod
+    def check_internet_connection():
+        request = requests.get("https://github.com", timeout=3)
+        return request.ok
