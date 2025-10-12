@@ -6,6 +6,7 @@ from src.utilities.error_handler import ErrorHandler
 from src.core.providers.language_provider import LanguageProvider
 
 if TYPE_CHECKING:
+    from src.ui.dialogs.new_project_dialog import NewProjectDialog
     from src.ui.dialogs.settings_dialog import SettingsDialog
 
 
@@ -53,6 +54,20 @@ class LanguageManager:
                             if action.objectName() in widget_text:
                                 text = widget_text.get(action.objectName(), "Action")
                                 action.setText("\u200B" + text)
+        except Exception as e:
+            ErrorHandler.exception_handler(e, LanguageManager.class_name)
+
+    @staticmethod
+    def apply_new_project_dialog_text(dialog: "NewProjectDialog", json_text: dict[str, str]) -> None:
+        try:
+            if not json_text:
+                raise ValueError("Load json text error")
+            dialog.set_ui_text(
+                json_text.get(f"{dialog.objectName()}Title", "New project"),
+                json_text.get(dialog.new_project_label_text.objectName(), "Enter project name (letters and spaces only)"),
+                json_text.get(dialog.save_button.objectName(), "Save"),
+                json_text.get(dialog.close_button.objectName(), "Close")
+            )
         except Exception as e:
             ErrorHandler.exception_handler(e, LanguageManager.class_name)
 

@@ -1,5 +1,7 @@
 {
   "ValueError": "Chyba při načítání dat",
   "FileNotFoundError": "Chyba při otevření souboru",
-  "RuntimeError": "Chyba při běhu aplikace"
+  "RuntimeError": "Chyba při běhu aplikace",
+  "NameError": "Chyba vstupu",
+  "FileExistsError": "Soubor již existuje, nebo se ho nepodařilo vytvořit"
 }

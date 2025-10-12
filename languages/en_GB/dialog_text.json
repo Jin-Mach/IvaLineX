@@ -9,6 +9,12 @@
   "getDirDialog": {
     "folderDialogTitle": "Select default folder"
   },
+  "newProjectDialog": {
+    "newProjectDialogTitle": "New Project",
+    "newProjectLabelText": "Enter project name\n(letters and spaces only)",
+    "saveButton": "Save",
+    "closeButton": "Close"
+  },
   "settingsDialog": {
     "settingsDialogTitle": "Settings",
     "basicGroupboxTitle": "General",

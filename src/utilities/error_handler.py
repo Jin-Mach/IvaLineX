@@ -10,7 +10,7 @@ class ErrorHandler:
     logger = get_logger()
 
     @staticmethod
-    def exception_handler(exception: Exception, class_name: str = "Global") -> None:
+    def exception_handler(exception: Exception, class_name: str = "Global", show_details: bool = True) -> None:
         ErrorHandler.logger.error(f"{class_name}: {exception}", exc_info=True)
         from src.utilities.helpers import Helpers
         from src.core.providers.language_provider import LanguageProvider
@@ -18,7 +18,7 @@ class ErrorHandler:
         if not error_text:
             error_text = exception
         parent = QApplication.activeWindow()
-        dialog = ErrorDialog(error_text, traceback.format_exc(), parent)
+        dialog = ErrorDialog(error_text, traceback.format_exc(), show_details_button=show_details, parent=parent)
         dialog_text = LanguageProvider.get_dialog_text(LanguageProvider.usage_language, dialog.objectName())
         dialog.set_ui_text(dialog_text.get(f"{dialog.details_button.objectName()}Show", "Show details"),
                            dialog_text.get(f"{dialog.details_button.objectName()}Hide", "Hide details"),

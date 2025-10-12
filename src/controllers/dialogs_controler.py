@@ -2,8 +2,10 @@ from typing import TYPE_CHECKING
 
 from PyQt6.QtWidgets import QApplication
 
+from src.core.managers.projects_manager import ProjectsManager
 from src.ui.dialogs.about_dialog import AboutDialog
 from src.ui.dialogs.manual_dialog import ManualDialog
+from src.ui.dialogs.new_project_dialog import NewProjectDialog
 from src.ui.dialogs.question_dialog import QuestionDialog
 from src.ui.dialogs.settings_dialog import SettingsDialog
 from src.utilities.error_handler import ErrorHandler
@@ -28,10 +30,24 @@ class DialogsController:
         self.create_connection()
 
     def create_connection(self) -> None:
+        self.menu_bar.new_project_action.triggered.connect(self.show_new_project_dialog)
         self.menu_bar.settings_action.triggered.connect(self.show_settings_dialog)
         self.menu_bar.close_app_action.triggered.connect(self.show_close_app_dialog)
         self.menu_bar.manual_action.triggered.connect(self.show_manual_dialog)
         self.menu_bar.about_action.triggered.connect(self.show_about_dialog)
+
+    def show_new_project_dialog(self) -> None:
+        try:
+            dialog = NewProjectDialog(self.main_window)
+            new_project_text = LanguageProvider.get_dialog_text(LanguageProvider.usage_language, dialog.objectName())
+            if not new_project_text:
+                raise ValueError("Load json text error.")
+            LanguageManager.apply_new_project_dialog_text(dialog, new_project_text)
+            if dialog.exec() == dialog.DialogCode.Accepted:
+                if ProjectsManager.create_project_file(dialog.project_name_edit.text().strip()):
+                    self.main_window.project_name_label.setText(dialog.project_name_edit.text().strip())
+        except Exception as e:
+            ErrorHandler.exception_handler(e, self.class_name)
 
     def set_folder_path(self) -> None:
         try:

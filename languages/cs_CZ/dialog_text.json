@@ -9,6 +9,12 @@
   "getDirDialog": {
     "folderDialogTitle": "Vybrat výchozí složku"
   },
+  "newProjectDialog": {
+    "newProjectDialogTitle": "Nový projekt",
+    "newProjectLabelText": "Zadej název projektu\n(pouze písmena a mezery)",
+    "saveButton": "Uložit",
+    "closeButton": "Zavřít"
+  },
   "settingsDialog": {
     "settingsDialogTitle": "Nastavení",
     "basicGroupboxTitle": "Obecné",

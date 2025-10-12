@@ -22,7 +22,7 @@ class MainWindow(QMainWindow):
         project_layout = QHBoxLayout()
         project_name_text_label = QLabel()
         project_name_text_label.setObjectName("projectNameTextLabel")
-        self.project_name_label = QLabel("název projektu..")
+        self.project_name_label = QLabel()
         self.project_name_label.setObjectName("projectNameLabel")
         folder_layout = QHBoxLayout()
         folder_text_label = QLabel()
