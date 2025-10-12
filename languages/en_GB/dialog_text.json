@@ -15,6 +15,12 @@
     "saveButton": "Save",
     "closeButton": "Close"
   },
+  "selectProjectDialog": {
+  "selectProjectDialogTitle": "Select Project",
+  "selectProjectLabelText": "Available projects",
+  "loadButton": "Open",
+  "closeButton": "Close"
+},
   "settingsDialog": {
     "settingsDialogTitle": "Settings",
     "basicGroupboxTitle": "General",

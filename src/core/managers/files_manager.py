@@ -1,12 +1,10 @@
-import pathlib
 import requests
 
-from src.core.providers.files_provider import FilesProvider
+from src.core.providers.files_provider import FilesProvider, BASE_DIR
 from src.utilities.helpers import Helpers
 from src.utilities.logger_provider import get_logger
 
 BASE_URL = "https://raw.githubusercontent.com/Jin-Mach/IvaLineX/main"
-BASE_DIR = pathlib.Path(__file__).parents[3]
 logger = get_logger()
 
 

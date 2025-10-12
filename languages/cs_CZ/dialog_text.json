@@ -15,6 +15,12 @@
     "saveButton": "Uložit",
     "closeButton": "Zavřít"
   },
+  "selectProjectDialog": {
+    "selectProjectDialogTitle": "Vybrat projekt",
+    "selectProjectLabelText": "Dostupné projekty",
+    "loadButton": "Otevřít",
+    "closeButton": "Zavřít"
+  },
   "settingsDialog": {
     "settingsDialogTitle": "Nastavení",
     "basicGroupboxTitle": "Obecné",

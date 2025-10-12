@@ -45,14 +45,14 @@ class Helpers:
 
     @staticmethod
     def check_internet_connection() -> bool:
-        request = requests.get("https://github.com", timeout=3)
+        request = requests.head("https://github.com", timeout=3)
         return request.ok
 
     @staticmethod
     def validate_project_name(project_name: str, load: bool) -> str:
         try:
             if load:
-                return project_name.replace(" ", "_")[:-5]
+                return project_name.replace("_", " ")
             return f"{project_name.replace(" ", "_")}.json"
         except Exception as e:
             ErrorHandler.exception_handler(e, Helpers.class_name)

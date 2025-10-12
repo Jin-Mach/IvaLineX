@@ -7,6 +7,7 @@ from src.ui.dialogs.about_dialog import AboutDialog
 from src.ui.dialogs.manual_dialog import ManualDialog
 from src.ui.dialogs.new_project_dialog import NewProjectDialog
 from src.ui.dialogs.question_dialog import QuestionDialog
+from src.ui.dialogs.select_project_dialog import SelectProjectDialog
 from src.ui.dialogs.settings_dialog import SettingsDialog
 from src.utilities.error_handler import ErrorHandler
 from src.core.managers.language_manager import LanguageManager
@@ -31,6 +32,7 @@ class DialogsController:
 
     def create_connection(self) -> None:
         self.menu_bar.new_project_action.triggered.connect(self.show_new_project_dialog)
+        self.menu_bar.open_project_action.triggered.connect(self.show_select_project_dialog)
         self.menu_bar.settings_action.triggered.connect(self.show_settings_dialog)
         self.menu_bar.close_app_action.triggered.connect(self.show_close_app_dialog)
         self.menu_bar.manual_action.triggered.connect(self.show_manual_dialog)
@@ -45,7 +47,20 @@ class DialogsController:
             LanguageManager.apply_new_project_dialog_text(dialog, new_project_text)
             if dialog.exec() == dialog.DialogCode.Accepted:
                 if ProjectsManager.create_project_file(dialog.project_name_edit.text().strip()):
-                    self.main_window.project_name_label.setText(dialog.project_name_edit.text().strip())
+                    ProjectsManager.set_application_to_project(self.main_window, dialog.project_name_edit.text().strip())
+        except Exception as e:
+            ErrorHandler.exception_handler(e, self.class_name)
+
+    def show_select_project_dialog(self) -> None:
+        try:
+            dialog = SelectProjectDialog(self.main_window)
+            select_project_text = LanguageProvider.get_dialog_text(LanguageProvider.usage_language, dialog.objectName())
+            if not select_project_text:
+                raise ValueError("Load json text error")
+            LanguageManager.apply_select_project_dialog_text(dialog, select_project_text)
+            if ProjectsManager.set_selected_project(dialog.projects_combobox):
+                if dialog.exec() == dialog.DialogCode.Accepted:
+                    ProjectsManager.set_application_to_project(self.main_window, dialog.projects_combobox.currentText())
         except Exception as e:
             ErrorHandler.exception_handler(e, self.class_name)
 

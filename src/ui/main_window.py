@@ -1,3 +1,4 @@
+from PyQt6.QtGui import QFont
 from PyQt6.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QLabel, QLineEdit, QPushButton, QListView, \
     QApplication, QCheckBox
 
@@ -24,6 +25,9 @@ class MainWindow(QMainWindow):
         project_name_text_label.setObjectName("projectNameTextLabel")
         self.project_name_label = QLabel()
         self.project_name_label.setObjectName("projectNameLabel")
+        font = QFont()
+        font.setBold(True)
+        self.project_name_label.setFont(font)
         folder_layout = QHBoxLayout()
         folder_text_label = QLabel()
         folder_text_label.setObjectName("folderTextLabel")

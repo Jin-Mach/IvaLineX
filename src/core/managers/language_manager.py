@@ -7,6 +7,7 @@ from src.core.providers.language_provider import LanguageProvider
 
 if TYPE_CHECKING:
     from src.ui.dialogs.new_project_dialog import NewProjectDialog
+    from src.ui.dialogs.select_project_dialog import SelectProjectDialog
     from src.ui.dialogs.settings_dialog import SettingsDialog
 
 
@@ -66,6 +67,20 @@ class LanguageManager:
                 json_text.get(f"{dialog.objectName()}Title", "New project"),
                 json_text.get(dialog.new_project_label_text.objectName(), "Enter project name (letters and spaces only)"),
                 json_text.get(dialog.save_button.objectName(), "Save"),
+                json_text.get(dialog.close_button.objectName(), "Close")
+            )
+        except Exception as e:
+            ErrorHandler.exception_handler(e, LanguageManager.class_name)
+
+    @staticmethod
+    def apply_select_project_dialog_text(dialog: "SelectProjectDialog", json_text: dict[str, str]) -> None:
+        try:
+            if not json_text:
+                raise ValueError("Load json text error")
+            dialog.set_ui_text(
+                json_text.get(f"{dialog.objectName()}Title", "Select project"),
+                json_text.get(dialog.select_project_label_text.objectName(), "Select project which you want to use."),
+                json_text.get(dialog.load_button.objectName(), "Load"),
                 json_text.get(dialog.close_button.objectName(), "Close")
             )
         except Exception as e:

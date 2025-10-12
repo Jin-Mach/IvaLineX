@@ -3,5 +3,6 @@
   "FileNotFoundError": "Error opening file",
   "RuntimeError": "Application runtime error",
   "NameError": "Input error",
-  "FileExistsError": "File already exists or could not be created"
+  "FileExistsError": "File already exists or could not be created",
+  "LookupError": "No saved projects found"
 }
