@@ -1,3 +1,4 @@
+import pathlib
 from typing import TYPE_CHECKING
 
 from PyQt6.QtCore import Qt
@@ -65,5 +66,18 @@ class ProjectsManager:
             path_settings = SettingsProvider.get_toml_data().get("path_settings", {})
             user_path = path_settings.get("folderEditUser", "")
             ProjectsProvider.project_path = user_path
+        except Exception as e:
+            ErrorHandler.exception_handler(e, ProjectsManager.class_name)
+
+    @staticmethod
+    def delete_selected_project(main_window: "MainWindow") -> None:
+        try:
+            project_dir = ProjectsProvider.project_path
+            if project_dir is None:
+                return
+            project_path = pathlib.Path(project_dir)
+            if project_path.is_file() and project_path.suffix == ".json":
+                project_path.unlink()
+            ProjectsManager.close_selected_project(main_window)
         except Exception as e:
             ErrorHandler.exception_handler(e, ProjectsManager.class_name)

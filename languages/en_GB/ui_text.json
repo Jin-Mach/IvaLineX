@@ -5,6 +5,7 @@
     "newProjectAction": "New Project",
     "openProjectAction": "Open Project",
     "closeProjectAction": "Close Project",
+    "deleteProjectAction": "Delete project",
     "settingsAction": "Settings",
     "closeAppAction": "Close Application",
     "infoMenu": "Info",

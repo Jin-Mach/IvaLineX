@@ -1,6 +1,6 @@
 from typing import TYPE_CHECKING
 
-from PyQt6.QtWidgets import QMainWindow, QWidget, QApplication, QMenu
+from PyQt6.QtWidgets import QMainWindow, QWidget, QApplication, QMenu, QLineEdit
 
 from src.utilities.error_handler import ErrorHandler
 from src.core.providers.language_provider import LanguageProvider
@@ -42,7 +42,7 @@ class LanguageManager:
                 child_widgets = main_widget.findChildren(QWidget)
                 for widget in child_widgets:
                     if widget.objectName() in widget_text:
-                        if hasattr(widget, "setText"):
+                        if hasattr(widget, "setText") and not isinstance(widget, QLineEdit):
                             widget.setText(widget_text.get(widget.objectName(), "Text"))
                         if hasattr(widget, "setPlaceholderText"):
                             widget.setPlaceholderText(widget_text.get(widget.objectName(), "PlaceholderText"))

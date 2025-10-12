@@ -2,6 +2,7 @@
   "questionDialog": {
     "startProject": "Zavřít otevřený projekt?",
     "closeProject": "Zavřít projekt?",
+    "deleteProject": "Smazat projekt",
     "closeAppQuestion": "Zavřít aplikaci?",
     "questionAcceptButton": "Ano",
     "questionCancelButton": "Ne"

@@ -2,6 +2,7 @@
   "questionDialog": {
     "startProject": "Close the open project?",
     "closeProject": "Close project?",
+    "deleteProject": "Delete project",
     "closeAppQuestion": "Close the application?",
     "questionAcceptButton": "Yes",
     "questionCancelButton": "No"

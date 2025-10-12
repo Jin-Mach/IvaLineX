@@ -34,6 +34,7 @@ class DialogsController:
         self.menu_bar.new_project_action.triggered.connect(self.show_new_project_dialog)
         self.menu_bar.open_project_action.triggered.connect(self.show_select_project_dialog)
         self.menu_bar.close_project_action.triggered.connect(self.show_close_project_dialog)
+        self.menu_bar.delete_project_action.triggered.connect(self.show_delete_project_dialog)
         self.menu_bar.settings_action.triggered.connect(self.show_settings_dialog)
         self.menu_bar.close_app_action.triggered.connect(self.show_close_app_dialog)
         self.menu_bar.manual_action.triggered.connect(self.show_manual_dialog)
@@ -78,6 +79,22 @@ class DialogsController:
             )
             if dialog.exec() == dialog.DialogCode.Accepted:
                 ProjectsManager.close_selected_project(self.main_window)
+        except Exception as e:
+            ErrorHandler.exception_handler(e, self.class_name)
+
+    def show_delete_project_dialog(self) -> None:
+        try:
+            dialog = QuestionDialog(self.main_window)
+            question_text = LanguageProvider.get_dialog_text(LanguageProvider.usage_language, dialog.objectName())
+            if not question_text:
+                raise ValueError("Load json text error.")
+            dialog.set_ui_text(
+                question_text.get("deleteProject", "Delete project?"),
+                question_text.get("questionAcceptButton", "Yes"),
+                question_text.get("questionCancelButton", "No")
+            )
+            if dialog.exec() == dialog.DialogCode.Accepted:
+                ProjectsManager.delete_selected_project(self.main_window)
         except Exception as e:
             ErrorHandler.exception_handler(e, self.class_name)
 

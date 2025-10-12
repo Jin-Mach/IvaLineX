@@ -5,6 +5,7 @@
     "newProjectAction": "Nový projekt",
     "openProjectAction": "Otevřít projekt",
     "closeProjectAction": "Zavřít projekt",
+    "deleteProjectAction": "Smazat projekt",
     "settingsAction": "Nastavení",
     "closeAppAction": "Zavřít aplikaci",
     "infoMenu": "Info",
