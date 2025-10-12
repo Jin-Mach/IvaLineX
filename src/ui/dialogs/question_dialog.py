@@ -1,4 +1,4 @@
-from PyQt6.QtCore import QEvent
+from PyQt6.QtCore import QEvent, Qt
 from PyQt6.QtWidgets import QDialog, QLayout, QVBoxLayout, QLabel, QDialogButtonBox
 
 
@@ -13,6 +13,7 @@ class QuestionDialog(QDialog):
         main_layout = QVBoxLayout()
         self.question_text_label = QLabel()
         self.question_text_label.setObjectName("questionTextLabel")
+        self.question_text_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         button_box = QDialogButtonBox(QDialogButtonBox.StandardButton.Ok | QDialogButtonBox.StandardButton.Cancel)
         self.question_accept_button = button_box.button(QDialogButtonBox.StandardButton.Ok)
         self.question_accept_button.setObjectName("questionAcceptButton")

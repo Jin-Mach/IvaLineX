@@ -5,6 +5,7 @@ from PyQt6.QtGui import QFontMetrics
 from PyQt6.QtWidgets import QComboBox
 
 from src.core.providers.projects_provider import ProjectsProvider, BASE_DIR
+from src.core.providers.settings_provider import SettingsProvider
 from src.utilities.error_handler import ErrorHandler
 from src.utilities.helpers import Helpers
 
@@ -52,5 +53,17 @@ class ProjectsManager:
             short_path = metrics.elidedText(str(project_path), Qt.TextElideMode.ElideLeft, main_window.folder_line_input.width())
             main_window.folder_line_input.setText(short_path)
             main_window.folder_line_input.setToolTip(str(project_path))
+        except Exception as e:
+            ErrorHandler.exception_handler(e, ProjectsManager.class_name)
+
+    @staticmethod
+    def close_selected_project(main_window: "MainWindow") -> None:
+        try:
+            main_window.project_name_label.setText("")
+            main_window.folder_line_input.setText("")
+            main_window.folder_line_input.setToolTip("")
+            path_settings = SettingsProvider.get_toml_data().get("path_settings", {})
+            user_path = path_settings.get("folderEditUser", "")
+            ProjectsProvider.project_path = user_path
         except Exception as e:
             ErrorHandler.exception_handler(e, ProjectsManager.class_name)

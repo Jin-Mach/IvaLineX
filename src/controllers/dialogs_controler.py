@@ -33,6 +33,7 @@ class DialogsController:
     def create_connection(self) -> None:
         self.menu_bar.new_project_action.triggered.connect(self.show_new_project_dialog)
         self.menu_bar.open_project_action.triggered.connect(self.show_select_project_dialog)
+        self.menu_bar.close_project_action.triggered.connect(self.show_close_project_dialog)
         self.menu_bar.settings_action.triggered.connect(self.show_settings_dialog)
         self.menu_bar.close_app_action.triggered.connect(self.show_close_app_dialog)
         self.menu_bar.manual_action.triggered.connect(self.show_manual_dialog)
@@ -61,6 +62,22 @@ class DialogsController:
             if ProjectsManager.set_selected_project(dialog.projects_combobox):
                 if dialog.exec() == dialog.DialogCode.Accepted:
                     ProjectsManager.set_application_to_project(self.main_window, dialog.projects_combobox.currentText())
+        except Exception as e:
+            ErrorHandler.exception_handler(e, self.class_name)
+
+    def show_close_project_dialog(self) -> None:
+        try:
+            dialog = QuestionDialog(self.main_window)
+            question_text = LanguageProvider.get_dialog_text(LanguageProvider.usage_language, dialog.objectName())
+            if not question_text:
+                raise ValueError("Load json text error.")
+            dialog.set_ui_text(
+                question_text.get("closeProject", "Close project?"),
+                question_text.get("questionAcceptButton", "Yes"),
+                question_text.get("questionCancelButton", "No")
+            )
+            if dialog.exec() == dialog.DialogCode.Accepted:
+                ProjectsManager.close_selected_project(self.main_window)
         except Exception as e:
             ErrorHandler.exception_handler(e, self.class_name)
 
