@@ -5,12 +5,15 @@ from PyQt6.QtGui import QFontMetrics
 
 from PyQt6.QtWidgets import QFileDialog, QLineEdit, QWidget
 
+from src.core.managers.language_manager import LanguageManager
+from src.core.providers.language_provider import LanguageProvider
 from src.utilities.error_handler import ErrorHandler
 from src.core.providers.settings_provider import SettingsProvider
 
 if TYPE_CHECKING:
     from src.ui.main_window import MainWindow
     from src.ui.dialogs.settings_dialog import SettingsDialog
+    from src.utilities.helpers import Helpers
 
 
 # noinspection PyUnresolvedReferences
@@ -23,7 +26,7 @@ class SettingsManager:
             toml_data = SettingsProvider.get_toml_data()
             if not toml_data:
                 raise ValueError(f"Load toml data error.")
-            history_value = toml_data.get("history_section", {}).get("historyCheckboxUser", True)
+            history_value = toml_data.get("history_settings", {}).get("historyCheckboxUser", True)
             if history_value:
                 save_history_checkbox.setChecked(history_value)
             return True
@@ -59,6 +62,23 @@ class SettingsManager:
                                 widget.setText(str(value))
                         if hasattr(widget, "setChecked"):
                             widget.setChecked(bool(value))
+        except Exception as e:
+            ErrorHandler.exception_handler(e, SettingsManager.class_name)
+
+    @staticmethod
+    def reset_application_settings(main_window: "MainWindow", dialog: "SettingsDialog", helpers: "Helpers") -> None:
+        try:
+            toml_data = SettingsProvider.get_toml_data()
+            if not toml_data:
+                raise ValueError("Load toml data error.")
+            SettingsProvider.reset_settings(toml_data)
+            SettingsProvider.set_toml_data(helpers, toml_data, from_reset=True)
+            reset_data = SettingsProvider.get_toml_data()
+            new_language = reset_data.get("language_settings", {}).get("languageUser", "en_GB")
+            LanguageProvider.usage_language = new_language
+            LanguageManager.apply_ui_text(main_window, new_language)
+            SettingsManager.apply_main_window_config(main_window.save_history_checkbox)
+            dialog.close()
         except Exception as e:
             ErrorHandler.exception_handler(e, SettingsManager.class_name)
 

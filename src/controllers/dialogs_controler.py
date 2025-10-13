@@ -119,11 +119,16 @@ class DialogsController:
             dialog.folder_button_clicked.connect(lambda: self.settings_manager.set_folder_path(dialog,
                                                                          settings_text.get("folderDialogTitle", "Select default folder"),
                                                                          dialog.folder_edit))
+            dialog.reset_button.clicked.connect(lambda: self.check_reset_settings(dialog))
             if dialog.exec() == dialog.DialogCode.Accepted:
                 settings_data = dialog.get_settings_data()
                 if settings_data:
                     helper = Helpers()
                     SettingsProvider.set_toml_data(helper, settings_data)
+                    reset_data = SettingsProvider.get_toml_data()
+                    new_language = reset_data.get("language_settings", {}).get("languageUser", "en_GB")
+                    LanguageProvider.usage_language = new_language
+                    LanguageManager.apply_ui_text(self.main_window, LanguageProvider.usage_language)
         except Exception as e:
             ErrorHandler.exception_handler(e, self.class_name)
 
@@ -162,5 +167,22 @@ class DialogsController:
                                 about_text.get(dialog.about_label_text.objectName(), "<b>IvalineX</b><br>autor: Jin-Mach<br>verze: 1.0."),
                                 about_text.get(dialog.close_button.objectName(), "Close"))
             dialog.exec()
+        except Exception as e:
+            ErrorHandler.exception_handler(e, self.class_name)
+
+    def check_reset_settings(self, dialog: SettingsDialog) -> None:
+        try:
+            question_dialog = QuestionDialog(dialog)
+            question_text = LanguageProvider.get_dialog_text(LanguageProvider.usage_language, question_dialog.objectName())
+            if not question_text:
+                raise ValueError("Load json text error.")
+            question_dialog.set_ui_text(
+                question_text.get("resetSettings", "Reset application settings?"),
+                question_text.get("questionAcceptButton", "Yes"),
+                question_text.get("questionCancelButton", "No")
+            )
+            if question_dialog.exec() == dialog.DialogCode.Accepted:
+                helpers = Helpers()
+                SettingsManager.reset_application_settings(self.main_window, dialog, helpers)
         except Exception as e:
             ErrorHandler.exception_handler(e, self.class_name)

@@ -51,14 +51,14 @@ class SettingsProvider:
             ErrorHandler.exception_handler(e, SettingsProvider.class_name)
 
     @staticmethod
-    def set_toml_data(helpers: "Helpers", settings_data: dict[str, dict[str, Any]]) -> None:
+    def set_toml_data(helpers: "Helpers", settings_data: dict[str, dict[str, Any]], from_reset: bool = False) -> None:
         try:
             toml_data = SettingsProvider.get_toml_data()
             if not toml_data:
                 raise ValueError("Load toml data error.")
             for section, section_dict in settings_data.items():
                 for key, value in section_dict.items():
-                    if key == "languageUser":
+                    if key == "languageUser" and not from_reset:
                         language_code = helpers.get_language_code(value)
                         toml_data[section][key] = language_code
                         if "languageComboboxUser" in toml_data.get(section, {}):
@@ -67,5 +67,23 @@ class SettingsProvider:
                         toml_data[section][key] = value
             with open(BASE_DIR, "wb") as new_toml:
                 tomli_w.dump(toml_data, new_toml)
+        except Exception as e:
+            ErrorHandler.exception_handler(e, SettingsProvider.class_name)
+
+    @staticmethod
+    def reset_settings(toml_data: dict[str, dict[str, Any]]) -> None:
+        try:
+            if not toml_data:
+                raise ValueError("Load toml data error.")
+            for section, values in toml_data.items():
+                for key, value in values.items():
+                    if key != "languageComboboxUser":
+                        if key.endswith("User"):
+                            default_key = key.replace("User", "Default")
+                            values[key] = values.get(default_key, value)
+                            if section == "language_settings" and key == "languageUser":
+                                LanguageProvider.usage_language = values.get(key, "en_GB")
+            language_combobox = toml_data.get("language_settings", {}).get("languageComboboxUser", {})
+            language_combobox["selected"] = ""
         except Exception as e:
             ErrorHandler.exception_handler(e, SettingsProvider.class_name)
