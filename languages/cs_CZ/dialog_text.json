@@ -37,7 +37,7 @@
     "emptyRowsCheckbox": "Počítat prázdné řádky",
     "commentsCheckbox": "Počítat komentáře",
     "ignoreVenvCheckbox": "Ignorovat adresáře venv/, .venv/",
-    "ignoreTestsCheckbox": "Ignorovat složku tests/",
+    "ignoreTestsCheckbox": "Ignorovat složky test/, tests/",
     "commonGroupboxTitle": "Společná nastavení",
     "jsonCheckbox": "Zahrnout JSON / YAML / TOML",
     "readmeCheckbox": "Počítat README.md a dokumentaci",

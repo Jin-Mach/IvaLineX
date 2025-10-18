@@ -3,6 +3,7 @@ from PyQt6.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QLab
     QApplication, QCheckBox
 
 from src.controllers.dialogs_controler import DialogsController
+from src.controllers.main_controler import MainController
 from src.ui.widgets.menu_bar import MenuBar
 
 
@@ -46,8 +47,8 @@ class MainWindow(QMainWindow):
         self.files_count_label = QLabel("20")
         self.files_count_label.setObjectName("filesCountLabel")
         buttons_layout = QHBoxLayout()
-        count_button = QPushButton()
-        count_button.setObjectName("countButton")
+        self.count_button = QPushButton()
+        self.count_button.setObjectName("countButton")
         project_layout.addWidget(project_name_text_label)
         project_layout.addWidget(self.project_name_label)
         project_layout.addStretch()
@@ -59,7 +60,7 @@ class MainWindow(QMainWindow):
         files_layout.addWidget(files_count_text_label)
         files_layout.addWidget(self.files_count_label)
         buttons_layout.addStretch()
-        buttons_layout.addWidget(count_button)
+        buttons_layout.addWidget(self.count_button)
         buttons_layout.addStretch()
         main_layout.addLayout(project_layout)
         main_layout.addLayout(folder_layout)
@@ -80,4 +81,5 @@ class MainWindow(QMainWindow):
 
     def create_connection(self) -> None:
         self.dialog_controller = DialogsController(self, self.menu_bar)
+        main_controller = MainController(self)
         self.folder_button.clicked.connect(self.dialog_controller.set_folder_path)

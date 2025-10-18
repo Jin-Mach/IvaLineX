@@ -37,7 +37,7 @@
     "emptyRowsCheckbox": "Count empty rows",
     "commentsCheckbox": "Count comments",
     "ignoreVenvCheckbox": "Ignore venv/, .venv/ directories",
-    "ignoreTestsCheckbox": "Ignore tests/ folder",
+    "ignoreTestsCheckbox": "Ignore test/, tests/ folders",
     "commonGroupboxTitle": "Common settings",
     "jsonCheckbox": "Include JSON / YAML / TOML",
     "readmeCheckbox": "Count README.md and documentation",
