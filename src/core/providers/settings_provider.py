@@ -84,6 +84,6 @@ class SettingsProvider:
                             if section == "language_settings" and key == "languageUser":
                                 LanguageProvider.usage_language = values.get(key, "en_GB")
             language_combobox = toml_data.get("language_settings", {}).get("languageComboboxUser", {})
-            language_combobox["selected"] = ""
+            language_combobox["selected"] = "English"
         except Exception as e:
             ErrorHandler.exception_handler(e, SettingsProvider.class_name)

@@ -1,9 +1,9 @@
 [language_settings]
-languageDefault = "cs_CZ"
-languageUser = "cs_CZ"
+languageDefault = "en_GB"
+languageUser = "en_GB"
 
 [language_settings.languageComboboxUser]
-selected = ""
+selected = "English"
 options = [
     "Čeština",
     "English",
