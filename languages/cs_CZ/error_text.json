@@ -4,5 +4,6 @@
   "RuntimeError": "Chyba při běhu aplikace",
   "NameError": "Chyba vstupu",
   "FileExistsError": "Soubor již existuje, nebo se ho nepodařilo vytvořit",
-  "LookupError": "Žádné uložené projekty nebyly nalezeny"
+  "LookupError": "Žádné uložené projekty nebyly nalezeny",
+  "ProcessLookupError": "Nebyl nalezen žádný vhodný soubor"
 }

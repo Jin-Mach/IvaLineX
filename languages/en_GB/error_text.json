@@ -4,5 +4,6 @@
   "RuntimeError": "Application runtime error",
   "NameError": "Input error",
   "FileExistsError": "File already exists or could not be created",
-  "LookupError": "No saved projects found"
+  "LookupError": "No saved projects found",
+  "ProcessLookupError": "No files found"
 }

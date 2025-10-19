@@ -9,6 +9,7 @@ The application is used for quickly counting lines of code in Python projects. I
 - Clear menu with options About and Manual<br><br>
 <b>Usage:</b><br>
 1. Select a project or folder with code.<br>
-2. Click the "Show Result" button.<br>
-3. If you want to save results to history, check "Save to History".<br>
-4. Use the menu to open the manual or get information about the application.
+2. If needed, you can remove the selected item with a double-click.<br>
+3. Click the "Show Result" button.<br>
+4. If you want to save results to history, check "Save to History".<br>
+5. Use the menu to open the manual or get information about the application.

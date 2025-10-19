@@ -1,9 +1,10 @@
 from PyQt6.QtGui import QFont
-from PyQt6.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QLabel, QLineEdit, QPushButton, QListView, \
-    QApplication, QCheckBox
+from PyQt6.QtWidgets import (QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QLabel, QLineEdit, QPushButton,
+                             QApplication, QCheckBox, QAbstractItemView)
 
 from src.controllers.dialogs_controler import DialogsController
 from src.controllers.main_controler import MainController
+from src.ui.widgets.folder_list_view import FolderListView
 from src.ui.widgets.menu_bar import MenuBar
 
 
@@ -37,8 +38,9 @@ class MainWindow(QMainWindow):
         self.folder_line_input.setReadOnly(True)
         self.folder_button = QPushButton()
         self.folder_button.setObjectName("folderButton")
-        self.folder_list_view = QListView()
+        self.folder_list_view = FolderListView(self)
         self.folder_list_view.setObjectName("foldersListView")
+        self.folder_list_view.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
         files_layout = QHBoxLayout()
         self.save_history_checkbox = QCheckBox()
         self.save_history_checkbox.setObjectName("saveHistoryCheckBox")

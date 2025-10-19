@@ -9,6 +9,7 @@ Aplikace slouží k rychlému počítání řádků kódu v Python projektech. P
 - Přehledné menu s možnostmi O aplikaci a Manuál<br><br>
 <b>Použití:</b><br>
 1. Vyberte projekt nebo složku s kódem.<br>
-2. Klikněte na tlačítko "Zobrazit výsledek".<br>
-3. Pokud chcete ukládat výsledky do historie, zaškrtněte "Uložit do historie".<br>
-4. V menu můžete otevřít manuál nebo získat informace o aplikaci.
+2. Dle potřeby lze dvojklikem odstranit označenou položku.<br>
+3. Klikněte na tlačítko "Zobrazit výsledek".<br>
+4. Pokud chcete ukládat výsledky do historie, zaškrtněte "Uložit do historie".<br>
+5. V menu můžete otevřít manuál nebo získat informace o aplikaci.

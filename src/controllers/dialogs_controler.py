@@ -2,6 +2,7 @@ from typing import TYPE_CHECKING
 
 from PyQt6.QtWidgets import QApplication
 
+from src.core.managers.count_manager import CountManager
 from src.core.managers.projects_manager import ProjectsManager
 from src.ui.dialogs.about_dialog import AboutDialog
 from src.ui.dialogs.manual_dialog import ManualDialog
@@ -28,6 +29,7 @@ class DialogsController:
         self.menu_bar = menu_bar
         self.settings_provider = SettingsProvider()
         self.settings_manager = SettingsManager()
+        self.count_manager = CountManager(self.main_window)
         self.create_connection()
 
     def create_connection(self) -> None:
@@ -105,6 +107,7 @@ class DialogsController:
                 raise ValueError("Load json text error.")
             self.settings_manager.set_folder_path(self.main_window, settings_text.get("folderDialogTitle", "Select default folder"),
                                                    self.main_window.folder_line_input)
+            self.count_manager.set_files_list(self.settings_manager, self.settings_provider)
         except Exception as e:
             ErrorHandler.exception_handler(e, self.class_name)
 

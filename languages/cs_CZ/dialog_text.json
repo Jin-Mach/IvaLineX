@@ -5,6 +5,7 @@
     "deleteProject": "Smazat projekt",
     "closeAppQuestion": "Zavřít aplikaci?",
     "resetSettings": "Resetovat nastavení aplikace?",
+    "deleteItem": "Odstranit položku?",
     "questionAcceptButton": "Ano",
     "questionCancelButton": "Ne"
   },

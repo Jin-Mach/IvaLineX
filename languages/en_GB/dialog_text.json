@@ -5,6 +5,7 @@
     "deleteProject": "Delete project",
     "closeAppQuestion": "Close the application?",
     "resetSettings": "Reset application settings?",
+    "deleteItem": "Delete item?",
     "questionAcceptButton": "Yes",
     "questionCancelButton": "No"
   },

@@ -19,6 +19,7 @@ if TYPE_CHECKING:
 # noinspection PyUnresolvedReferences
 class SettingsManager:
     class_name = "settingsManager"
+    full_folder_path = None
 
     @staticmethod
     def apply_main_window_config(save_history_checkbox) -> bool:
@@ -93,6 +94,10 @@ class SettingsManager:
             folder_path = QFileDialog.getExistingDirectory(parent, dialog_title, user_path,
                                                            options=QFileDialog.Option.ShowDirsOnly)
             if folder_path:
-                folder_line_edit.setText(folder_path)
+                SettingsManager.full_folder_path = folder_path
+                metrics = QFontMetrics(folder_line_edit.font())
+                short_path = metrics.elidedText(folder_path, Qt.TextElideMode.ElideLeft, folder_line_edit.width())
+                folder_line_edit.setText(short_path)
+                folder_line_edit.setToolTip(folder_path)
         except Exception as e:
             ErrorHandler.exception_handler(e, SettingsManager.class_name)

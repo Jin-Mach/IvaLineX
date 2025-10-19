@@ -7,9 +7,9 @@ class CountProvider:
     class_name = "countProvider"
 
     @staticmethod
-    def get_items_types(folder_path: str) -> dict[str, list[str]]:
+    def get_items_types(folder_path: str) -> dict[str, list[pathlib.Path]]:
         try:
-            folders = ["venv", ".venv", "tests"]
+            folders = ["venv", ".venv", "test", "tests"]
             checked_files = set()
             types_dict = {"code": [],
                           "init": [],
@@ -24,15 +24,15 @@ class CountProvider:
                           }
             for item in pathlib.Path(folder_path).rglob("*"):
                 if item not in checked_files:
-                    if ".venv" in item.parts or "venv" in item.parts:
-                        continue
-                        if item.is_dir() and item.name in folders:
-                            for file in item.rglob("*"):
-                                if file.is_file():
-                                    if item.name in ["test", "tests"]:
-                                        types_dict["tests"].append(file)
-                                    else:
-                                        types_dict["venv"].append(file)
+                    if item.is_dir() and item.name in folders:
+                        for file in item.rglob("*"):
+                            if file.is_file():
+                                if item.name in ["test", "tests"]:
+                                    types_dict["tests"].append(file)
+                                else:
+                                    types_dict["venv"].append(file)
+                                checked_files.add(file)
+                    checked_files.add(item)
                     if item.is_file():
                         if item.suffix == ".py":
                             if item.name == "__init__.py":
@@ -43,9 +43,9 @@ class CountProvider:
                                 types_dict["main"].append(item)
                             else:
                                 types_dict["code"].append(item)
-                        elif item.suffix in [".json", ".yaml", ".yml", ".toml", ".txt"] and item.name != "requirements.txt":
+                        elif item.suffix.lower() in [".json", ".yaml", ".yml", ".toml", ".txt"] and item.name.lower() != "requirements.txt":
                             types_dict["config"].append(item)
-                        elif item.suffix == ".md" or item.name == "LICENSE" or item.name == "requirements.txt":
+                        elif item.suffix.lower() == ".md" or item.name.lower() in ["licenses", "requirements.txt"]:
                             types_dict["documentation"].append(item)
                         elif item.suffix.lower() in [".bin", ".class", ".dll", ".dmg", ".exe", ".o", ".so"]:
                             types_dict["binary"].append(item)
