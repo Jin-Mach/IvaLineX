@@ -2,13 +2,12 @@ from PyQt6.QtGui import QFont
 from PyQt6.QtWidgets import (QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QLabel, QLineEdit, QPushButton,
                              QApplication, QCheckBox, QAbstractItemView)
 
-from src.controllers.dialogs_controler import DialogsController
-from src.controllers.main_controler import MainController
+from src.controllers.controlers_service import ControllersService
 from src.ui.widgets.folder_list_view import FolderListView
 from src.ui.widgets.menu_bar import MenuBar
 
 
-# noinspection PyUnresolvedReferences
+# noinspection PyUnresolvedReferences,PyAttributeOutsideInit
 class MainWindow(QMainWindow):
     def __init__(self, parent=None) -> None:
         super().__init__(parent)
@@ -17,6 +16,7 @@ class MainWindow(QMainWindow):
         self.setMenuBar(self.menu_bar)
         self.setCentralWidget(self.create_gui())
         self.init_window_geometry()
+        self.controller_service = ControllersService(self, self.menu_bar)
         self.create_connection()
 
     def create_gui(self) -> QWidget:
@@ -82,6 +82,4 @@ class MainWindow(QMainWindow):
             self.move(x_pos, y_pos)
 
     def create_connection(self) -> None:
-        self.dialog_controller = DialogsController(self, self.menu_bar)
-        main_controller = MainController(self)
-        self.folder_button.clicked.connect(self.dialog_controller.set_folder_path)
+        self.folder_button.clicked.connect(self.controller_service.dialog_controller.set_folder_path)

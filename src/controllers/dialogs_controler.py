@@ -2,7 +2,6 @@ from typing import TYPE_CHECKING
 
 from PyQt6.QtWidgets import QApplication
 
-from src.core.managers.count_manager import CountManager
 from src.core.managers.projects_manager import ProjectsManager
 from src.ui.dialogs.about_dialog import AboutDialog
 from src.ui.dialogs.manual_dialog import ManualDialog
@@ -20,16 +19,15 @@ from src.utilities.helpers import Helpers
 if TYPE_CHECKING:
     from src.ui.main_window import MainWindow
     from src.ui.widgets.menu_bar import MenuBar
+    from src.core.managers.count_manager import CountManager
 
 
 class DialogsController:
-    def __init__(self, main_window: "MainWindow", menu_bar: "MenuBar") -> None:
+    def __init__(self, main_window: "MainWindow", menu_bar: "MenuBar", count_manager: "CountManager") -> None:
         self.class_name = "dialogsController"
         self.main_window = main_window
         self.menu_bar = menu_bar
-        self.settings_provider = SettingsProvider()
-        self.settings_manager = SettingsManager()
-        self.count_manager = CountManager(self.main_window)
+        self.count_manager = count_manager
         self.create_connection()
 
     def create_connection(self) -> None:
@@ -105,21 +103,21 @@ class DialogsController:
             settings_text = LanguageProvider.get_dialog_text(LanguageProvider.usage_language, "getDirDialog")
             if not settings_text:
                 raise ValueError("Load json text error.")
-            self.settings_manager.set_folder_path(self.main_window, settings_text.get("folderDialogTitle", "Select default folder"),
+            SettingsManager.set_folder_path(self.main_window, settings_text.get("folderDialogTitle", "Select default folder"),
                                                    self.main_window.folder_line_input)
-            self.count_manager.set_files_list(self.settings_manager, self.settings_provider)
+            self.count_manager.set_files_list(SettingsManager, SettingsProvider)
         except Exception as e:
             ErrorHandler.exception_handler(e, self.class_name)
 
     def show_settings_dialog(self) -> None:
         try:
             dialog = SettingsDialog(self.main_window)
-            self.settings_manager.apply_settings_dialog_config(dialog)
+            SettingsManager.apply_settings_dialog_config(dialog)
             settings_text = LanguageProvider.get_dialog_text(LanguageProvider.usage_language, dialog.objectName())
             if not settings_text:
                 raise ValueError("Load json text error.")
             LanguageManager.apply_settings_dialog_text(dialog, settings_text)
-            dialog.folder_button_clicked.connect(lambda: self.settings_manager.set_folder_path(dialog,
+            dialog.folder_button_clicked.connect(lambda: SettingsManager.set_folder_path(dialog,
                                                                          settings_text.get("folderDialogTitle", "Select default folder"),
                                                                          dialog.folder_edit))
             dialog.reset_button.clicked.connect(lambda: self.check_reset_settings(dialog))

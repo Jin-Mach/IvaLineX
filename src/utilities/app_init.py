@@ -23,7 +23,7 @@ def application_init(main_window: "MainWindow") -> bool:
                                  "Please check your internet connection and try again.",
                                  traceback.format_exc(), show_details_button=False)
             if dialog.exec() == dialog.DialogCode.Rejected:
-                logger.error("app_init error: Download files failed.")
+                logger.error("app_init error: Download files failed.", exc_info=True)
                 sys.exit(1)
         SettingsProvider.set_toml_basic(LanguageProvider.get_language_code)
         toml_data = SettingsProvider.get_toml_data()

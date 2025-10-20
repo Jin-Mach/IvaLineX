@@ -20,7 +20,7 @@ def create_app() -> None:
         main_window.show()
         sys.exit(application.exec())
     except Exception as e:
-        logger.error(f"create_app method error: {e}")
+        logger.error(f"create_app method error: {e}", exc_info=True)
         dialog = ErrorDialog("An unexpected error occurred during application startup.",
                              traceback.format_exc(), show_details_button=False)
         if dialog.exec() == dialog.DialogCode.Rejected:

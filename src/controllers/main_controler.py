@@ -8,12 +8,14 @@ from src.utilities.error_handler import ErrorHandler
 
 if TYPE_CHECKING:
     from src.ui.main_window import MainWindow
+    from src.core.managers.count_manager import CountManager
 
 
 class MainController:
-    def __init__(self, main_window: "MainWindow") -> None:
+    def __init__(self, main_window: "MainWindow", count_manager: "CountManager") -> None:
         self.class_name = "mainController"
         self.main_window = main_window
+        self.count_manager = count_manager
         self.create_connection()
 
     def create_connection(self) -> None:

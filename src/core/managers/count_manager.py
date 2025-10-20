@@ -1,6 +1,6 @@
 import pathlib
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Type
 
 from PyQt6.QtCore import QThread
 
@@ -14,6 +14,7 @@ if TYPE_CHECKING:
     from src.core.providers.settings_provider import SettingsProvider
 
 
+# noinspection PyAttributeOutsideInit
 class CountManager:
     def __init__(self, main_window: "MainWindow") -> None:
         self.class_name = "countManager"
@@ -26,7 +27,7 @@ class CountManager:
         except Exception as e:
             ErrorHandler.exception_handler(e, self.class_name)
 
-    def set_files_list(self, settings_manager: "SettingsManager", settings_provider: "SettingsProvider") ->  None:
+    def set_files_list(self, settings_manager: "Type[SettingsManager]", settings_provider: "Type[SettingsProvider]") ->  None:
         try:
             folder_path = settings_manager.full_folder_path
             count_provider = CountProvider()
