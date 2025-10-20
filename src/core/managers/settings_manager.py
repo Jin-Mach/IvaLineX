@@ -1,3 +1,4 @@
+import pathlib
 from typing import TYPE_CHECKING
 
 from PyQt6.QtCore import Qt
@@ -84,7 +85,7 @@ class SettingsManager:
             ErrorHandler.exception_handler(e, SettingsManager.class_name)
 
     @staticmethod
-    def set_folder_path(parent: "MainWindow | SettingsDialog", dialog_title: str, folder_line_edit: QLineEdit) -> None:
+    def set_folder_path(parent: "MainWindow | SettingsDialog", dialog_title: str, folder_line_edit: QLineEdit) -> pathlib.Path | None:
         try:
             user_path = ""
             toml_data = SettingsProvider.get_toml_data()
@@ -99,5 +100,8 @@ class SettingsManager:
                 short_path = metrics.elidedText(folder_path, Qt.TextElideMode.ElideLeft, folder_line_edit.width())
                 folder_line_edit.setText(short_path)
                 folder_line_edit.setToolTip(folder_path)
+                return folder_path
+            return None
         except Exception as e:
             ErrorHandler.exception_handler(e, SettingsManager.class_name)
+            return None

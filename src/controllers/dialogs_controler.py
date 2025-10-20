@@ -103,9 +103,10 @@ class DialogsController:
             settings_text = LanguageProvider.get_dialog_text(LanguageProvider.usage_language, "getDirDialog")
             if not settings_text:
                 raise ValueError("Load json text error.")
-            SettingsManager.set_folder_path(self.main_window, settings_text.get("folderDialogTitle", "Select default folder"),
+            folder_path = SettingsManager.set_folder_path(self.main_window, settings_text.get("folderDialogTitle", "Select default folder"),
                                                    self.main_window.folder_line_input)
-            self.count_manager.set_files_list(SettingsManager, SettingsProvider)
+            if folder_path:
+                self.count_manager.set_files_list(SettingsManager, SettingsProvider)
         except Exception as e:
             ErrorHandler.exception_handler(e, self.class_name)
 
