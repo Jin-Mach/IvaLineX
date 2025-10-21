@@ -1,4 +1,5 @@
 import pathlib
+import time
 
 from typing import TYPE_CHECKING
 
@@ -18,48 +19,43 @@ class CountFilesObject(QObject):
         self.count_provider = count_provider
         self.folder_path = folder_path
         self.toml_data = toml_data
+        self.default_list = []
+        self.string_list = []
+        self.large_list = []
 
     def count_files(self) -> None:
         try:
-            result = {
-                "defaultList": [],
-                "stringList": [],
-                "largeList": []
-            }
-            self.default_list = []
-            self.string_list = []
-            self.large_list = []
-            files_dict = self.count_provider.get_items_types(self.folder_path)
             if not self.toml_data:
                 self.error.emit(ValueError("Toml data error"))
                 return
-            self.update_lists(files_dict.get("code", []))
-            if self.toml_data.get("initCheckboxUser", False):
-                self.update_lists(files_dict.get("init", []))
-            if self.toml_data.get("setupCheckboxUser", False):
-                self.update_lists(files_dict.get("setup", []))
-            if self.toml_data.get("mainCheckboxUser", False):
-                self.update_lists(files_dict.get("main", []))
-            if not self.toml_data.get("ignoreVenvCheckboxUser", True):
-                self.update_lists(files_dict.get("venv", []))
-            if not self.toml_data.get("ignoreTestsCheckboxUser", True):
-                self.update_lists(files_dict.get("tests", []))
-            if self.toml_data.get("jsonCheckboxUser", False):
-                self.update_lists(files_dict.get("config", []))
-            if self.toml_data.get("readmeCheckboxUser", False):
-                self.update_lists(files_dict.get("documentation", []))
+            files_dict = self.count_provider.get_items_types(self.folder_path)
+            rules = [
+                ("code", True),
+                ("init", self.toml_data.get("initCheckboxUser", False)),
+                ("setup", self.toml_data.get("setupCheckboxUser", False)),
+                ("main", self.toml_data.get("mainCheckboxUser", False)),
+                ("venv", not self.toml_data.get("ignoreVenvCheckboxUser", True)),
+                ("tests", not self.toml_data.get("ignoreTestsCheckboxUser", True)),
+                ("config", self.toml_data.get("jsonCheckboxUser", False)),
+                ("documentation", self.toml_data.get("readmeCheckboxUser", False)),
+                ("binary", not self.toml_data.get("ignoreBinaryCheckboxUser", True)),
+            ]
+            for key, condition in rules:
+                if condition:
+                    self.update_lists(files_dict.get(key, []))
             if not self.toml_data.get("ignoreFilesCheckboxUser", True):
                 self.large_list.extend(files_dict.get("large", []))
-            if not self.toml_data.get("ignoreBinaryCheckboxUser", True):
-                self.update_lists(files_dict.get("binary", []))
-            result["defaultList"] = self.default_list
-            result["stringList"] = self.string_list
-            result["largeList"] = self.large_list
+            result = {
+                "defaultList": self.default_list,
+                "stringList": self.string_list,
+                "largeList": self.large_list,
+            }
+            time.sleep(2)
             self.finished.emit(result)
         except Exception as e:
             self.error.emit(e)
 
-    def update_lists(self, files_list: list[pathlib.Path]) -> None:
+    def update_lists(self, files_list: list[pathlib.Path | str]) -> None:
         if files_list:
             string_list = []
             self.default_list.extend(files_list)

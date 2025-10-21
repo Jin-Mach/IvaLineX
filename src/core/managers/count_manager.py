@@ -20,7 +20,6 @@ class CountManager:
         self.class_name = "countManager"
         self.main_window = main_window
 
-    @staticmethod
     def get_total_count(self, folder_path: str, counted_files: dict[str, list[pathlib.Path]]):
         try:
             counted_files = counted_files
@@ -45,7 +44,6 @@ class CountManager:
         except Exception as e:
             ErrorHandler.exception_handler(e, self.class_name)
 
-
     def files_finished(self, files_dict: dict[str, list[pathlib.Path | str]]) -> None:
         try:
             self.default_list = files_dict.get("defaultList", [])
@@ -60,3 +58,14 @@ class CountManager:
 
     def on_error(self, exception: Exception) -> None:
         ErrorHandler.exception_handler(exception, self.class_name)
+
+    def remove_default_item(self, item_text: str) -> None:
+        try:
+            if not self.default_list:
+                raise ValueError("Default list error")
+            for path in self.default_list:
+                if path.as_posix().endswith(item_text):
+                    self.default_list.remove(path)
+                    break
+        except Exception as e:
+            ErrorHandler.exception_handler(e, self.class_name)

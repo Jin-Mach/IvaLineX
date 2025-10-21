@@ -2,12 +2,21 @@ import json
 import pathlib
 import requests
 
+from PyQt6.QtWidgets import QApplication, QStyleFactory
+
 from src.core.providers.settings_provider import SettingsProvider
 from src.utilities.error_handler import ErrorHandler
 
 
 class Helpers:
     class_name = "helpers"
+
+    @staticmethod
+    def set_application_style(application: QApplication) -> None:
+        primary_style = "Fusion"
+        platform = application.platformName()
+        if platform == "cocoa" and primary_style in QStyleFactory.keys():
+            application.setStyle(primary_style)
 
     @staticmethod
     def get_exception_text(exception: Exception) -> str:

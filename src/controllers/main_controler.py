@@ -46,5 +46,6 @@ class MainController:
                 if index.isValid():
                     self.main_window.folder_list_view.remove_item(index)
                     self.main_window.files_count_label.setText(str(self.main_window.folder_list_view.model.rowCount()))
+                    self.count_manager.remove_default_item(item_text)
         except Exception as e:
             ErrorHandler.exception_handler(e, self.class_name)

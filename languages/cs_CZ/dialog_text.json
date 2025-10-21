@@ -62,5 +62,8 @@
     "detailsButtonShow": "Zobrazit detail",
     "detailsButtonHide": "Skrýt detail",
     "closeButton": "Zavřít"
+  },
+  "progressDialog": {
+    "labelText": "Načítám soubory..."
   }
 }

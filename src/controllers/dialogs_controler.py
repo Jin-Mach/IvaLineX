@@ -6,6 +6,7 @@ from src.core.managers.projects_manager import ProjectsManager
 from src.ui.dialogs.about_dialog import AboutDialog
 from src.ui.dialogs.manual_dialog import ManualDialog
 from src.ui.dialogs.new_project_dialog import NewProjectDialog
+from src.ui.dialogs.progress_dialog import ProgressDialog
 from src.ui.dialogs.question_dialog import QuestionDialog
 from src.ui.dialogs.select_project_dialog import SelectProjectDialog
 from src.ui.dialogs.settings_dialog import SettingsDialog
@@ -106,7 +107,13 @@ class DialogsController:
             folder_path = SettingsManager.set_folder_path(self.main_window, settings_text.get("folderDialogTitle", "Select default folder"),
                                                    self.main_window.folder_line_input)
             if folder_path:
+                progress_dialog = ProgressDialog(self.main_window)
+                dialog_text = LanguageProvider.get_dialog_text(LanguageProvider.usage_language,
+                                                               progress_dialog.objectName())
+                progress_dialog.setup_dialog(dialog_text.get("labelText", "Loading..."), 0)
+                progress_dialog.show()
                 self.count_manager.set_files_list(SettingsManager, SettingsProvider)
+                self.count_manager.count_thread.finished.connect(progress_dialog.close)
         except Exception as e:
             ErrorHandler.exception_handler(e, self.class_name)
 

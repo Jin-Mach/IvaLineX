@@ -46,7 +46,7 @@ class MainWindow(QMainWindow):
         self.save_history_checkbox.setObjectName("saveHistoryCheckBox")
         files_count_text_label = QLabel()
         files_count_text_label.setObjectName("filesCountTextLabel")
-        self.files_count_label = QLabel("20")
+        self.files_count_label = QLabel("?")
         self.files_count_label.setObjectName("filesCountLabel")
         buttons_layout = QHBoxLayout()
         self.count_button = QPushButton()

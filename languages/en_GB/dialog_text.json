@@ -62,5 +62,8 @@
     "detailsButtonShow": "Show details",
     "detailsButtonHide": "Hide details",
     "closeButton": "Close"
+  },
+  "progressDialog": {
+    "labelText": "Loading files..."
   }
 }

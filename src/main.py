@@ -6,6 +6,7 @@ from PyQt6.QtWidgets import QApplication
 from src.ui.dialogs.error_dialog import ErrorDialog
 from src.ui.main_window import MainWindow
 from src.utilities.app_init import application_init
+from src.utilities.helpers import Helpers
 from src.utilities.logger_provider import get_logger
 
 logger = get_logger()
@@ -14,6 +15,7 @@ logger = get_logger()
 def create_app() -> None:
     try:
         application = QApplication(sys.argv)
+        Helpers.set_application_style(application)
         main_window = MainWindow()
         if not application_init(main_window):
             raise RuntimeError("Application initialization failed.")
