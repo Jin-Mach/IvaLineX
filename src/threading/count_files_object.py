@@ -1,5 +1,4 @@
 import pathlib
-import time
 
 from typing import TYPE_CHECKING
 
@@ -50,7 +49,6 @@ class CountFilesObject(QObject):
                 "stringList": self.string_list,
                 "largeList": self.large_list,
             }
-            time.sleep(2)
             self.finished.emit(result)
         except Exception as e:
             self.error.emit(e)
