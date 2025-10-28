@@ -13,4 +13,4 @@ class ControllersService:
     def __init__(self, main_window: "MainWindow", menu_bar: "MenuBar") -> None:
         self.count_manager = CountManager(main_window)
         self.dialog_controller = DialogsController(main_window, menu_bar, self.count_manager)
-        self.main_controller = MainController(main_window, self.count_manager)
+        self.main_controller = MainController(main_window, self.dialog_controller, self.count_manager)

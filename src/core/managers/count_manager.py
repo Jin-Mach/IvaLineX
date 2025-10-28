@@ -19,6 +19,7 @@ class CountManager:
     def __init__(self, main_window: "MainWindow") -> None:
         self.class_name = "countManager"
         self.main_window = main_window
+        self.count_provider = CountProvider()
 
     def get_total_count(self, folder_path: str, counted_files: dict[str, list[pathlib.Path]]):
         try:
@@ -29,9 +30,8 @@ class CountManager:
     def set_files_list(self, settings_manager: "Type[SettingsManager]", settings_provider: "Type[SettingsProvider]") ->  None:
         try:
             folder_path = settings_manager.full_folder_path
-            count_provider = CountProvider()
             toml_data = settings_provider.get_toml_data().get("python_settings", {})
-            self.count_object = CountFilesObject(count_provider, folder_path, toml_data)
+            self.count_object = CountFilesObject(self.count_provider, folder_path, toml_data)
             self.count_thread = QThread()
             self.count_object.moveToThread(self.count_thread)
             self.count_thread.started.connect(self.count_object.count_files)

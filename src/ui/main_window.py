@@ -17,7 +17,6 @@ class MainWindow(QMainWindow):
         self.setCentralWidget(self.create_gui())
         self.init_window_geometry()
         self.controller_service = ControllersService(self, self.menu_bar)
-        self.create_connection()
 
     def create_gui(self) -> QWidget:
         central_widget = QWidget()
@@ -80,6 +79,3 @@ class MainWindow(QMainWindow):
             x_pos = screen_geom.width() // 2 - self.width() // 2
             y_pos = screen_geom.height() // 2 - self.height() // 2
             self.move(x_pos, y_pos)
-
-    def create_connection(self) -> None:
-        self.folder_button.clicked.connect(self.controller_service.dialog_controller.set_folder_path)

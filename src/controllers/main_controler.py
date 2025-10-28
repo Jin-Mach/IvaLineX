@@ -8,17 +8,20 @@ from src.utilities.error_handler import ErrorHandler
 
 if TYPE_CHECKING:
     from src.ui.main_window import MainWindow
+    from src.controllers.dialogs_controler import DialogsController
     from src.core.managers.count_manager import CountManager
 
 
 class MainController:
-    def __init__(self, main_window: "MainWindow", count_manager: "CountManager") -> None:
+    def __init__(self, main_window: "MainWindow", dialog_controller: "DialogsController", count_manager: "CountManager") -> None:
         self.class_name = "mainController"
         self.main_window = main_window
+        self.dialog_controller = dialog_controller
         self.count_manager = count_manager
         self.create_connection()
 
     def create_connection(self) -> None:
+        self.main_window.folder_button.clicked.connect(self.dialog_controller.set_folder_path)
         self.main_window.folder_list_view.doubleClicked.connect(self.remove_selected_item)
         self.main_window.count_button.clicked.connect(lambda: self.start_count(self.main_window.folder_line_input.text()))
 
