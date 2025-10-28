@@ -1,0 +1,8 @@
+{
+  "name": "fake_project",
+  "version": "0.1.0",
+
+  "dependencies": {
+    "pytest": "^8.0"
+  }
+}

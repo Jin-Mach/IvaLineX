@@ -21,33 +21,18 @@ correct_result = {
         fake_project.joinpath("fake_run_app.py"),
         src_folder.joinpath("fake_main.py"),
         ui_folder.joinpath("fake_main_window.py"),
-        ui_folder.joinpath("fake_second_window.py"),
-        widgets_folder.joinpath("fake_widget_one.py"),
-        utilities_folder.joinpath("fake_utility_first.py"),
-        utilities_folder.joinpath("fake_utility_second.py"),
-        utilities_folder.joinpath("fake_utility_third.py")
     ],
-    "init": [
-        src_folder.joinpath("__init__.py"),
-        ui_folder.joinpath("__init__.py"),
-        widgets_folder.joinpath("__init__.py"),
-        utilities_folder.joinpath("__init__.py")
-    ],
+    "init": [],
     "setup": [
         fake_project.joinpath("setup.py")
     ],
     "main": [fake_project.joinpath("__main__.py")],
-    "venv": [lib_folder.joinpath("fake_pytest")],
+    "venv": [],
     "tests": [
-        test_folder.joinpath("__init__.py"),
         test_folder.joinpath("fake_test.py")],
     "config": [
         config_folder.joinpath("fake_toml.toml"),
-        cs_folder.joinpath("cs_fake_one.json"),
-        cs_folder.joinpath("cs_fake_second.json"),
-        en_folder.joinpath("en_fake_one.json"),
-        en_folder.joinpath("en_fake_second.json"),
-        language_folder.joinpath("fake_map.json")
+        cs_folder.joinpath("cs_fake_one.json")
     ],
     "documentation": [
         fake_project.joinpath("readme.md"),
@@ -58,6 +43,34 @@ correct_result = {
     "large": []
 }
 
+count_list = [
+    #fake_app: 3, 1, 1
+    fake_project.joinpath("fake_run_app.py"),
+    #fake main: 1, 1, 3
+    src_folder.joinpath("fake_main.py"),
+    #fake main window: 1, 1, 1
+    ui_folder.joinpath("fake_main_window.py"),
+    #fake __main__: 1, 0, 0
+    fake_project.joinpath("__main__.py"),
+    #fake setup: 7, 2, 1
+    fake_project.joinpath("setup.py"),
+    #fake test: 1, 0, 0
+    test_folder.joinpath("fake_test.py"),
+    #fake toml: 7, 3, 0
+    config_folder.joinpath("fake_toml.toml"),
+    #fake json: 7, 1, 0
+    cs_folder.joinpath("cs_fake_one.json"),
+    #fake readme: 6, 5, 0
+    fake_project.joinpath("readme.md"),
+    #fake requirements: 3, 1, 0
+    fake_project.joinpath("requirements.txt"),
+    #fake license: 5, 2, 0
+    fake_project.joinpath("license"),
+    #fake binary: 4, 0, 0
+    fake_project.joinpath("fake_binary.bin")
+    #total: 46, 17, 6
+]
+
 def test_get_items_types() -> None:
     result = CountProvider.get_items_types(str(fake_project))
     correct_sorted = {}
@@ -67,10 +80,10 @@ def test_get_items_types() -> None:
         try:
             assert result[key] == correct_sorted[key]
         except AssertionError:
-            error_msg = get_error_text(key, result[key], correct_sorted[key])
+            error_msg = get_items_error_text(key, result[key], correct_sorted[key])
             pytest.fail(error_msg)
 
-def get_error_text(key: str, result_list: list[Path], sorted_list: list[Path]) -> str:
+def get_items_error_text(key: str, result_list: list[Path], sorted_list: list[Path]) -> str:
     set_result = set(result_list) - set(sorted_list)
     set_sorted = set(sorted_list) - set(result_list)
     missing_text = ""
@@ -79,3 +92,8 @@ def get_error_text(key: str, result_list: list[Path], sorted_list: list[Path]) -
     if set_sorted:
         missing_text += f"\ncorrect_sorted miss: {set_sorted}"
     return f"Assert error: result key: '{key}'\nmissing item(s): {len(set_result) + len(set_sorted)}{missing_text}"
+
+def test_count_project_rows() -> None:
+    correct = {"code": 46, "empty": 17, "comments": 6}
+    result = CountProvider.count_project_rows(count_list)
+    assert result == correct

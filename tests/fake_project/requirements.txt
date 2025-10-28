@@ -1,0 +1,4 @@
+# fake requirements.txt for test
+
+pytest==8.4.2
+requests>=2.31
