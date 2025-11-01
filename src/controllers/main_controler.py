@@ -1,8 +1,12 @@
+import pathlib
+
 from typing import TYPE_CHECKING
 
 from PyQt6.QtCore import QModelIndex
 
 from src.core.providers.language_provider import LanguageProvider
+from src.core.providers.settings_provider import SettingsProvider
+from src.ui.dialogs.progress_dialog import ProgressDialog
 from src.ui.dialogs.question_dialog import QuestionDialog
 from src.utilities.error_handler import ErrorHandler
 
@@ -23,12 +27,23 @@ class MainController:
     def create_connection(self) -> None:
         self.main_window.folder_button.clicked.connect(self.dialog_controller.set_folder_path)
         self.main_window.folder_list_view.doubleClicked.connect(self.remove_selected_item)
-        self.main_window.count_button.clicked.connect(lambda: self.start_count(self.main_window.folder_line_input.text()))
+        self.main_window.count_button.clicked.connect(lambda: self.start_count(self.dialog_controller.project_path))
 
-    def start_count(self, folder_path: str) -> None:
+    def start_count(self, folder_path: pathlib.Path) -> None:
         try:
-            if not folder_path:
+            if not folder_path or not folder_path.exists():
                 raise NameError("Empty folder path")
+            if not self.count_manager.default_list:
+                raise ValueError("Default list error")
+            progress_dialog = ProgressDialog(True, self.main_window)
+            dialog_text = LanguageProvider.get_dialog_text(LanguageProvider.usage_language,
+                                                           progress_dialog.objectName())
+            progress_dialog.setup_dialog(dialog_text.get("labelTextRows", "Count rows..."), 100,
+                                         dialog_text.get("onFinished", "Completed"))
+            progress_dialog.show()
+            self.count_manager.get_rows_count(self.count_manager.default_list, SettingsProvider)
+            self.count_manager.rows_count_object.progress.connect(progress_dialog.progress_bar.setValue)
+            self.count_manager.rows_count_thread.finished.connect(progress_dialog.on_finished)
         except Exception as e:
             ErrorHandler.exception_handler(e, self.class_name)
 

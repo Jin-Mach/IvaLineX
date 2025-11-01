@@ -1,3 +1,5 @@
+import pathlib
+
 from typing import TYPE_CHECKING
 
 from PyQt6.QtWidgets import QApplication
@@ -30,6 +32,7 @@ class DialogsController:
         self.menu_bar = menu_bar
         self.count_manager = count_manager
         self.create_connection()
+        self.project_path = None
 
     def create_connection(self) -> None:
         self.menu_bar.new_project_action.triggered.connect(self.show_new_project_dialog)
@@ -107,13 +110,15 @@ class DialogsController:
             folder_path = SettingsManager.set_folder_path(self.main_window, settings_text.get("folderDialogTitle", "Select default folder"),
                                                    self.main_window.folder_line_input)
             if folder_path:
-                progress_dialog = ProgressDialog(self.main_window)
+                self.project_path = pathlib.Path(folder_path)
+                progress_dialog = ProgressDialog(False, self.main_window)
                 dialog_text = LanguageProvider.get_dialog_text(LanguageProvider.usage_language,
                                                                progress_dialog.objectName())
-                progress_dialog.setup_dialog(dialog_text.get("labelText", "Loading..."), 0)
+                progress_dialog.setup_dialog(dialog_text.get("labelText", "Loading..."), 0,
+                                             dialog_text.get("onFinished", "Completed"))
                 progress_dialog.show()
                 self.count_manager.set_files_list(SettingsManager, SettingsProvider)
-                self.count_manager.count_thread.finished.connect(progress_dialog.close)
+                self.count_manager.files_count_thread.finished.connect(progress_dialog.close)
         except Exception as e:
             ErrorHandler.exception_handler(e, self.class_name)
 

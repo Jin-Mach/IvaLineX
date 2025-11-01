@@ -95,5 +95,9 @@ def get_items_error_text(key: str, result_list: list[Path], sorted_list: list[Pa
 
 def test_count_project_rows() -> None:
     correct = {"code": 46, "empty": 17, "comments": 6}
-    result = CountProvider.count_project_rows(count_list)
+    result = {"code": 0, "empty": 0, "comments": 0}
+    for file in count_list:
+        file_result = CountProvider.count_project_rows(file)
+        for key in result:
+            result[key] += file_result.get(key, 0)
     assert result == correct

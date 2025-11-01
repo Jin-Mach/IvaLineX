@@ -64,6 +64,8 @@
     "closeButton": "Zavřít"
   },
   "progressDialog": {
-    "labelText": "Načítám soubory..."
+    "labelText": "Načítám soubory...",
+    "labelTextRows": "Počítám řádky...",
+    "onFinished": "Hotovo"
   }
 }

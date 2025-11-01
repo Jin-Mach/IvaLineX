@@ -53,25 +53,24 @@ class CountProvider:
             return {}
 
     @staticmethod
-    def count_project_rows(files_list: list[pathlib.Path]) -> dict[str, int]:
+    def count_project_rows(file: pathlib.Path) -> dict[str, int]:
         try:
             count_result = {
                 "code": 0,
                 "empty": 0,
                 "comments": 0
             }
-            for project_file in files_list:
-                if not project_file.exists():
-                    raise FileNotFoundError("Count file doesnt exists")
-                if project_file.suffix == ".py":
-                    file_count = CountProvider.count_python_file(project_file)
-                    count_result["code"] += file_count["code"]
-                    count_result["empty"] += file_count["empty"]
-                    count_result["comments"] += file_count["comments"]
-                else:
-                    file_count = CountProvider.count_other_file(project_file)
-                    count_result["code"] += file_count["code"]
-                    count_result["empty"] += file_count["empty"]
+            if not file.exists():
+                raise FileNotFoundError("Count file doesnt exists")
+            if file.suffix == ".py":
+                file_count = CountProvider.count_python_file(file)
+                count_result["code"] += file_count["code"]
+                count_result["empty"] += file_count["empty"]
+                count_result["comments"] += file_count["comments"]
+            else:
+                file_count = CountProvider.count_other_file(file)
+                count_result["code"] += file_count["code"]
+                count_result["empty"] += file_count["empty"]
             return count_result
         except Exception as e:
             ErrorHandler.exception_handler(e, CountProvider.class_name)
@@ -82,7 +81,7 @@ class CountProvider:
         file_count = {"code": 0, "empty": 0, "comments": 0}
         in_docstring = False
         docstring_char = None
-        with open(file, "r", encoding="utf-8") as file_content:
+        with open(file, "r", encoding="utf-8", errors="ignore") as file_content:
             for line in file_content:
                 stripped = line.strip()
                 if in_docstring:
@@ -113,10 +112,9 @@ class CountProvider:
     @staticmethod
     def count_other_file(file: pathlib.Path) -> dict[str, int]:
         file_count = {"code": 0, "empty": 0}
-        with open(file, "r", encoding="utf-8") as file:
-            content = file.read()
-            for row in content.strip().split("\n"):
-                if row.strip() != "":
+        with open(file, "rb") as file_content:
+            for line in file_content:
+                if line.strip() != b"":
                     file_count["code"] += 1
                 else:
                     file_count["empty"] += 1

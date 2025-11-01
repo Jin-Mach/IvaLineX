@@ -64,6 +64,8 @@
     "closeButton": "Close"
   },
   "progressDialog": {
-    "labelText": "Loading files..."
+    "labelText": "Loading files...",
+    "labelTextRows": "Count rows...",
+    "onFinished": "Completed"
   }
 }
