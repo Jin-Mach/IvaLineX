@@ -67,5 +67,12 @@
     "labelText": "Loading files...",
     "labelTextRows": "Count rows...",
     "onFinished": "Completed"
+  },
+  "resultDialog": {
+    "resultLabelText": "Done!",
+    "codeResultText": "Number of code lines:",
+    "emptyResultText": "Number of empty lines:",
+    "commentsResultText": "Number of comments:",
+    "closeButton": "Close"
   }
 }

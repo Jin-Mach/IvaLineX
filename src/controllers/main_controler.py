@@ -5,7 +5,6 @@ from typing import TYPE_CHECKING
 from PyQt6.QtCore import QModelIndex
 
 from src.core.providers.language_provider import LanguageProvider
-from src.core.providers.settings_provider import SettingsProvider
 from src.ui.dialogs.progress_dialog import ProgressDialog
 from src.ui.dialogs.question_dialog import QuestionDialog
 from src.utilities.error_handler import ErrorHandler
@@ -36,12 +35,12 @@ class MainController:
             if not self.count_manager.default_list:
                 raise ValueError("Default list error")
             progress_dialog = ProgressDialog(True, self.main_window)
-            dialog_text = LanguageProvider.get_dialog_text(LanguageProvider.usage_language,
+            progress_dialog_text = LanguageProvider.get_dialog_text(LanguageProvider.usage_language,
                                                            progress_dialog.objectName())
-            progress_dialog.setup_dialog(dialog_text.get("labelTextRows", "Count rows..."), 100,
-                                         dialog_text.get("onFinished", "Completed"))
+            progress_dialog.setup_dialog(progress_dialog_text.get("labelTextRows", "Count rows..."), 100,
+                                         progress_dialog_text.get("onFinished", "Completed"))
             progress_dialog.show()
-            self.count_manager.get_rows_count(self.count_manager.default_list, SettingsProvider)
+            self.count_manager.get_rows_count(self.count_manager.default_list)
             self.count_manager.rows_count_object.progress.connect(progress_dialog.progress_bar.setValue)
             self.count_manager.rows_count_thread.finished.connect(progress_dialog.on_finished)
         except Exception as e:

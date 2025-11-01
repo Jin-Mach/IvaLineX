@@ -1,8 +1,8 @@
-from PyQt6.QtCore import QEvent, Qt
+from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QDialog, QLayout, QVBoxLayout, QLabel, QDialogButtonBox
 
 
-# noinspection PyTypeChecker
+# noinspection PyTypeChecker,PyAttributeOutsideInit
 class QuestionDialog(QDialog):
     def __init__(self, parent=None) -> None:
         super().__init__(parent)
@@ -30,7 +30,7 @@ class QuestionDialog(QDialog):
         self.question_accept_button.setText(accept_text)
         self.question_cancel_button.setText(cancel_text)
 
-    def showEvent(self, event) -> QEvent:
+    def showEvent(self, event) -> None:
         self.setFixedSize(self.width(), self.height())
         self.question_cancel_button.setFocus()
         super().showEvent(event)

@@ -117,7 +117,7 @@ class DialogsController:
                 progress_dialog.setup_dialog(dialog_text.get("labelText", "Loading..."), 0,
                                              dialog_text.get("onFinished", "Completed"))
                 progress_dialog.show()
-                self.count_manager.set_files_list(SettingsManager, SettingsProvider)
+                self.count_manager.set_files_list(SettingsManager)
                 self.count_manager.files_count_thread.finished.connect(progress_dialog.close)
         except Exception as e:
             ErrorHandler.exception_handler(e, self.class_name)

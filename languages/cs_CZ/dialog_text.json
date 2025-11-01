@@ -67,5 +67,12 @@
     "labelText": "Načítám soubory...",
     "labelTextRows": "Počítám řádky...",
     "onFinished": "Hotovo"
+  },
+  "resultDialog": {
+    "resultLabelText": "Hotovo!",
+    "codeResultText": "Počet řádků kódu:",
+    "emptyResultText": "Počet prázdných řádků:",
+    "commentsResultText": "Počet komentářů:",
+    "closeButton": "Zavřít"
   }
 }
