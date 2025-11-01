@@ -73,6 +73,7 @@
     "codeResultText": "Počet řádků kódu:",
     "emptyResultText": "Počet prázdných řádků:",
     "commentsResultText": "Počet komentářů:",
+    "timeLabelText": "Doba trvání (m:s.ms):",
     "closeButton": "Zavřít"
   }
 }

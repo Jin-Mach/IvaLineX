@@ -6,6 +6,7 @@ Aplikace slouží k rychlému počítání řádků kódu v Python projektech. P
 - Počítání řádků kódu<br>
 - Ukládání výsledků do historie<br>
 - Zobrazení celkového počtu souborů<br>
+  (Včetně doby ve formátu minuty:sekundy.milisekundy)<br>
 - Přehledné menu s možnostmi O aplikaci a Manuál<br><br>
 <b>Použití:</b><br>
 1. Vyberte projekt nebo složku s kódem.<br>

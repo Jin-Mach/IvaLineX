@@ -6,6 +6,7 @@ The application is used for quickly counting lines of code in Python projects. I
 - Count lines of code<br>
 - Save results to history<br>
 - Display the total number of files<br>
+  (Including the duration in minutes:seconds.milliseconds format)<br>
 - Clear menu with options About and Manual<br><br>
 <b>Usage:</b><br>
 1. Select a project or folder with code.<br>

@@ -2,7 +2,7 @@ import pathlib
 
 from typing import TYPE_CHECKING, Type
 
-from PyQt6.QtCore import QThread, QTimer
+from PyQt6.QtCore import QThread, QTimer, QElapsedTimer
 
 from src.core.providers.count_provider import CountProvider
 from src.core.providers.language_provider import LanguageProvider
@@ -26,6 +26,8 @@ class CountManager:
 
     def get_rows_count(self, files_list: list[pathlib.Path]) -> None:
         try:
+            self.timer = QElapsedTimer()
+            self.timer.start()
             toml_data = SettingsProvider.get_toml_data().get("python_settings", {})
             self.rows_count_object = CountRowsObject(files_list, toml_data, self.count_provider)
             self.rows_count_thread = QThread()
@@ -38,6 +40,7 @@ class CountManager:
             self.rows_count_thread.finished.connect(self.rows_count_object.deleteLater)
             self.rows_count_thread.start()
         except Exception as e:
+            self.timer = None
             ErrorHandler.exception_handler(e, self.class_name)
 
     def set_files_list(self, settings_manager: "Type[SettingsManager]") ->  None:
@@ -80,10 +83,18 @@ class CountManager:
                                        result_dialog_text.get("emptyResultText", "Number of empty lines:"),
                                        result_dialog_text.get("commentsResultText", "Number of comments:"),
                                        result_dialog_text.get("closeButton", "Close"),
+                                       result_dialog_text.get("timeLabelText", "Duration:"),
                                        settings)
-            result_dialog.on_finished(count_dict)
+            elapsed_ms = self.timer.elapsed()
+            seconds = elapsed_ms // 1000
+            milliseconds = elapsed_ms % 1000
+            minutes = seconds // 60
+            seconds = seconds % 60
+            duration = f"{minutes:02}:{seconds:02}.{milliseconds:03}"
+            result_dialog.on_finished(count_dict, duration)
             QTimer.singleShot(500, result_dialog.show)
         except Exception as e:
+            self.timer = None
             ErrorHandler.exception_handler(e, self.class_name)
 
     def on_error(self, exception: Exception) -> None:

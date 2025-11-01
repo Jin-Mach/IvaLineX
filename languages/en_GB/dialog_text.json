@@ -73,6 +73,7 @@
     "codeResultText": "Number of code lines:",
     "emptyResultText": "Number of empty lines:",
     "commentsResultText": "Number of comments:",
+    "timeLabelText": "Duration (m:s.ms):",
     "closeButton": "Close"
   }
 }
