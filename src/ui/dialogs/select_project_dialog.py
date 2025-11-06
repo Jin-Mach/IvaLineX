@@ -2,7 +2,7 @@ from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QDialog, QLayout, QVBoxLayout, QLabel, QComboBox, QDialogButtonBox
 
 
-# noinspection PyTypeChecker
+# noinspection PyTypeChecker,PyAttributeOutsideInit
 class SelectProjectDialog(QDialog):
     def __init__(self, parent=None) -> None:
         super().__init__(parent)
