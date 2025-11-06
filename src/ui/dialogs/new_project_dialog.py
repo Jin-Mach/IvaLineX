@@ -3,7 +3,7 @@ from PyQt6.QtGui import QRegularExpressionValidator
 from PyQt6.QtWidgets import QDialog, QLayout, QVBoxLayout, QLineEdit, QDialogButtonBox, QLabel
 
 
-# noinspection PyTypeChecker
+# noinspection PyTypeChecker,PyAttributeOutsideInit
 class NewProjectDialog(QDialog):
     def __init__(self, parent=None) -> None:
         super().__init__(parent)

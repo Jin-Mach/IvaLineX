@@ -1,4 +1,5 @@
 import pathlib
+
 from typing import TYPE_CHECKING
 
 from PyQt6.QtCore import Qt

@@ -2,6 +2,7 @@ from PyQt6.QtGui import QAction
 from PyQt6.QtWidgets import QMenuBar, QMenu
 
 
+# noinspection PyAttributeOutsideInit
 class MenuBar(QMenuBar):
     def __init__(self, parent=None) -> None:
         super().__init__(parent)

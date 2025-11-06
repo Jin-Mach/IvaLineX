@@ -1,7 +1,7 @@
 from PyQt6.QtWidgets import QDialog, QLayout, QVBoxLayout, QTextEdit, QDialogButtonBox
 
 
-# noinspection PyUnresolvedReferences
+# noinspection PyUnresolvedReferences,PyAttributeOutsideInit
 class ManualDialog(QDialog):
     def __init__(self, parent=None) -> None:
         super().__init__(parent)

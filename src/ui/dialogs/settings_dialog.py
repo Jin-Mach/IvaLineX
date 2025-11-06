@@ -11,7 +11,7 @@ if TYPE_CHECKING:
     from src.ui.main_window import MainWindow
 
 
-# noinspection PyTypeChecker,PyUnresolvedReferences
+# noinspection PyTypeChecker,PyUnresolvedReferences,PyAttributeOutsideInit
 class SettingsDialog(QDialog):
     folder_button_clicked = pyqtSignal()
 

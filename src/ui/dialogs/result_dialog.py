@@ -2,7 +2,7 @@ from typing import Any
 
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QFont
-from PyQt6.QtWidgets import QDialog, QLayout, QVBoxLayout, QLabel, QFormLayout, QDialogButtonBox, QHBoxLayout, QWidget
+from PyQt6.QtWidgets import QDialog, QLayout, QVBoxLayout, QLabel, QFormLayout, QDialogButtonBox, QHBoxLayout
 
 from src.utilities.error_handler import ErrorHandler
 

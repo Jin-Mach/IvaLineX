@@ -3,6 +3,7 @@ from PyQt6.QtWidgets import QWidget, QLayout, QVBoxLayout, QCheckBox
 from src.utilities.error_handler import ErrorHandler
 
 
+# noinspection PyAttributeOutsideInit
 class PythonWidget(QWidget):
     def __init__(self, parent=None) -> None:
         super().__init__(parent)

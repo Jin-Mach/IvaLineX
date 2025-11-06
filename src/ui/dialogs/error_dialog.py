@@ -3,7 +3,7 @@ from PyQt6.QtGui import QFont
 from PyQt6.QtWidgets import QDialog, QLayout, QVBoxLayout, QLabel, QTextEdit, QDialogButtonBox
 
 
-# noinspection PyTypeChecker
+# noinspection PyTypeChecker,PyAttributeOutsideInit
 class ErrorDialog(QDialog):
     def __init__(self, error_text: str, traceback: str, show_details_button: bool = True, parent=None) -> None:
         super().__init__(parent)
