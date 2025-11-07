@@ -50,3 +50,16 @@ class LanguageProvider:
         except Exception as e:
             ErrorHandler.exception_handler(e, LanguageProvider.class_name)
             return None
+
+    @staticmethod
+    def get_error_text(exception_key: str) -> str:
+        try:
+            error_text = "Unknown error"
+            json_path = BASE_DIR.joinpath(LanguageProvider.usage_language).joinpath("error_text.json")
+            with open(json_path, "r", encoding="utf-8") as json_file:
+                json_text = json.load(json_file)
+                error_text = json_text.get(exception_key, "UnknownError")
+            return error_text
+        except Exception as e:
+            ErrorHandler.exception_handler(e, LanguageProvider.class_name)
+            return "Unknown error"

@@ -52,7 +52,7 @@ class DialogsController:
                 raise ValueError("Load json text error.")
             LanguageManager.apply_new_project_dialog_text(dialog, new_project_text)
             if dialog.exec() == dialog.DialogCode.Accepted:
-                if ProjectsManager.create_project_file(dialog.project_name_edit.text().strip()):
+                if ProjectsManager.create_project_file(self.main_window, dialog.project_name_edit.text().strip()):
                     ProjectsManager.set_application_to_project(self.main_window, dialog.project_name_edit.text().strip())
         except Exception as e:
             ErrorHandler.exception_handler(e, self.class_name)
@@ -64,7 +64,7 @@ class DialogsController:
             if not select_project_text:
                 raise ValueError("Load json text error")
             LanguageManager.apply_select_project_dialog_text(dialog, select_project_text)
-            if ProjectsManager.set_selected_project(dialog.projects_combobox):
+            if ProjectsManager.set_selected_project(self.main_window, dialog.projects_combobox):
                 if dialog.exec() == dialog.DialogCode.Accepted:
                     ProjectsManager.set_application_to_project(self.main_window, dialog.projects_combobox.currentText())
         except Exception as e:

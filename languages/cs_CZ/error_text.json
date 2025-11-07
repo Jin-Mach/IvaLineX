@@ -5,5 +5,6 @@
   "NameError": "Chyba vstupu",
   "FileExistsError": "Soubor již existuje, nebo se ho nepodařilo vytvořit",
   "LookupError": "Žádné uložené projekty nebyly nalezeny",
-  "ProcessLookupError": "Nebyl nalezen žádný vhodný soubor"
+  "ProcessLookupError": "Nebyl nalezen žádný vhodný soubor",
+  "UnknownError": "Neznámá chyba"
 }
