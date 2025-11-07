@@ -2,7 +2,7 @@
   "ValueError": "Chyba při načítání dat",
   "FileNotFoundError": "Chyba při otevření souboru",
   "RuntimeError": "Chyba při běhu aplikace",
-  "NameError": "Chyba vstupu",
+  "NameError": "Není zadána cesta k projektu",
   "FileExistsError": "Soubor již existuje, nebo se ho nepodařilo vytvořit",
   "LookupError": "Žádné uložené projekty nebyly nalezeny",
   "ProcessLookupError": "Nebyl nalezen žádný vhodný soubor",

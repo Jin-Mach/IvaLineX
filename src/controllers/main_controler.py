@@ -1,10 +1,12 @@
 import pathlib
+import traceback
 
 from typing import TYPE_CHECKING
 
 from PyQt6.QtCore import QModelIndex
 
 from src.core.providers.language_provider import LanguageProvider
+from src.ui.dialogs.error_dialog import ErrorDialog
 from src.ui.dialogs.progress_dialog import ProgressDialog
 from src.ui.dialogs.question_dialog import QuestionDialog
 from src.utilities.error_handler import ErrorHandler
@@ -31,9 +33,17 @@ class MainController:
     def start_count(self, folder_path: pathlib.Path) -> None:
         try:
             if not folder_path or not folder_path.exists():
-                raise NameError("Empty folder path")
+                error_text = LanguageProvider.get_error_text("NameError")
+                dialog = ErrorDialog(error_text, traceback.format_exc(), show_details_button=False,
+                                     parent=self.main_window)
+                dialog.exec()
+                return
             if not self.count_manager.default_list:
-                raise ValueError("Default list error")
+                error_text = LanguageProvider.get_error_text("ValueError")
+                dialog = ErrorDialog(error_text, traceback.format_exc(), show_details_button=False,
+                                     parent=self.main_window)
+                dialog.exec()
+                return
             progress_dialog = ProgressDialog(True, self.main_window)
             progress_dialog_text = LanguageProvider.get_dialog_text(LanguageProvider.usage_language,
                                                            progress_dialog.objectName())
