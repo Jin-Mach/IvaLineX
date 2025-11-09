@@ -2,7 +2,7 @@ from PyQt6.QtGui import QFont
 from PyQt6.QtWidgets import (QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QLabel, QLineEdit, QPushButton,
                              QApplication, QCheckBox, QAbstractItemView)
 
-from src.controllers.controlers_service import ControllersService
+from src.controllers.controllers_service import ControllersService
 from src.ui.widgets.folder_list_view import FolderListView
 from src.ui.widgets.menu_bar import MenuBar
 

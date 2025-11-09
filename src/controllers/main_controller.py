@@ -14,7 +14,7 @@ from src.utilities.error_handler import ErrorHandler
 
 if TYPE_CHECKING:
     from src.ui.main_window import MainWindow
-    from src.controllers.dialogs_controler import DialogsController
+    from src.controllers.dialogs_controller import DialogsController
     from src.core.managers.count_manager import CountManager
 
 

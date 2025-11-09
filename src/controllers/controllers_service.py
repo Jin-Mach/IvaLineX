@@ -1,7 +1,7 @@
 from typing import TYPE_CHECKING
 
-from src.controllers.dialogs_controler import DialogsController
-from src.controllers.main_controler import MainController
+from src.controllers.dialogs_controller import DialogsController
+from src.controllers.main_controller import MainController
 from src.core.managers.count_manager import CountManager
 
 if TYPE_CHECKING:
