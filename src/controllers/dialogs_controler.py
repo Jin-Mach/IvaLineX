@@ -2,9 +2,11 @@ import pathlib
 
 from typing import TYPE_CHECKING
 
-from PyQt6.QtWidgets import QApplication
+from PyQt6.QtCore import QDateTime, Qt
+from PyQt6.QtWidgets import QApplication, QWidget
 
 from src.core.managers.projects_manager import ProjectsManager
+from src.core.providers.projects_provider import ProjectsProvider
 from src.ui.dialogs.about_dialog import AboutDialog
 from src.ui.dialogs.manual_dialog import ManualDialog
 from src.ui.dialogs.new_project_dialog import NewProjectDialog
@@ -25,6 +27,7 @@ if TYPE_CHECKING:
     from src.core.managers.count_manager import CountManager
 
 
+# noinspection PyTypeChecker
 class DialogsController:
     def __init__(self, main_window: "MainWindow", menu_bar: "MenuBar", count_manager: "CountManager") -> None:
         self.class_name = "dialogsController"
@@ -32,7 +35,6 @@ class DialogsController:
         self.menu_bar = menu_bar
         self.count_manager = count_manager
         self.create_connection()
-        self.project_path = None
 
     def create_connection(self) -> None:
         self.menu_bar.new_project_action.triggered.connect(self.show_new_project_dialog)
@@ -52,8 +54,10 @@ class DialogsController:
                 raise ValueError("Load json text error.")
             LanguageManager.apply_new_project_dialog_text(dialog, new_project_text)
             if dialog.exec() == dialog.DialogCode.Accepted:
-                if ProjectsManager.create_project_file(self.main_window, dialog.project_name_edit.text().strip()):
+                current_time = QDateTime().currentDateTime().toString(Qt.DateFormat.ISODate)
+                if ProjectsManager.create_project_file(self.main_window, dialog.project_name_edit.text().strip(), current_time):
                     ProjectsManager.set_application_to_project(self.main_window, dialog.project_name_edit.text().strip())
+                    ProjectsManager.close_project_ui(self.main_window)
         except Exception as e:
             ErrorHandler.exception_handler(e, self.class_name)
 
@@ -67,22 +71,30 @@ class DialogsController:
             if ProjectsManager.set_selected_project(self.main_window, dialog.projects_combobox):
                 if dialog.exec() == dialog.DialogCode.Accepted:
                     ProjectsManager.set_application_to_project(self.main_window, dialog.projects_combobox.currentText())
+                    if ProjectsProvider.project_path:
+                        self.show_progress_dialog(self.main_window)
+                    else:
+                        self.count_manager.default_list = []
+                        ProjectsManager.close_project_ui(self.main_window)
         except Exception as e:
             ErrorHandler.exception_handler(e, self.class_name)
 
     def show_close_project_dialog(self) -> None:
         try:
+            if not self.main_window.project_name_label.text():
+                return
             dialog = QuestionDialog(self.main_window)
             question_text = LanguageProvider.get_dialog_text(LanguageProvider.usage_language, dialog.objectName())
             if not question_text:
                 raise ValueError("Load json text error.")
             dialog.set_ui_text(
-                question_text.get("closeProject", "Close project?"),
+                f"<b>{self.main_window.project_name_label.text()}</b><br>{question_text.get("closeProject", "Close project?")}",
                 question_text.get("questionAcceptButton", "Yes"),
                 question_text.get("questionCancelButton", "No")
             )
             if dialog.exec() == dialog.DialogCode.Accepted:
-                ProjectsManager.close_selected_project(self.main_window)
+                self.main_window.project_name_label.setText("")
+                ProjectsManager.close_project_ui(self.main_window)
         except Exception as e:
             ErrorHandler.exception_handler(e, self.class_name)
 
@@ -110,15 +122,8 @@ class DialogsController:
             folder_path = SettingsManager.set_folder_path(self.main_window, settings_text.get("folderDialogTitle", "Select default folder"),
                                                    self.main_window.folder_line_input)
             if folder_path:
-                self.project_path = pathlib.Path(folder_path)
-                progress_dialog = ProgressDialog(False, self.main_window)
-                dialog_text = LanguageProvider.get_dialog_text(LanguageProvider.usage_language,
-                                                               progress_dialog.objectName())
-                progress_dialog.setup_dialog(dialog_text.get("labelText", "Loading..."), 0,
-                                             dialog_text.get("onFinished", "Completed"))
-                progress_dialog.show()
-                self.count_manager.set_files_list(SettingsManager)
-                self.count_manager.files_count_thread.finished.connect(progress_dialog.close)
+                ProjectsProvider.project_path = pathlib.Path(folder_path)
+                self.show_progress_dialog(self.main_window)
         except Exception as e:
             ErrorHandler.exception_handler(e, self.class_name)
 
@@ -198,5 +203,21 @@ class DialogsController:
             if question_dialog.exec() == dialog.DialogCode.Accepted:
                 helpers = Helpers()
                 SettingsManager.reset_application_settings(self.main_window, dialog, helpers)
+        except Exception as e:
+            ErrorHandler.exception_handler(e, self.class_name)
+
+    def show_progress_dialog(self, parent: QWidget) -> None:
+        try:
+            progress_dialog = ProgressDialog(False, parent)
+            dialog_text = LanguageProvider.get_dialog_text(LanguageProvider.usage_language,
+                                                           progress_dialog.objectName())
+            progress_dialog.setup_dialog(dialog_text.get("labelText", "Loading..."), 0,
+                                         dialog_text.get("onFinished", "Completed"))
+            progress_dialog.show()
+            project_name = self.main_window.project_name_label.text()
+            if project_name:
+                ProjectsProvider.set_project_path(project_name, ProjectsProvider.project_path)
+            self.count_manager.set_files_list(ProjectsProvider.project_path)
+            self.count_manager.files_count_thread.finished.connect(progress_dialog.close)
         except Exception as e:
             ErrorHandler.exception_handler(e, self.class_name)

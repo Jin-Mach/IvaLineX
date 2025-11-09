@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING
 from PyQt6.QtCore import QModelIndex
 
 from src.core.providers.language_provider import LanguageProvider
+from src.core.providers.projects_provider import ProjectsProvider
 from src.ui.dialogs.error_dialog import ErrorDialog
 from src.ui.dialogs.progress_dialog import ProgressDialog
 from src.ui.dialogs.question_dialog import QuestionDialog
@@ -28,18 +29,18 @@ class MainController:
     def create_connection(self) -> None:
         self.main_window.folder_button.clicked.connect(self.dialog_controller.set_folder_path)
         self.main_window.folder_list_view.doubleClicked.connect(self.remove_selected_item)
-        self.main_window.count_button.clicked.connect(lambda: self.start_count(self.dialog_controller.project_path))
+        self.main_window.count_button.clicked.connect(lambda: self.start_count(ProjectsProvider.project_path))
 
-    def start_count(self, folder_path: pathlib.Path) -> None:
+    def start_count(self, folder_path: str | None) -> None:
         try:
-            if not folder_path or not folder_path.exists():
+            if not folder_path or folder_path is None or not pathlib.Path(folder_path).exists():
                 error_text = LanguageProvider.get_error_text("NameError")
                 dialog = ErrorDialog(error_text, traceback.format_exc(), show_details_button=False,
                                      parent=self.main_window)
                 dialog.exec()
                 return
             if not self.count_manager.default_list:
-                error_text = LanguageProvider.get_error_text("ValueError")
+                error_text = LanguageProvider.get_error_text("NameError")
                 dialog = ErrorDialog(error_text, traceback.format_exc(), show_details_button=False,
                                      parent=self.main_window)
                 dialog.exec()

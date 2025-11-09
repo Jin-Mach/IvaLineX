@@ -1,4 +1,7 @@
+import json
 import pathlib
+
+from typing import Any
 
 from src.utilities.error_handler import ErrorHandler
 from src.utilities.helpers import Helpers
@@ -12,12 +15,20 @@ class ProjectsProvider:
     project_path = None
 
     @staticmethod
-    def create_file(project_name: str) -> bool:
+    def create_file(project_name: str, current_time: str) -> bool:
         try:
+            project_structure = {
+                "projectName": project_name,
+                "projectPath": "",
+                "created": current_time,
+                "results": {}
+            }
             file_name = Helpers.validate_project_name(project_name, False)
             if BASE_DIR.exists() and file_name not in ProjectsProvider.get_projects_names():
                 BASE_DIR.joinpath(file_name).touch()
                 ProjectsProvider.project_path = BASE_DIR.joinpath(file_name)
+                with open(ProjectsProvider.project_path, "w", encoding="utf-8") as new_data:
+                    json.dump(project_structure, new_data, indent=4, ensure_ascii=False)
                 return True
             return False
         except Exception as e:
@@ -34,3 +45,39 @@ class ProjectsProvider:
         except Exception as e:
             ErrorHandler.exception_handler(e, ProjectsProvider.class_name, show_details=False)
             return []
+
+    @staticmethod
+    def get_project_info(project_path: pathlib.Path) -> dict[str, Any]:
+        try:
+            project_info = {
+                "projectName": "",
+                "projectPath": "",
+                "created": "",
+                "results": {}
+            }
+            with open(project_path, "r", encoding="utf-8") as project_file:
+                project_data = json.load(project_file)
+                project_info["projectName"] = project_data.get("projectName", "")
+                project_info["projectPath"] = project_data.get("projectPath", "")
+                project_info["created"] = project_data.get("created", "")
+                project_info["results"] = project_data.get("results", {})
+            return project_info
+        except Exception as e:
+            ErrorHandler.exception_handler(e, ProjectsProvider.class_name, show_details=False)
+            return {}
+
+    @staticmethod
+    def set_project_path(project_name: str, project_path: str) -> bool:
+        try:
+            file_name = Helpers.validate_project_name(project_name, False)
+            if not BASE_DIR.exists() or not file_name:
+                return False
+            with open(BASE_DIR.joinpath(file_name), "r", encoding="utf-8") as project:
+                project_data = json.load(project)
+                project_data["projectPath"] = str(project_path)
+            with open(BASE_DIR.joinpath(file_name), "w", encoding="utf-8") as new_data:
+                json.dump(project_data, new_data, indent=4, ensure_ascii=False)
+            return True
+        except Exception as e:
+            ErrorHandler.exception_handler(e, ProjectsProvider.class_name, show_details=False)
+            return False

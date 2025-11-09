@@ -1,8 +1,8 @@
 import pathlib
 
-from typing import TYPE_CHECKING, Type
+from typing import TYPE_CHECKING
 
-from PyQt6.QtCore import QThread, QTimer, QElapsedTimer
+from PyQt6.QtCore import QThread, QElapsedTimer, QTimer
 
 from src.core.providers.count_provider import CountProvider
 from src.core.providers.language_provider import LanguageProvider
@@ -14,8 +14,6 @@ from src.utilities.error_handler import ErrorHandler
 
 if TYPE_CHECKING:
     from src.ui.main_window import MainWindow
-    from src.core.managers.settings_manager import SettingsManager
-
 
 # noinspection PyAttributeOutsideInit
 class CountManager:
@@ -43,20 +41,20 @@ class CountManager:
             self.timer = None
             ErrorHandler.exception_handler(e, self.class_name)
 
-    def set_files_list(self, settings_manager: "Type[SettingsManager]") ->  None:
+    def set_files_list(self, folder_path: str | None = None) ->  None:
         try:
-            folder_path = settings_manager.full_folder_path
-            toml_data = SettingsProvider.get_toml_data().get("python_settings", {})
-            self.files_count_object = CountFilesObject(self.count_provider, folder_path, toml_data)
-            self.files_count_thread = QThread()
-            self.files_count_object.moveToThread(self.files_count_thread)
-            self.files_count_thread.started.connect(self.files_count_object.count_files)
-            self.files_count_object.finished.connect(self.files_finished)
-            self.files_count_object.error.connect(self.on_error)
-            self.files_count_object.finished.connect(self.files_count_thread.quit)
-            self.files_count_thread.finished.connect(self.files_count_thread.deleteLater)
-            self.files_count_thread.finished.connect(self.files_count_object.deleteLater)
-            self.files_count_thread.start()
+            if folder_path:
+                toml_data = SettingsProvider.get_toml_data().get("python_settings", {})
+                self.files_count_object = CountFilesObject(self.count_provider, folder_path, toml_data)
+                self.files_count_thread = QThread()
+                self.files_count_object.moveToThread(self.files_count_thread)
+                self.files_count_thread.started.connect(self.files_count_object.count_files)
+                self.files_count_object.finished.connect(self.files_finished)
+                self.files_count_object.error.connect(self.on_error)
+                self.files_count_object.finished.connect(self.files_count_thread.quit)
+                self.files_count_thread.finished.connect(self.files_count_thread.deleteLater)
+                self.files_count_thread.finished.connect(self.files_count_object.deleteLater)
+                self.files_count_thread.start()
         except Exception as e:
             ErrorHandler.exception_handler(e, self.class_name)
 

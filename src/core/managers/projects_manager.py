@@ -9,7 +9,6 @@ from PyQt6.QtWidgets import QComboBox
 
 from src.core.providers.language_provider import LanguageProvider
 from src.core.providers.projects_provider import ProjectsProvider, BASE_DIR
-from src.core.providers.settings_provider import SettingsProvider
 from src.ui.dialogs.error_dialog import ErrorDialog
 from src.utilities.error_handler import ErrorHandler
 from src.utilities.helpers import Helpers
@@ -21,11 +20,11 @@ class ProjectsManager:
     class_name = "projectsManager"
 
     @staticmethod
-    def create_project_file(main_window: "MainWindow", project_name: str) -> bool:
+    def create_project_file(main_window: "MainWindow", project_name: str, current_time: str) -> bool:
         try:
             if not project_name:
                 raise NameError("Empty project name")
-            if not ProjectsProvider.create_file(project_name):
+            if not ProjectsProvider.create_file(project_name, current_time):
                 error_text = LanguageProvider.get_error_text("FileExistsError")
                 dialog = ErrorDialog(error_text, traceback.format_exc(), show_details_button=False, parent=main_window)
                 dialog.exec()
@@ -58,24 +57,24 @@ class ProjectsManager:
         try:
             validated_project_name = Helpers.validate_project_name(project_name, False)
             project_path = BASE_DIR.joinpath(validated_project_name)
-            ProjectsProvider.project_path = project_path
             main_window.project_name_label.setText(project_name)
-            metrics = QFontMetrics(main_window.folder_line_input.font())
-            short_path = metrics.elidedText(str(project_path), Qt.TextElideMode.ElideLeft, main_window.folder_line_input.width())
-            main_window.folder_line_input.setText(short_path)
-            main_window.folder_line_input.setToolTip(str(project_path))
+            project_info = ProjectsProvider.get_project_info(project_path)
+            if project_info:
+                current_project_path = project_info.get("projectPath", "")
+                ProjectsProvider.project_path = current_project_path
+                if current_project_path:
+                    metrics = QFontMetrics(main_window.folder_line_input.font())
+                    short_path = metrics.elidedText(str(current_project_path), Qt.TextElideMode.ElideLeft, main_window.folder_line_input.width())
+                    main_window.folder_line_input.setText(short_path)
+                    main_window.folder_line_input.setToolTip(current_project_path)
+                    ProjectsManager.update_project_path(project_name, current_project_path)
         except Exception as e:
             ErrorHandler.exception_handler(e, ProjectsManager.class_name)
 
     @staticmethod
     def close_selected_project(main_window: "MainWindow") -> None:
         try:
-            main_window.project_name_label.setText("")
-            main_window.folder_line_input.setText("")
-            main_window.folder_line_input.setToolTip("")
-            path_settings = SettingsProvider.get_toml_data().get("path_settings", {})
-            user_path = path_settings.get("folderEditUser", "")
-            ProjectsProvider.project_path = user_path
+            ProjectsManager.close_project_ui(main_window)
         except Exception as e:
             ErrorHandler.exception_handler(e, ProjectsManager.class_name)
 
@@ -89,5 +88,26 @@ class ProjectsManager:
             if project_path.is_file() and project_path.suffix == ".json":
                 project_path.unlink()
             ProjectsManager.close_selected_project(main_window)
+        except Exception as e:
+            ErrorHandler.exception_handler(e, ProjectsManager.class_name)
+
+    @staticmethod
+    def update_project_path(projects_name: str, project_path: str) -> None:
+        try:
+            if projects_name:
+                ProjectsProvider.project_path = project_path
+                if not ProjectsProvider.set_project_path(projects_name, ProjectsProvider.project_path):
+                    raise ValueError("Update project path error")
+        except Exception as e:
+            ErrorHandler.exception_handler(e, ProjectsManager.class_name)
+
+    @staticmethod
+    def close_project_ui(main_window: "MainWindow") -> None:
+        try:
+            main_window.folder_line_input.setText("")
+            main_window.folder_line_input.setToolTip("")
+            main_window.folder_list_view.model.setStringList([])
+            main_window.files_count_label.setText("?")
+            ProjectsProvider.project_path = ""
         except Exception as e:
             ErrorHandler.exception_handler(e, ProjectsManager.class_name)
