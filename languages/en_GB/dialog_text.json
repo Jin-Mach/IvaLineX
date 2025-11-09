@@ -21,7 +21,7 @@
   "selectProjectDialog": {
   "selectProjectDialogTitle": "Select Project",
   "selectProjectLabelText": "Available projects",
-  "loadButton": "Open",
+  "selectButton": "Select",
   "closeButton": "Close"
 },
   "settingsDialog": {
@@ -74,6 +74,10 @@
     "emptyResultText": "Number of empty lines:",
     "commentsResultText": "Number of comments:",
     "timeLabelText": "Duration (m:s.ms):",
+    "closeButton": "Close"
+  },
+  "infoMessageBox": {
+    "projectDeleted": "Project deleted",
     "closeButton": "Close"
   }
 }

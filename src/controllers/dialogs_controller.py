@@ -3,11 +3,12 @@ import pathlib
 from typing import TYPE_CHECKING
 
 from PyQt6.QtCore import QDateTime, Qt
-from PyQt6.QtWidgets import QApplication, QWidget
+from PyQt6.QtWidgets import QApplication, QWidget, QMessageBox
 
 from src.core.managers.projects_manager import ProjectsManager
 from src.core.providers.projects_provider import ProjectsProvider
 from src.ui.dialogs.about_dialog import AboutDialog
+from src.ui.dialogs.info_messagebox import InfoMessageBox
 from src.ui.dialogs.manual_dialog import ManualDialog
 from src.ui.dialogs.new_project_dialog import NewProjectDialog
 from src.ui.dialogs.progress_dialog import ProgressDialog
@@ -100,17 +101,35 @@ class DialogsController:
 
     def show_delete_project_dialog(self) -> None:
         try:
-            dialog = QuestionDialog(self.main_window)
-            question_text = LanguageProvider.get_dialog_text(LanguageProvider.usage_language, dialog.objectName())
-            if not question_text:
-                raise ValueError("Load json text error.")
-            dialog.set_ui_text(
-                question_text.get("deleteProject", "Delete project?"),
-                question_text.get("questionAcceptButton", "Yes"),
-                question_text.get("questionCancelButton", "No")
-            )
-            if dialog.exec() == dialog.DialogCode.Accepted:
-                ProjectsManager.delete_selected_project(self.main_window)
+            dialog = SelectProjectDialog(self.main_window)
+            select_project_text = LanguageProvider.get_dialog_text(LanguageProvider.usage_language,
+                                                                   dialog.objectName())
+            if not select_project_text:
+                raise ValueError("Load json text error")
+            LanguageManager.apply_select_project_dialog_text(dialog, select_project_text)
+            if ProjectsManager.set_selected_project(self.main_window, dialog.projects_combobox):
+                if dialog.exec() == dialog.DialogCode.Accepted:
+                    if dialog.projects_combobox.currentText() != self.main_window.project_name_label.text():
+                        ProjectsManager.delete_selected_project(self.main_window, dialog.projects_combobox.currentText())
+                    else:
+                        question_dialog = QuestionDialog(self.main_window)
+                        question_text = LanguageProvider.get_dialog_text(LanguageProvider.usage_language, question_dialog.objectName())
+                        if not question_text:
+                            raise ValueError("Load json text error.")
+                        question_dialog.set_ui_text(
+                            question_text.get("deleteProject", "Delete project?"),
+                            question_text.get("questionAcceptButton", "Yes"),
+                            question_text.get("questionCancelButton", "No")
+                        )
+                        if question_dialog.exec() == question_dialog.DialogCode.Accepted:
+                            ProjectsManager.delete_selected_project(self.main_window, dialog.projects_combobox.currentText())
+                    messagebox = InfoMessageBox(self.main_window)
+                    messagebox_text = LanguageProvider.get_dialog_text(LanguageProvider.usage_language, messagebox.objectName())
+                    messagebox.set_ui_text(
+                        messagebox_text.get("projectDeleted", "Project deleted"),
+                        QMessageBox.Icon.Information,
+                        messagebox_text.get("closeButton", "Close"))
+                    messagebox.exec()
         except Exception as e:
             ErrorHandler.exception_handler(e, self.class_name)
 

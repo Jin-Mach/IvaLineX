@@ -80,7 +80,7 @@ class LanguageManager:
             dialog.set_ui_text(
                 json_text.get(f"{dialog.objectName()}Title", "Select project"),
                 json_text.get(dialog.select_project_label_text.objectName(), "Select project which you want to use."),
-                json_text.get(dialog.load_button.objectName(), "Load"),
+                json_text.get(dialog.select_button.objectName(), "Select"),
                 json_text.get(dialog.close_button.objectName(), "Close")
             )
         except Exception as e:

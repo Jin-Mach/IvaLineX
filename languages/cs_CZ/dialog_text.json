@@ -21,7 +21,7 @@
   "selectProjectDialog": {
     "selectProjectDialogTitle": "Vybrat projekt",
     "selectProjectLabelText": "Dostupné projekty",
-    "loadButton": "Otevřít",
+    "selectButton": "Vybrat",
     "closeButton": "Zavřít"
   },
   "settingsDialog": {
@@ -74,6 +74,10 @@
     "emptyResultText": "Počet prázdných řádků:",
     "commentsResultText": "Počet komentářů:",
     "timeLabelText": "Doba trvání (m:s.ms):",
+    "closeButton": "Zavřít"
+  },
+  "infoMessageBox": {
+    "projectDeleted": "Project odstraněn",
     "closeButton": "Zavřít"
   }
 }

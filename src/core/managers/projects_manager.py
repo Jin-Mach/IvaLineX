@@ -79,14 +79,14 @@ class ProjectsManager:
             ErrorHandler.exception_handler(e, ProjectsManager.class_name)
 
     @staticmethod
-    def delete_selected_project(main_window: "MainWindow") -> None:
+    def delete_selected_project(main_window: "MainWindow", project_name: str) -> None:
         try:
-            project_dir = ProjectsProvider.project_path
-            if project_dir is None:
-                return
-            project_path = pathlib.Path(project_dir)
+            project_dir = Helpers.validate_project_name(project_name, False)
+            project_path = BASE_DIR.joinpath(project_dir)
+            project_path = pathlib.Path(project_path)
             if project_path.is_file() and project_path.suffix == ".json":
                 project_path.unlink()
+            main_window.project_name_label.setText("")
             ProjectsManager.close_selected_project(main_window)
         except Exception as e:
             ErrorHandler.exception_handler(e, ProjectsManager.class_name)

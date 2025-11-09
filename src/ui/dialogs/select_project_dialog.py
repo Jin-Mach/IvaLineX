@@ -17,8 +17,8 @@ class SelectProjectDialog(QDialog):
         self.projects_combobox = QComboBox()
         self.projects_combobox.setObjectName("projectsCombobox")
         button_box = QDialogButtonBox(QDialogButtonBox.StandardButton.Ok | QDialogButtonBox.StandardButton.Close)
-        self.load_button = button_box.button(QDialogButtonBox.StandardButton.Ok)
-        self.load_button.setObjectName("loadButton")
+        self.select_button = button_box.button(QDialogButtonBox.StandardButton.Ok)
+        self.select_button.setObjectName("selectButton")
         self.close_button = button_box.button(QDialogButtonBox.StandardButton.Close)
         self.close_button.setObjectName("closeButton")
         button_box.accepted.connect(self.accept)
@@ -31,7 +31,7 @@ class SelectProjectDialog(QDialog):
     def set_ui_text(self, title: str, label: str, load: str, close: str) -> None:
         self.setWindowTitle(title)
         self.select_project_label_text.setText(label)
-        self.load_button.setText(load)
+        self.select_button.setText(load)
         self.close_button.setText(close)
 
     def showEvent(self, event) -> None:
