@@ -3,6 +3,8 @@ import pathlib
 
 from typing import Any
 
+from PyQt6.QtCore import QDateTime
+
 from src.utilities.error_handler import ErrorHandler
 from src.utilities.helpers import Helpers
 
@@ -85,8 +87,18 @@ class ProjectsProvider:
     @staticmethod
     def save_project_results(project_name: str, results: dict[str, int]) -> bool:
         try:
-            print("project path:", project_name)
-            print("project results:", results)
+            project_path = pathlib.Path(__file__).parents[3].joinpath("projects").joinpath(project_name)
+            if not project_path.exists():
+                return False
+            with open(project_path, "r", encoding="utf-8") as project_file:
+                project_data = json.load(project_file)
+                current_time = QDateTime().currentDateTime().toString("yyyy-MM-ddTHH:mm:ss.zzz")
+                values_dict = {"code": results.get("code", 0),
+                               "empty": results.get("empty", 0),
+                               "comments": results.get("comments", 0)}
+                project_data.setdefault("results", {})[current_time] = values_dict
+            with open(project_path, "w", encoding="utf_8") as new_project_file:
+                json.dump(project_data, new_project_file, indent=4, ensure_ascii=False)
             return True
         except Exception as e:
             ErrorHandler.exception_handler(e, ProjectsProvider.class_name, show_details=False)
