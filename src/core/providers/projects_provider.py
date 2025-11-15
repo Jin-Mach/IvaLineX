@@ -81,3 +81,13 @@ class ProjectsProvider:
         except Exception as e:
             ErrorHandler.exception_handler(e, ProjectsProvider.class_name, show_details=False)
             return False
+
+    @staticmethod
+    def save_project_results(project_name: str, results: dict[str, int]) -> bool:
+        try:
+            print("project path:", project_name)
+            print("project results:", results)
+            return True
+        except Exception as e:
+            ErrorHandler.exception_handler(e, ProjectsProvider.class_name, show_details=False)
+            return False

@@ -15,6 +15,8 @@ class MainWindow(QMainWindow):
         self.menu_bar = MenuBar(self)
         self.setMenuBar(self.menu_bar)
         self.setCentralWidget(self.create_gui())
+        self.status_bar = self.statusBar()
+        self.status_bar.setObjectName("statusBar")
         self.init_window_geometry()
         self.controller_service = ControllersService(self, self.menu_bar)
 

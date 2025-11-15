@@ -1,7 +1,7 @@
 import pathlib
 import traceback
 
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from PyQt6.QtCore import Qt
 from PyQt6.QtGui import QFontMetrics
@@ -109,5 +109,32 @@ class ProjectsManager:
             main_window.folder_list_view.model.setStringList([])
             main_window.files_count_label.setText("?")
             ProjectsProvider.project_path = ""
+        except Exception as e:
+            ErrorHandler.exception_handler(e, ProjectsManager.class_name)
+
+    @staticmethod
+    def project_results_handler(main_window: "MainWindow", settings_data: dict[str, dict[str, Any]], results: dict[str, int]) -> None:
+        try:
+            saved_results ={
+                "code": results.get("code", 0),
+                "empty": 0,
+                "comments": 0
+            }
+            validate_project_name = Helpers.validate_project_name(main_window.project_name_label.text(), False)
+            if not main_window.project_name_label.text() or not main_window.save_history_checkbox.isChecked():
+                return
+            python_settings = settings_data.get("python_settings")
+            if python_settings.get("emptyRowsCheckboxUser", False):
+                saved_results["empty"] = results.get("empty", 0)
+            if python_settings.get("commentsCheckboxUser", False):
+                saved_results["comments"] = results.get("comments", 0)
+            ui_text = LanguageProvider.get_text(LanguageProvider.usage_language, "ui_text").get("mainWindow", {})
+            result_saved = ui_text.get(f"{main_window.status_bar.objectName()}Saved", "Saved...")
+            result_not_saved = ui_text.get(f"{main_window.status_bar.objectName()}NotSaved", "Error while saving...")
+            result = ProjectsProvider.project_path and ProjectsProvider.save_project_results(validate_project_name, saved_results)
+            if result:
+                main_window.status_bar.showMessage(result_saved, 5000)
+            else:
+                main_window.status_bar.showMessage(result_not_saved, 5000)
         except Exception as e:
             ErrorHandler.exception_handler(e, ProjectsManager.class_name)

@@ -17,6 +17,8 @@
     "folderButton": "Vybrat složku",
     "saveHistoryCheckBox": "Uložit do historie",
     "filesCountTextLabel": "Počet souborů:",
-    "countButton": "Zobrazit výsledek"
+    "countButton": "Zobrazit výsledek",
+    "statusBarSaved": "Uloženo...",
+    "statusBarNotSaved": "Chyba při ukládání..."
   }
 }

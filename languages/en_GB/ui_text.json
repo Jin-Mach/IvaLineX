@@ -17,6 +17,8 @@
     "folderButton": "Select Folder",
     "saveHistoryCheckBox": "Save to History",
     "filesCountTextLabel": "Number of Files:",
-    "countButton": "Show Result"
+    "countButton": "Show Result",
+    "statusBarSaved": "Saved...",
+    "statusBarNotSaved": "Error while saving..."
   }
 }

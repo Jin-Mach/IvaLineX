@@ -4,6 +4,7 @@ from typing import TYPE_CHECKING
 
 from PyQt6.QtCore import QThread, QElapsedTimer, QTimer
 
+from src.core.managers.projects_manager import ProjectsManager
 from src.core.providers.count_provider import CountProvider
 from src.core.providers.language_provider import LanguageProvider
 from src.core.providers.settings_provider import SettingsProvider
@@ -90,7 +91,8 @@ class CountManager:
             seconds = seconds % 60
             duration = f"{minutes:02}:{seconds:02}.{milliseconds:03}"
             result_dialog.on_finished(count_dict, duration)
-            QTimer.singleShot(500, result_dialog.show)
+            ProjectsManager.project_results_handler(self.main_window, settings, count_dict)
+            QTimer.singleShot(300, result_dialog.show)
         except Exception as e:
             self.timer = None
             ErrorHandler.exception_handler(e, self.class_name)
