@@ -15,6 +15,7 @@ from src.ui.dialogs.progress_dialog import ProgressDialog
 from src.ui.dialogs.question_dialog import QuestionDialog
 from src.ui.dialogs.select_project_dialog import SelectProjectDialog
 from src.ui.dialogs.settings_dialog import SettingsDialog
+from src.ui.dialogs.statistics_dialog import StatisticsDialog
 from src.utilities.error_handler import ErrorHandler
 from src.core.managers.language_manager import LanguageManager
 from src.core.providers.language_provider import LanguageProvider
@@ -43,6 +44,7 @@ class DialogsController:
         self.menu_bar.close_project_action.triggered.connect(self.show_close_project_dialog)
         self.menu_bar.delete_project_action.triggered.connect(self.show_delete_project_dialog)
         self.menu_bar.settings_action.triggered.connect(self.show_settings_dialog)
+        self.menu_bar.statistics_action.triggered.connect(self.show_statistics_dialog)
         self.menu_bar.close_app_action.triggered.connect(self.show_close_app_dialog)
         self.menu_bar.manual_action.triggered.connect(self.show_manual_dialog)
         self.menu_bar.about_action.triggered.connect(self.show_about_dialog)
@@ -167,6 +169,17 @@ class DialogsController:
                     new_language = reset_data.get("language_settings", {}).get("languageUser", "en_GB")
                     LanguageProvider.usage_language = new_language
                     LanguageManager.apply_ui_text(self.main_window, LanguageProvider.usage_language)
+        except Exception as e:
+            ErrorHandler.exception_handler(e, self.class_name)
+
+    def show_statistics_dialog(self) -> None:
+        try:
+            dialog = StatisticsDialog(self.main_window)
+            statistics_text = LanguageProvider.get_dialog_text(LanguageProvider.usage_language, dialog.objectName())
+            if not statistics_text:
+                raise ValueError("Load json text error.")
+            LanguageManager.apply_statistics_dialog_text(dialog, statistics_text)
+            dialog.exec()
         except Exception as e:
             ErrorHandler.exception_handler(e, self.class_name)
 

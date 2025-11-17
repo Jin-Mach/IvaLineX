@@ -24,6 +24,17 @@
   "selectButton": "Select",
   "closeButton": "Close"
 },
+  "statisticsDialog": {
+    "statisticsDialogTitle": "Statistics",
+    "projectNameText": "project name:",
+    "totalCountText": "total number of lines:",
+    "detailCodeCountText": "lines of code:",
+    "detailEmptyCountText": "empty lines:",
+    "detailCommentsCountText": "comment lines:",
+    "codeLegendText": "code",
+    "emptyLegendText": "empty",
+    "commentsLegendText": "comments"
+},
   "settingsDialog": {
     "settingsDialogTitle": "Settings",
     "basicGroupboxTitle": "General",

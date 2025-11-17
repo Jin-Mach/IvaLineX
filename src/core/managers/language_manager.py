@@ -8,6 +8,7 @@ from src.core.providers.language_provider import LanguageProvider
 if TYPE_CHECKING:
     from src.ui.dialogs.new_project_dialog import NewProjectDialog
     from src.ui.dialogs.select_project_dialog import SelectProjectDialog
+    from src.ui.dialogs.statistics_dialog import StatisticsDialog
     from src.ui.dialogs.settings_dialog import SettingsDialog
 
 
@@ -82,6 +83,25 @@ class LanguageManager:
                 json_text.get(dialog.select_project_label_text.objectName(), "Select project which you want to use."),
                 json_text.get(dialog.select_button.objectName(), "Select"),
                 json_text.get(dialog.close_button.objectName(), "Close")
+            )
+        except Exception as e:
+            ErrorHandler.exception_handler(e, LanguageManager.class_name)
+
+    @staticmethod
+    def apply_statistics_dialog_text(dialog: "StatisticsDialog", json_text: dict[str, str]) -> None:
+        try:
+            if not json_text:
+                raise ValueError("Load json text error.")
+            dialog.set_ui_text(
+                json_text.get(f"{dialog.objectName()}Title", "Statistics"),
+                json_text.get("projectNameText", "project name:"),
+                json_text.get("totalCountText", "total number of lines:"),
+                json_text.get("detailCodeCountText", "lines of code:"),
+                json_text.get("detailEmptyCountText", "empty lines:"),
+                json_text.get("detailCommentsCountText", "comment lines:"),
+                json_text.get("codeLegendText", "code"),
+                json_text.get("emptyLegendText", "empty"),
+                json_text.get("commentsLegendText", "comments")
             )
         except Exception as e:
             ErrorHandler.exception_handler(e, LanguageManager.class_name)

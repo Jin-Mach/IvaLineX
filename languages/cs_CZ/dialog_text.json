@@ -24,6 +24,17 @@
     "selectButton": "Vybrat",
     "closeButton": "Zavřít"
   },
+  "statisticsDialog": {
+    "statisticsDialogTitle": "Statistika",
+    "projectNameText": "jméno projektu:",
+    "totalCountText": "celkový počet řádků:",
+    "detailCodeCountText": "řádky kódu:",
+    "detailEmptyCountText": "prázdné řádky:",
+    "detailCommentsCountText": "řádky s komentářem:",
+    "codeLegendText": "kód",
+    "emptyLegendText": "prázdné",
+    "commentsLegendText": "komentáře"
+  },
   "settingsDialog": {
     "settingsDialogTitle": "Nastavení",
     "basicGroupboxTitle": "Obecné",
