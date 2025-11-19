@@ -174,6 +174,8 @@ class DialogsController:
 
     def show_statistics_dialog(self) -> None:
         try:
+            projects_data = ProjectsManager.get_statistics_data()
+            print(projects_data)
             dialog = StatisticsDialog(self.main_window)
             statistics_text = LanguageProvider.get_dialog_text(LanguageProvider.usage_language, dialog.objectName())
             if not statistics_text:

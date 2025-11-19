@@ -138,3 +138,21 @@ class ProjectsManager:
                 main_window.status_bar.showMessage(result_not_saved, 5000)
         except Exception as e:
             ErrorHandler.exception_handler(e, ProjectsManager.class_name)
+
+    @staticmethod
+    def get_statistics_data() -> dict[str, dict[str, str | dict[str, int]]]:
+        try:
+            all_projects = {}
+            for project in BASE_DIR.iterdir():
+                if project.is_file() and project.name.endswith(".json"):
+                    project_data = ProjectsProvider.get_project_info(project)
+                    project_structure = {
+                        "projectPath": project_data.get("projectPath", ""),
+                        "created": project_data.get("created", ""),
+                        "results": project_data.get("results", {})
+                    }
+                    all_projects[project.name] = project_structure
+            return all_projects
+        except Exception as e:
+            ErrorHandler.exception_handler(e, ProjectsManager.class_name)
+            return {}
