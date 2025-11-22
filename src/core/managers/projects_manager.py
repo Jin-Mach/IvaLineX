@@ -3,7 +3,7 @@ import traceback
 
 from typing import TYPE_CHECKING, Any
 
-from PyQt6.QtCore import Qt
+from PyQt6.QtCore import Qt, QDateTime
 from PyQt6.QtGui import QFontMetrics
 from PyQt6.QtWidgets import QComboBox
 
@@ -158,23 +158,36 @@ class ProjectsManager:
             return {}
 
     @staticmethod
-    def get_project_statistics_data(results: dict[str, dict[str, int]]) -> dict[str, int]:
+    def get_project_statistics_data(results: dict[str, dict[str, int]]):
         try:
-            total_result = {
+            project = {
+                "total": {},
+                "progress": {}
+            }
+            total_count = {
                 "total": 0,
                 "code": 0,
                 "empty": 0,
                 "comments": 0
             }
-            for result_value in results.values():
-                code = result_value.get("code", 0)
-                empty = result_value.get("empty", 0)
-                comments = result_value.get("comments", 0)
-                total_result["code"] += code
-                total_result["empty"] += empty
-                total_result["comments"] += comments
-                total_result["total"] += code + empty + comments
-            return  total_result
+            progress_count = {
+                "x_progress": [],
+                "y_progress": []
+            }
+            for key, value in results.items():
+                code = value.get("code", 0)
+                empty = value.get("empty", 0)
+                comments = value.get("comments", 0)
+                total_count["code"] += code
+                total_count["empty"] += empty
+                total_count["comments"] += comments
+                total_count["total"] += code + empty + comments
+                date_time = QDateTime.fromString(key, "yyyy-MM-ddTHH:mm:ss.zzz").toMSecsSinceEpoch()
+                progress_count["x_progress"].append(date_time)
+                progress_count["y_progress"].append(code + empty + comments)
+            project["total"] = total_count
+            project["progress"] = progress_count
+            return project
         except Exception as e:
             ErrorHandler.exception_handler(e, ProjectsManager.class_name)
             return {}
