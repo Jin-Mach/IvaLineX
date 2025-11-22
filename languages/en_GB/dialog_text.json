@@ -27,6 +27,7 @@
   "statisticsDialog": {
     "statisticsDialogTitle": "Statistics",
     "projectNameText": "project name:",
+    "projectPlaceholderText": "--select project--",
     "totalCountText": "total number of lines:",
     "detailCodeCountText": "lines of code:",
     "detailEmptyCountText": "empty lines:",

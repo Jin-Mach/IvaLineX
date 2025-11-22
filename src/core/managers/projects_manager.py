@@ -140,7 +140,7 @@ class ProjectsManager:
             ErrorHandler.exception_handler(e, ProjectsManager.class_name)
 
     @staticmethod
-    def get_statistics_data() -> dict[str, dict[str, str | dict[str, int]]]:
+    def get_statistics_data() -> dict[str, str | dict[str, dict[str, int]]]:
         try:
             all_projects = {}
             for project in BASE_DIR.iterdir():
@@ -151,8 +151,30 @@ class ProjectsManager:
                         "created": project_data.get("created", ""),
                         "results": project_data.get("results", {})
                     }
-                    all_projects[project.name] = project_structure
+                    all_projects[project.name.removesuffix(".json")] = project_structure
             return all_projects
+        except Exception as e:
+            ErrorHandler.exception_handler(e, ProjectsManager.class_name)
+            return {}
+
+    @staticmethod
+    def get_project_statistics_data(results: dict[str, dict[str, int]]) -> dict[str, int]:
+        try:
+            total_result = {
+                "total": 0,
+                "code": 0,
+                "empty": 0,
+                "comments": 0
+            }
+            for result_value in results.values():
+                code = result_value.get("code", 0)
+                empty = result_value.get("empty", 0)
+                comments = result_value.get("comments", 0)
+                total_result["code"] += code
+                total_result["empty"] += empty
+                total_result["comments"] += comments
+                total_result["total"] += code + empty + comments
+            return  total_result
         except Exception as e:
             ErrorHandler.exception_handler(e, ProjectsManager.class_name)
             return {}

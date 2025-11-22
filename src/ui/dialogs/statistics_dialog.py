@@ -68,10 +68,12 @@ class StatisticsDialog(QDialog):
         main_layout.addLayout(legend_layout)
         return main_layout
 
-    def set_ui_text(self, title: str, project: str, total: str, code_count: str, empty_count: str, comments_count: str,
-                    code_legend: str, empty_legend: str, comments_legend: str) -> None:
+    def set_ui_text(self, title: str, project: str, placeholder: str, projects_list: list[str], total: str, code_count: str,
+                    empty_count: str, comments_count: str, code_legend: str, empty_legend: str, comments_legend: str) -> None:
         self.setWindowTitle(title)
         self.project_name_text.setText(project)
+        self.project_combobox.setPlaceholderText(placeholder)
+        self.project_combobox.addItems(projects_list)
         self.total_count_text.setText(total)
         self.detail_code_count_text.setText(code_count)
         self.detail_empty_count_text.setText(empty_count)

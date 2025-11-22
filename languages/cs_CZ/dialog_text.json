@@ -27,6 +27,7 @@
   "statisticsDialog": {
     "statisticsDialogTitle": "Statistika",
     "projectNameText": "jméno projektu:",
+    "projectPlaceholderText": "--vyber projekt--",
     "totalCountText": "celkový počet řádků:",
     "detailCodeCountText": "řádky kódu:",
     "detailEmptyCountText": "prázdné řádky:",

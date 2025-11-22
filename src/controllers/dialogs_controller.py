@@ -174,14 +174,14 @@ class DialogsController:
 
     def show_statistics_dialog(self) -> None:
         try:
-            projects_data = ProjectsManager.get_statistics_data()
-            print(projects_data)
-            dialog = StatisticsDialog(self.main_window)
-            statistics_text = LanguageProvider.get_dialog_text(LanguageProvider.usage_language, dialog.objectName())
+            statistics_dialog = StatisticsDialog(self.main_window)
+            statistics_text = LanguageProvider.get_dialog_text(LanguageProvider.usage_language, statistics_dialog.objectName())
             if not statistics_text:
                 raise ValueError("Load json text error.")
-            LanguageManager.apply_statistics_dialog_text(dialog, statistics_text)
-            dialog.exec()
+            self.projects_data = ProjectsManager.get_statistics_data()
+            LanguageManager.apply_statistics_dialog_text(statistics_dialog, list(self.projects_data.keys()), statistics_text)
+            statistics_dialog.project_combobox.currentIndexChanged.connect(lambda index: self.set_statistics_data(statistics_dialog, index))
+            statistics_dialog.exec()
         except Exception as e:
             ErrorHandler.exception_handler(e, self.class_name)
 
@@ -255,3 +255,14 @@ class DialogsController:
             self.count_manager.files_count_thread.finished.connect(progress_dialog.close)
         except Exception as e:
             ErrorHandler.exception_handler(e, self.class_name)
+
+    def set_statistics_data(self, dialog: StatisticsDialog, index: int) -> None:
+        try:
+            project_name = dialog.project_combobox.itemText(index)
+            project_data_results = ProjectsManager.get_project_statistics_data(self.projects_data.get(project_name, {}).get("results", {}))
+            if not self.projects_data or not project_data_results:
+                dialog.update_values("N/A", "N/A", "N/A", "N/A")
+                raise ValueError("Project data error")
+            dialog.update_values(project_data_results.get("total", "N/A"), project_data_results.get("code", "N/A"),
+                                 project_data_results.get("empty", "N/A"), project_data_results.get("comments", "N/A"))
+        except Exception as e: ErrorHandler.exception_handler(e, self.class_name)

@@ -88,13 +88,15 @@ class LanguageManager:
             ErrorHandler.exception_handler(e, LanguageManager.class_name)
 
     @staticmethod
-    def apply_statistics_dialog_text(dialog: "StatisticsDialog", json_text: dict[str, str]) -> None:
+    def apply_statistics_dialog_text(dialog: "StatisticsDialog", project_list: list[str], json_text: dict[str, str]) -> None:
         try:
             if not json_text:
                 raise ValueError("Load json text error.")
             dialog.set_ui_text(
                 json_text.get(f"{dialog.objectName()}Title", "Statistics"),
                 json_text.get("projectNameText", "project name:"),
+                json_text.get("projectPlaceholderText", "--select project--"),
+                project_list,
                 json_text.get("totalCountText", "total number of lines:"),
                 json_text.get("detailCodeCountText", "lines of code:"),
                 json_text.get("detailEmptyCountText", "empty lines:"),
