@@ -101,6 +101,8 @@ class LanguageManager:
                 json_text.get("detailCodeCountText", "lines of code:"),
                 json_text.get("detailEmptyCountText", "empty lines:"),
                 json_text.get("detailCommentsCountText", "comment lines:"),
+                json_text.get("infoLabelText", "Select a project from the list to display statistics"),
+                json_text.get("progressTab"),
                 json_text.get("codeLegendText", "code"),
                 json_text.get("emptyLegendText", "empty"),
                 json_text.get("commentsLegendText", "comments")

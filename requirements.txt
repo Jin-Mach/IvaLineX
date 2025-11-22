@@ -1,3 +1,4 @@
+pyqtgraph
 requests
 tomli-w
 PyQt6>=6.9.1

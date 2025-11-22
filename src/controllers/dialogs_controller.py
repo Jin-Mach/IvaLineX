@@ -265,4 +265,6 @@ class DialogsController:
                 raise ValueError("Project data error")
             dialog.update_values(project_data_results.get("total", "N/A"), project_data_results.get("code", "N/A"),
                                  project_data_results.get("empty", "N/A"), project_data_results.get("comments", "N/A"))
+            dialog.info_label_text.setVisible(False)
+            dialog.set_visible()
         except Exception as e: ErrorHandler.exception_handler(e, self.class_name)

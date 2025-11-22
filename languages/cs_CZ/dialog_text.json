@@ -32,6 +32,8 @@
     "detailCodeCountText": "řádky kódu:",
     "detailEmptyCountText": "prázdné řádky:",
     "detailCommentsCountText": "řádky s komentářem:",
+    "infoLabelText": "Pro zobrazení statistik vyber projekt z nabídky",
+    "progressTab": "trend",
     "codeLegendText": "kód",
     "emptyLegendText": "prázdné",
     "commentsLegendText": "komentáře"
