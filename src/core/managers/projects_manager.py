@@ -158,11 +158,18 @@ class ProjectsManager:
             return {}
 
     @staticmethod
-    def get_project_statistics_data(results: dict[str, dict[str, int]]):
+    def get_project_statistics_data(results: dict[str, dict[str, int]]) -> dict[str, dict[str, int | list[int]]]:
         try:
             project = {
                 "total": {},
-                "progress": {}
+                "totalCount": {},
+                "progressCount": {}
+            }
+            total = {
+                "total": 0,
+                "code": 0,
+                "empty": 0,
+                "comments": 0
             }
             total_count = {
                 "total": 0,
@@ -174,19 +181,28 @@ class ProjectsManager:
                 "x_progress": [],
                 "y_progress": []
             }
+            last_progress = list(results.values())[-1]
+            code = last_progress.get("code", 0)
+            empty = last_progress.get("empty", 0)
+            comments = last_progress.get("comments", 0)
+            total["total"] = code + empty + comments
+            total["code"] = code
+            total["empty"] = empty
+            total["comments"] = comments
             for key, value in results.items():
-                code = value.get("code", 0)
-                empty = value.get("empty", 0)
-                comments = value.get("comments", 0)
-                total_count["code"] += code
-                total_count["empty"] += empty
-                total_count["comments"] += comments
-                total_count["total"] += code + empty + comments
+                code_count = value.get("code", 0)
+                empty_count = value.get("empty", 0)
+                comments_count = value.get("comments", 0)
+                total_count["code"] += code_count
+                total_count["empty"] += empty_count
+                total_count["comments"] += comments_count
+                total_count["total"] += code_count + empty_count + comments_count
                 date_time = QDateTime.fromString(key, "yyyy-MM-ddTHH:mm:ss.zzz").toMSecsSinceEpoch()
                 progress_count["x_progress"].append(date_time)
-                progress_count["y_progress"].append(code + empty + comments)
-            project["total"] = total_count
-            project["progress"] = progress_count
+                progress_count["y_progress"].append(code_count + empty_count + comments_count)
+            project["total"] = total
+            project["totalCount"] = total_count
+            project["progressCount"] = progress_count
             return project
         except Exception as e:
             ErrorHandler.exception_handler(e, ProjectsManager.class_name)

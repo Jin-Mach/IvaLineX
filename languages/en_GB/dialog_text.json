@@ -34,6 +34,7 @@
     "detailCommentsCountText": "comment lines:",
     "infoLabelText": "Select a project from the list to display statistics",
     "progressTab": "trend chart",
+    "totalText": "total",
     "codeLegendText": "code",
     "emptyLegendText": "empty",
     "commentsLegendText": "comments"

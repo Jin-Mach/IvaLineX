@@ -181,7 +181,9 @@ class DialogsController:
             self.projects_data = ProjectsManager.get_statistics_data()
             LanguageManager.apply_statistics_dialog_text(statistics_dialog, list(self.projects_data.keys()), statistics_text)
             statistics_dialog.project_combobox.currentIndexChanged.connect(
-                lambda index: self.set_statistics_data(statistics_dialog, index, f"{statistics_text.get("codeLegendText", "code")}",
+                lambda index: self.set_statistics_data(statistics_dialog, index,
+                                                       f"{statistics_text.get("totalText", "total")}",
+                                                       f"{statistics_text.get("codeLegendText", "code")}",
                                                        f"{statistics_text.get("emptyLegendText", "empty")}",
                                                         f"{statistics_text.get("commentsLegendText", "comments")}"))
             statistics_dialog.exec()
@@ -259,7 +261,8 @@ class DialogsController:
         except Exception as e:
             ErrorHandler.exception_handler(e, self.class_name)
 
-    def set_statistics_data(self, dialog: StatisticsDialog, index: int, code_text: str, empty_text: str, comments_text: str) -> None:
+    def set_statistics_data(self, dialog: StatisticsDialog, index: int, total_text: str, code_text: str, empty_text: str,
+                            comments_text: str) -> None:
         try:
             project_name = dialog.project_combobox.itemText(index)
             if not self.projects_data:
@@ -267,14 +270,14 @@ class DialogsController:
             results = self.projects_data.get(project_name, {}).get("results", {})
             project_data_results = ProjectsManager.get_project_statistics_data(results)
             total_count_data = project_data_results.get("total", {})
-            progress_data = project_data_results.get("progress", {})
+            progress_data = project_data_results.get("progressCount", {})
             if not total_count_data or not progress_data or not results:
                 dialog.update_values("N/A", "N/A", "N/A", "N/A")
                 raise ValueError("Project data error")
             dialog.update_values(total_count_data.get("total", "N/A"), total_count_data.get("code", "N/A"),
                                  total_count_data.get("empty", "N/A"), total_count_data.get("comments", "N/A"))
             dialog.progress_graph_widget.set_plot_data(progress_data.get("x_progress", 0.0), progress_data.get("y_progress", 0),
-                                                       results, code_text, empty_text, comments_text)
+                                                       results, total_text, code_text, empty_text, comments_text)
             if not dialog.count_widget.isVisible():
                 dialog.set_visible()
         except Exception as e: ErrorHandler.exception_handler(e, self.class_name)
