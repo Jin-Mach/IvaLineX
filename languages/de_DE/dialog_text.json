@@ -1,0 +1,98 @@
+{
+  "questionDialog": {
+    "startProject": "Offenes Projekt schließen?",
+    "closeProject": "Projekt schließen?",
+    "deleteProject": "Projekt löschen",
+    "closeAppQuestion": "Anwendung schließen?",
+    "resetSettings": "Anwendungseinstellungen zurücksetzen?",
+    "deleteItem": "Element löschen?",
+    "questionAcceptButton": "Ja",
+    "questionCancelButton": "Nein"
+  },
+  "getDirDialog": {
+    "folderDialogTitle": "Standardordner auswählen"
+  },
+  "newProjectDialog": {
+    "newProjectDialogTitle": "Neues Projekt",
+    "newProjectLabelText": "Projektname eingeben\n(nur Buchstaben und Leerzeichen)",
+    "saveButton": "Speichern",
+    "closeButton": "Schließen"
+  },
+  "selectProjectDialog": {
+    "selectProjectDialogTitle": "Projekt auswählen",
+    "selectProjectLabelText": "Verfügbare Projekte",
+    "selectButton": "Auswählen",
+    "closeButton": "Schließen"
+  },
+  "statisticsDialog": {
+    "statisticsDialogTitle": "Statistik",
+    "projectNameText": "Projektname:",
+    "projectPlaceholderText": "--Projekt auswählen--",
+    "totalCountText": "Gesamtanzahl der Zeilen:",
+    "detailCodeCountText": "Codezeilen:",
+    "detailEmptyCountText": "Leere Zeilen:",
+    "detailCommentsCountText": "Kommentierte Zeilen:",
+    "infoLabelText": "Wählen Sie ein Projekt aus, um die Statistik anzuzeigen",
+    "progressTab": "Trend",
+    "totalText": "Gesamt",
+    "codeLegendText": "Code",
+    "emptyLegendText": "Leer",
+    "commentsLegendText": "Kommentare"
+  },
+  "settingsDialog": {
+    "settingsDialogTitle": "Einstellungen",
+    "basicGroupboxTitle": "Allgemein",
+    "languageLabelText": "Anwendungssprache:",
+    "folderLabelText": "Standardordner:",
+    "selectFolderButton": "Auswählen",
+    "historyCheckbox": "Verlauf speichern",
+    "languageGroupboxTitle": "Spracheinstellungen",
+    "initCheckbox": "__init__.py einbeziehen",
+    "setupCheckbox": "setup.py einbeziehen",
+    "mainCheckbox": "__main__.py einbeziehen",
+    "emptyRowsCheckbox": "Leere Zeilen zählen",
+    "commentsCheckbox": "Kommentare zählen",
+    "ignoreVenvCheckbox": "Ordner venv/, .venv/ ignorieren",
+    "ignoreTestsCheckbox": "Ordner test/, tests/ ignorieren",
+    "commonGroupboxTitle": "Gemeinsame Einstellungen",
+    "jsonCheckbox": "JSON / YAML / TOML einbeziehen",
+    "readmeCheckbox": "README.md und Dokumentation zählen",
+    "ignoreFilesCheckbox": "Große Dateien ignorieren (>5 MB)",
+    "ignoreBinaryCheckbox": "Binärdateien ignorieren",
+    "resetButton": "Auf Standard zurücksetzen",
+    "saveButton": "Speichern",
+    "cancelButton": "Abbrechen",
+    "folderDialogTitle": "Standardordner auswählen"
+  },
+  "manualDialog": {
+    "manualDialogTitle": "Handbuch",
+    "closeButton": "Schließen"
+  },
+  "aboutDialog": {
+    "aboutDialogTitle": "Über die Anwendung",
+    "aboutLabelText": "<b>IvalineX</b><br>Autor: Jin-Mach<br>Version: 1.0.",
+    "closeButton": "Schließen"
+  },
+  "errorDialog": {
+    "detailsButtonShow": "Details anzeigen",
+    "detailsButtonHide": "Details verbergen",
+    "closeButton": "Schließen"
+  },
+  "progressDialog": {
+    "labelText": "Dateien werden geladen...",
+    "labelTextRows": "Zeilen werden gezählt...",
+    "onFinished": "Fertig"
+  },
+  "resultDialog": {
+    "resultLabelText": "Fertig!",
+    "codeResultText": "Anzahl der Codezeilen:",
+    "emptyResultText": "Anzahl der leeren Zeilen:",
+    "commentsResultText": "Anzahl der Kommentare:",
+    "timeLabelText": "Dauer (m:s.ms):",
+    "closeButton": "Schließen"
+  },
+  "infoMessageBox": {
+    "projectDeleted": "Projekt gelöscht",
+    "closeButton": "Schließen"
+  }
+}

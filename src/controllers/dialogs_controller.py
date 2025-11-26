@@ -276,7 +276,7 @@ class DialogsController:
                 raise ValueError("Project data error")
             dialog.update_values(total_count_data.get("total", "N/A"), total_count_data.get("code", "N/A"),
                                  total_count_data.get("empty", "N/A"), total_count_data.get("comments", "N/A"))
-            dialog.progress_graph_widget.set_plot_data(progress_data.get("x_progress", 0.0), progress_data.get("y_progress", 0),
+            dialog.progress_graph_widget.set_plot_data(progress_data.get("x_progress", []), progress_data.get("y_progress", []),
                                                        results, total_text, code_text, empty_text, comments_text)
             if not dialog.count_widget.isVisible():
                 dialog.set_visible()

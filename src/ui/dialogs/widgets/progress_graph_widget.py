@@ -24,7 +24,6 @@ class ProgressGraphWidget(pg.PlotWidget):
         self.tooltips = []
         self.scene().sigMouseMoved.connect(self.on_hover)
 
-
     def set_plot_data(self, x_values: list[int], y_values: list[int], detail_data_dict: dict[str, dict[str, int]],
                       total_label: str, code_label: str, empty_label: str, comments_label: str) -> None:
         if self.line is not None:

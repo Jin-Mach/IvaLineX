@@ -1,0 +1,10 @@
+{
+  "ValueError": "Fehler beim Laden der Daten",
+  "FileNotFoundError": "Fehler beim Öffnen der Datei",
+  "RuntimeError": "Fehler beim Ausführen der Anwendung",
+  "NameError": "Kein Projektpfad angegeben",
+  "FileExistsError": "Datei existiert bereits oder konnte nicht erstellt werden",
+  "LookupError": "Keine gespeicherten Projekte gefunden",
+  "ProcessLookupError": "Keine passende Datei gefunden",
+  "UnknownError": "Unbekannter Fehler"
+}

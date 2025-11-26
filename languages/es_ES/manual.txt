@@ -1,0 +1,19 @@
+<div style="text-align: center;"><b>IvaLineX - Manual del usuario</b></div><br>
+<b>Descripción:</b><br>
+La aplicación permite contar rápidamente líneas de código Python en carpetas y proyectos seleccionados. Permite guardar los resultados por proyecto, seguir el historial y mostrar la evolución gráfica del código, las líneas vacías y los comentarios.<br><br>
+<b>Funciones principales:</b><br>
+- Selección de proyecto o carpeta con código Python<br>
+- Conteo de líneas de código, líneas vacías y comentarios<br>
+- Guardado de resultados en el historial del proyecto<br>
+- Visualización de resultados en un gráfico interactivo<br>
+- Comprobación de archivos necesarios para las variantes de idioma<br>
+- Configuración de la aplicación: idioma, ruta predeterminada para selección de carpetas, opciones de conteo (incluir archivos __init__, líneas vacías, comentarios, incluir .venv, README, JSON)<br>
+- Posibilidad de restablecer la configuración<br>
+- Menú claro con opciones Acerca de la aplicación y Manual<br><br>
+<b>Uso:</b><br>
+1. Seleccione un proyecto o carpeta con código Python.<br>
+2. Haga clic en el botón "Contar líneas" para iniciar el cálculo.<br>
+3. Si desea guardar los resultados en el historial, marque "Guardar en historial".<br>
+4. Los resultados se mostrarán incluyendo el número de archivos y el total de líneas de código, líneas vacías y comentarios.<br>
+5. El historial de proyectos permite seguir la evolución del código a lo largo del tiempo y muestra el progreso gráfico.<br>
+6. En el menú puede abrir el manual o obtener información sobre la aplicación.<br>

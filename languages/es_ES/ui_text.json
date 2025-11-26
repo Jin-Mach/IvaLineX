@@ -1,0 +1,25 @@
+{
+  "mainWindow": {
+    "mainWindowTitle": "IvalineX",
+    "projectMenu": "Menú",
+    "newProjectAction": "Nuevo proyecto",
+    "openProjectAction": "Abrir proyecto",
+    "closeProjectAction": "Cerrar proyecto",
+    "deleteProjectAction": "Eliminar proyecto",
+    "settingsAction": "Configuración",
+    "statisticsAction": "Estadísticas",
+    "closeAppAction": "Cerrar aplicación",
+    "infoMenu": "Info",
+    "manualAction": "Manual",
+    "aboutAction": "Acerca de la aplicación",
+    "projectNameTextLabel": "Nombre del proyecto:",
+    "folderTextLabel": "Archivo:",
+    "folderLineInput": "Seleccione la carpeta del proyecto...",
+    "folderButton": "Seleccionar carpeta",
+    "saveHistoryCheckBox": "Guardar en historial",
+    "filesCountTextLabel": "Número de archivos:",
+    "countButton": "Mostrar resultado",
+    "statusBarSaved": "Guardado...",
+    "statusBarNotSaved": "Error al guardar..."
+  }
+}

@@ -1,0 +1,98 @@
+{
+  "questionDialog": {
+    "startProject": "¿Cerrar el proyecto abierto?",
+    "closeProject": "¿Cerrar proyecto?",
+    "deleteProject": "Eliminar proyecto",
+    "closeAppQuestion": "¿Cerrar la aplicación?",
+    "resetSettings": "¿Restablecer la configuración de la aplicación?",
+    "deleteItem": "¿Eliminar elemento?",
+    "questionAcceptButton": "Sí",
+    "questionCancelButton": "No"
+  },
+  "getDirDialog": {
+    "folderDialogTitle": "Seleccionar carpeta predeterminada"
+  },
+  "newProjectDialog": {
+    "newProjectDialogTitle": "Nuevo proyecto",
+    "newProjectLabelText": "Introduzca el nombre del proyecto\n(sólo letras y espacios)",
+    "saveButton": "Guardar",
+    "closeButton": "Cerrar"
+  },
+  "selectProjectDialog": {
+    "selectProjectDialogTitle": "Seleccionar proyecto",
+    "selectProjectLabelText": "Proyectos disponibles",
+    "selectButton": "Seleccionar",
+    "closeButton": "Cerrar"
+  },
+  "statisticsDialog": {
+    "statisticsDialogTitle": "Estadísticas",
+    "projectNameText": "nombre del proyecto:",
+    "projectPlaceholderText": "--seleccione proyecto--",
+    "totalCountText": "Número total de líneas:",
+    "detailCodeCountText": "Líneas de código:",
+    "detailEmptyCountText": "Líneas vacías:",
+    "detailCommentsCountText": "Líneas con comentarios:",
+    "infoLabelText": "Seleccione un proyecto para ver las estadísticas",
+    "progressTab": "tendencia",
+    "totalText": "total",
+    "codeLegendText": "código",
+    "emptyLegendText": "vacías",
+    "commentsLegendText": "comentarios"
+  },
+  "settingsDialog": {
+    "settingsDialogTitle": "Configuración",
+    "basicGroupboxTitle": "General",
+    "languageLabelText": "Idioma de la aplicación:",
+    "folderLabelText": "Carpeta predeterminada:",
+    "selectFolderButton": "Seleccionar",
+    "historyCheckbox": "Guardar historial",
+    "languageGroupboxTitle": "Configuración de idioma",
+    "initCheckbox": "Incluir __init__.py",
+    "setupCheckbox": "Incluir setup.py",
+    "mainCheckbox": "Incluir __main__.py",
+    "emptyRowsCheckbox": "Contar líneas vacías",
+    "commentsCheckbox": "Contar comentarios",
+    "ignoreVenvCheckbox": "Ignorar carpetas venv/, .venv/",
+    "ignoreTestsCheckbox": "Ignorar carpetas test/, tests/",
+    "commonGroupboxTitle": "Configuración común",
+    "jsonCheckbox": "Incluir JSON / YAML / TOML",
+    "readmeCheckbox": "Contar README.md y documentación",
+    "ignoreFilesCheckbox": "Ignorar archivos grandes (>5 MB)",
+    "ignoreBinaryCheckbox": "Ignorar archivos binarios",
+    "resetButton": "Restablecer predeterminado",
+    "saveButton": "Guardar",
+    "cancelButton": "Cancelar",
+    "folderDialogTitle": "Seleccionar carpeta predeterminada"
+  },
+  "manualDialog": {
+    "manualDialogTitle": "Manual",
+    "closeButton": "Cerrar"
+  },
+  "aboutDialog": {
+    "aboutDialogTitle": "Acerca de la aplicación",
+    "aboutLabelText": "<b>IvalineX</b><br>autor: Jin-Mach<br>versión: 1.0.",
+    "closeButton": "Cerrar"
+  },
+  "errorDialog": {
+    "detailsButtonShow": "Mostrar detalles",
+    "detailsButtonHide": "Ocultar detalles",
+    "closeButton": "Cerrar"
+  },
+  "progressDialog": {
+    "labelText": "Cargando archivos...",
+    "labelTextRows": "Contando líneas...",
+    "onFinished": "Hecho"
+  },
+  "resultDialog": {
+    "resultLabelText": "¡Hecho!",
+    "codeResultText": "Número de líneas de código:",
+    "emptyResultText": "Número de líneas vacías:",
+    "commentsResultText": "Número de comentarios:",
+    "timeLabelText": "Duración (m:s.ms):",
+    "closeButton": "Cerrar"
+  },
+  "infoMessageBox": {
+    "projectDeleted": "Proyecto eliminado",
+    "closeButton": "Cerrar"
+  }
+}

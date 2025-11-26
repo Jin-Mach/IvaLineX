@@ -1,0 +1,10 @@
+{
+  "ValueError": "Error al cargar los datos",
+  "FileNotFoundError": "Error al abrir el archivo",
+  "RuntimeError": "Error durante la ejecución de la aplicación",
+  "NameError": "No se ha especificado la ruta del proyecto",
+  "FileExistsError": "El archivo ya existe o no se pudo crear",
+  "LookupError": "No se encontraron proyectos guardados",
+  "ProcessLookupError": "No se encontró un archivo adecuado",
+  "UnknownError": "Error desconocido"
+}

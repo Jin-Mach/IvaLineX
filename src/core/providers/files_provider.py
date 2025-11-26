@@ -29,7 +29,7 @@ class FilesProvider:
         try:
             language_path = BASE_DIR.joinpath("languages")
             language_path.mkdir(parents=True, exist_ok=True)
-            required_language_folders = ["cs_CZ", "en_GB"]
+            required_language_folders = ["cs_CZ", "de_DE", "en_GB", "es_ES", "fr_FR"]
             required_language_files = ["dialog_text.json", "error_text.json", "manual.txt", "ui_text.json"]
             required_files = ["language_map.json"]
             missing_files = []

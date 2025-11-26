@@ -6,6 +6,9 @@ languageUser = "en_GB"
 selected = "English"
 options = [
     "Čeština",
+    "Français",
+    "Deutsch",
+    "Español",
     "English",
 ]
 

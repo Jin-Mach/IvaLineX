@@ -1,16 +1,19 @@
-<div style="text-align: center;"><b>IvalineX - Manuál uživatele</b></div><br>
+<div style="text-align: center;"><b>IvaLineX - Manuál uživatele</b></div><br>
 <b>Popis:</b><br>
-Aplikace slouží k rychlému počítání řádků kódu v Python projektech. Podporuje ukládání výsledků do historie a přehledný výpis počtu souborů.<br><br>
+Aplikace slouží k rychlému počítání řádků Python kódu ve vybraných složkách a projektech. Umožňuje ukládat výsledky per projekt, sledovat historii a zobrazovat grafický vývoj kódu, prázdných řádků a komentářů.<br><br>
 <b>Hlavní funkce:</b><br>
-- Výběr projektu a složky s kódem<br>
-- Počítání řádků kódu<br>
-- Ukládání výsledků do historie<br>
-- Zobrazení celkového počtu souborů<br>
-  (Včetně doby ve formátu minuty:sekundy.milisekundy)<br>
+- Výběr projektu nebo složky s Python kódem<br>
+- Počítání řádků kódu, prázdných řádků a komentářů<br>
+- Ukládání výsledků do historie projektu<br>
+- Vizualizace výsledků v interaktivním grafu<br>
+- Kontrola potřebných souborů pro jazykové mutace<br>
+- Nastavení aplikace: jazyk, výchozí cesta pro výběr složek, volby počítání (počítat __init__ soubory, prázdné řádky, komentáře, zahrnout .venv, README, JSON)<br>
+- Možnost resetu nastavení<br>
 - Přehledné menu s možnostmi O aplikaci a Manuál<br><br>
 <b>Použití:</b><br>
-1. Vyberte projekt nebo složku s kódem.<br>
-2. Dle potřeby lze dvojklikem odstranit označenou položku.<br>
-3. Klikněte na tlačítko "Zobrazit výsledek".<br>
-4. Pokud chcete ukládat výsledky do historie, zaškrtněte "Uložit do historie".<br>
-5. V menu můžete otevřít manuál nebo získat informace o aplikaci.
+1. Vyberte projekt nebo složku s Python kódem.<br>
+2. Klikněte na tlačítko "Počítat řádky" pro spuštění výpočtu.<br>
+3. Pokud chcete ukládat výsledky do historie, zaškrtněte "Uložit do historie".<br>
+4. Výsledky se zobrazí včetně počtu souborů a celkového počtu řádků kódu, prázdných řádků a komentářů.<br>
+5. Historie projektů umožňuje sledovat vývoj kódu v čase a zobrazuje grafický průběh.<br>
+6. V menu můžete otevřít manuál nebo získat informace o aplikaci.<br>

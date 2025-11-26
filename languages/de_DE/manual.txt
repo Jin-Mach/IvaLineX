@@ -1,0 +1,19 @@
+<div style="text-align: center;"><b>IvaLineX - Benutzerhandbuch</b></div><br>
+<b>Beschreibung:</b><br>
+Die Anwendung dient zum schnellen Zählen von Python-Codezeilen in ausgewählten Ordnern und Projekten. Sie ermöglicht das Speichern von Ergebnissen pro Projekt, das Verfolgen der Historie und die grafische Darstellung der Entwicklung von Code, leeren Zeilen und Kommentaren.<br><br>
+<b>Hauptfunktionen:</b><br>
+- Auswahl eines Projekts oder Ordners mit Python-Code<br>
+- Zählen von Codezeilen, leeren Zeilen und Kommentaren<br>
+- Speichern der Ergebnisse in der Projekt-Historie<br>
+- Visualisierung der Ergebnisse in einem interaktiven Diagramm<br>
+- Überprüfung der benötigten Dateien für Sprachversionen<br>
+- Anwendungseinstellungen: Sprache, Standardpfad für die Ordnerauswahl, Zähloptionen (inklusive __init__-Dateien, leere Zeilen, Kommentare, Einbeziehen von .venv, README, JSON)<br>
+- Möglichkeit zum Zurücksetzen der Einstellungen<br>
+- Übersichtlich gestaltetes Menü mit den Optionen "Über die Anwendung" und "Handbuch"<br><br>
+<b>Anwendung:</b><br>
+1. Wählen Sie ein Projekt oder einen Ordner mit Python-Code aus.<br>
+2. Klicken Sie auf die Schaltfläche "Zeilen zählen", um die Berechnung zu starten.<br>
+3. Wenn Sie die Ergebnisse in der Historie speichern möchten, aktivieren Sie "In Historie speichern".<br>
+4. Die Ergebnisse werden angezeigt, einschließlich der Anzahl der Dateien und der Gesamtanzahl der Codezeilen, leeren Zeilen und Kommentare.<br>
+5. Die Projekt-Historie ermöglicht es, die Codeentwicklung über die Zeit zu verfolgen und zeigt den grafischen Verlauf an.<br>
+6. Im Menü können Sie das Handbuch öffnen oder Informationen zur Anwendung abrufen.<br>
